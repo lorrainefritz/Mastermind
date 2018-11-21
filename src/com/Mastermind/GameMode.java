@@ -62,6 +62,7 @@ public abstract class GameMode {
     }
 
     public void tipsGestion() {
+
     }
 
     public void randomCombination() {
@@ -95,19 +96,19 @@ public abstract class GameMode {
         }
     }
 
-/*    public void comparaison() {
+     public boolean comparaison() {
+
         for (int i = 0; i < tabLength; i++) {
             if (tab[i] == tabUser[i]) {
-                System.out.println("OK");
-                comparaison = true;
+               return comparaison = true;
 
             } else {
-                System.out.println("Nope");
-                comparaison = false;
+                return comparaison = false;
             }
 
         }
-    }*/
+        return false;
+    }
 
     public void randomGestion() {
         combinationLengthGestion();

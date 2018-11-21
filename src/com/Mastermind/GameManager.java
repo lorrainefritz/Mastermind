@@ -7,6 +7,7 @@ public class GameManager {
     private GameMode game;
     private int chooseGame;
     int chooseMode;
+    boolean continueOrQuit;
 
 
     public GameManager() {
@@ -104,10 +105,30 @@ public class GameManager {
             runMode();
         }
     }
+    private void displayEnding(){
+        if (game.isComparaison()==true)
+        {
+            System.out.println("\nBravo tu as gagné!");
+        }
+        else {
+            System.out.println("\nPas de chance");
+        }
+    }
+    private void continueOrQuit(){
+       System.out.println("Voulez vous continuer? 1 : continuer 2 : quitter ");
+       Scanner scanner = new Scanner(System.in);
+       int cQ = scanner.nextInt();
+       if (cQ==1){
+           continueOrQuit=false;
+       } else {
+           continueOrQuit=true;
+       }
+    }
 
 
     public void runGame() {
         Scanner scanner = new Scanner(System.in);
+        do {
 
         //INTRO
         displayIntroduction();
@@ -132,7 +153,10 @@ public class GameManager {
             System.out.println("Merci de choisir 1 ou 2");
             runGame();
         }
-
+        //END
+        displayEnding();
+        continueOrQuit();
+        }while (continueOrQuit==false);
 
     }
 
