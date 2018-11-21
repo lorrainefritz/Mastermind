@@ -15,8 +15,8 @@ public class MoreOrLessGame extends GameMode {
     @Override
     public void tipsGestion() {
         for (int i =0; i<getTabLength();i++) {
-            if (getElementFromTabUserAt(i) != getElementFromTab(i)){
-                if (getElementFromTabUserAt(i)<getElementFromTab(i)){
+            if (getElementFromTabUserAt(i) != getElementFromTabAt(i)){
+                if (getElementFromTabUserAt(i)<getElementFromTabAt(i)){
                     System.out.print("+");
                 } else {
                     System.out.print("-");

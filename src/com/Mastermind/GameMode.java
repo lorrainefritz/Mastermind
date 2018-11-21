@@ -128,12 +128,12 @@ public abstract class GameMode {
         this.tab = tab;
     }
     //recup élément précis du tableau tableau de random
-    public int getElementFromTab(int position) {
+    public int getElementFromTabAt(int position) {
         return tab[position];
     }
 
     //sett un élément précis du tableau tab de random
-    public void setElementFromTab(int position, int value) {
+    public void setElementFromTabAt(int position, int value) {
         tab[position] = value;
     }
 
