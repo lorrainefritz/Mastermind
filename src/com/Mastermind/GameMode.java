@@ -9,8 +9,8 @@ public abstract class GameMode {
     private int combinationLength;
     private int numberRandom;
     private Scanner scanner;
-    private int tab[];
-    private int tabUser[];
+    protected int tab[];
+    protected int tabUser[];
     private int tabLength;
     private boolean comparaison;
 
@@ -55,7 +55,7 @@ public abstract class GameMode {
     }
 
     public void numberOfTriesGestion() {
-        scanner =new Scanner(System.in);
+        scanner = new Scanner(System.in);
         System.out.println("Merci de rentrer le nombre voulu d'essais ");
         numberOfTries = scanner.nextInt();
 
@@ -76,16 +76,13 @@ public abstract class GameMode {
         try {
             System.out.println("\nFaites votre propoposition");
             tabUser = new int[tabLength];
-            do {
-                for (int i = 0; i < tabLength; i++) {
-                    int j = 1;
-                    System.out.print("Nombre" +(j+ i)+" : ");
-                    int userResponse = scanner.nextInt();
-                    if (userResponse >= 0 && userResponse <= 9) {
-                        tabUser[i] = userResponse;
-                    }
-                }
-            } while (tabUser.length != tabLength);
+            String response = scanner.nextLine();
+            if (response.length() != tabLength) {
+                throw new InputMismatchException();
+            }
+            for (int i = 0; i < response.length(); i++) {
+                tabUser[i] = Integer.parseInt(new String(String.valueOf(response.charAt(i))));
+            }
 
         } catch (InputMismatchException e) {
             System.out.println("Merci de rentrer un chiffre entre 0 et 9 svp ;)");
@@ -93,21 +90,23 @@ public abstract class GameMode {
         } catch (NullPointerException e) {
             System.out.println("Merci de rentrer un chiffre entre 0 et 9 svp ;)");
             userCombination();
+        } catch (NumberFormatException e) {
+            System.out.println("Merci de rentrer un nombre");
+            userCombination();
         }
     }
 
-     public boolean comparaison() {
+    public boolean comparaison() {
 
-        for (int i = 0; i < tabLength; i++) {
-            if (tab[i] == tabUser[i]) {
-               return comparaison = true;
+        for (int i = 0; i < tabUser.length; i++) {
+            if (tab[i] != tabUser[i]) {
+                comparaison = false;
+                return comparaison;
 
-            } else {
-                return comparaison = false;
             }
 
         }
-        return false;
+        return true;
     }
 
     public void randomGestion() {
@@ -115,7 +114,7 @@ public abstract class GameMode {
         for (int i = 0; i < tabLength; i++) {
             randomCombination();
             tab[i] = numberRandom;
-            System.out.print(tab[i]+", ");
+            System.out.print(tab[i] + ", ");
         }
 
 
@@ -128,6 +127,7 @@ public abstract class GameMode {
     public void setTab(int[] tab) {
         this.tab = tab;
     }
+
     //recup élément précis du tableau tableau de random
     public int getElementFromTabAt(int position) {
         return tab[position];
@@ -137,7 +137,6 @@ public abstract class GameMode {
     public void setElementFromTabAt(int position, int value) {
         tab[position] = value;
     }
-
 
 
     public int[] getTabUser() {

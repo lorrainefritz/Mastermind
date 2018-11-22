@@ -2,37 +2,34 @@ package com.Mastermind;
 
 public class MoreOrLessGame extends GameMode {
     boolean compa;
-    private int compteur =0;
+    private int compteur = 0;
 
     public MoreOrLessGame() {
         super(0, 0);
     }
 
-    @Override
-    public boolean comparaison() {
-        super.comparaison();
-
-        return false;
-    }
 
     @Override
     public void tipsGestion() {
+        String ret = "";
         for (int i = 0; i < getTabLength(); i++) {
-            if (getElementFromTabUserAt(i) != getElementFromTabAt(i)) {
-                if (getElementFromTabUserAt(i) < getElementFromTabAt(i)) {
-                    System.out.print("+");
-                    compa=false;
-
-                } else {
-                    System.out.print("-");
-                    compa=false;
-
-                }
+            if (tab[i] == tabUser[i]) {
+                ret += "=";
+                setComparaison(true);
+            } else if (tabUser[i] > tab[i]) {
+                ret += "-";
+                setComparaison(false);
             } else {
-                System.out.print("=");
-                compa=true;
+                ret += "+";
+                setComparaison(false);
             }
         }
+        System.out.print(ret);
+        /*if (ret.contains("-") && ret.contains("+")){
+            compa=false;
+        } else {
+            compa= true;
+        }*/
 
     }
 
@@ -40,16 +37,14 @@ public class MoreOrLessGame extends GameMode {
     public GameMode challenger() {
         numberOfTriesGestion();
         randomGestion();
-        for (int j=0; j < getNumberOfTries(); j++ ) {
-            while (isComparaison() == false) {
+        int numbOfTries =getNumberOfTries();
+        int j=0;
+            while (j < numbOfTries) {
                 userCombination();
                 tipsGestion();
-                if (compa==true){
-                    comparaison();
-                }
-                if (j==getNumberOfTries()) break;
+                comparaison();
+                if (isComparaison()==true) break;
                 j++;
-            }
 
         }
 
