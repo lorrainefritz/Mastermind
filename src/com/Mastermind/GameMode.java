@@ -37,28 +37,42 @@ public abstract class GameMode {
     public void combinationLengthGestion() {
         try {
             scanner = new Scanner(System.in);
-
-            do {
-                System.out.println("Entrez la taille souhaitée de combinaison :  de 4 min à 10 max");
-                tabLength = scanner.nextInt();
-                if (tabLength >= 4 && tabLength <= 10) {
-                    tab = new int[tabLength];
-                }
-            } while (tabLength < 4 && tabLength > 10);
+            System.out.println("Entrez la taille souhaitée de combinaison :  de 4 min à 10 max");
+            tabLength = scanner.nextInt();
+            if (tabLength >= 4 && tabLength <= 10) {
+                tab = new int[tabLength];
+            } else {
+                throw new InputMismatchException();
+            }
         } catch (InputMismatchException e) {
-            System.out.println("Merci de rentrer un chiffre entre 4 et 10 svp ;)");
+            System.out.println("Merci de rentrer un chiffre entre 4 et 10 svp ");
             combinationLengthGestion();
         } catch (NullPointerException e) {
-            System.out.println("Merci de rentrer un chiffre entre 4 et 10 svp ;)");
+            System.out.println("Merci de rentrer un chiffre entre 4 et 10 svp ");
             combinationLengthGestion();
+        } catch (NegativeArraySizeException e) {
+            System.out.println("Merci de rentrer un chiffre entre 4 et 10 svp ");
+
         }
     }
 
     public void numberOfTriesGestion() {
         scanner = new Scanner(System.in);
         System.out.println("Merci de rentrer le nombre voulu d'essais ");
-        numberOfTries = scanner.nextInt();
+        try {
+            numberOfTries = scanner.nextInt();
+            if (numberOfTries < 1 || numberOfTries > 1000) {
+                throw new InputMismatchException();
+            }
 
+
+        } catch (InputMismatchException e) {
+            System.out.println("Merci de rentrer un chiffre entre 1 et 1000 ");
+            numberOfTriesGestion();
+        } catch (NullPointerException e) {
+            System.out.println("Merci de rentrer un chiffre ");
+            numberOfTriesGestion();
+        }
     }
 
     public void tipsGestion() {
@@ -85,10 +99,10 @@ public abstract class GameMode {
             }
 
         } catch (InputMismatchException e) {
-            System.out.println("Merci de rentrer un chiffre entre 0 et 9 svp ;)");
+            System.out.println("Merci de rentrer un chiffre entre 0 et 9 svp ");
             userCombination();
         } catch (NullPointerException e) {
-            System.out.println("Merci de rentrer un chiffre entre 0 et 9 svp ;)");
+            System.out.println("Merci de rentrer un chiffre entre 0 et 9 svp ");
             userCombination();
         } catch (NumberFormatException e) {
             System.out.println("Merci de rentrer un nombre");

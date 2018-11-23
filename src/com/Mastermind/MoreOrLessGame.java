@@ -37,14 +37,14 @@ public class MoreOrLessGame extends GameMode {
     public GameMode challenger() {
         numberOfTriesGestion();
         randomGestion();
-        int numbOfTries =getNumberOfTries();
-        int j=0;
-            while (j < numbOfTries) {
-                userCombination();
-                tipsGestion();
-                comparaison();
-                if (isComparaison()==true) break;
-                j++;
+        int numbOfTries = getNumberOfTries();
+        int j = 0;
+        while (j < numbOfTries) {
+            userCombination();
+            tipsGestion();
+            comparaison();
+            if (isComparaison() == true) break;
+            j++;
 
         }
 
