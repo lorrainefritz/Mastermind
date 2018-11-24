@@ -1,5 +1,7 @@
 package com.Mastermind;
 
+import java.util.Scanner;
+
 public class MastermindGame extends GameMode {
 
 
@@ -25,8 +27,6 @@ public class MastermindGame extends GameMode {
     }
 
 
-
-
     @Override
     public void tipsGestion() {
         int numberOfWritePlaced = 0;
@@ -37,15 +37,15 @@ public class MastermindGame extends GameMode {
             }
         }
 
-      for (int j=0; j<getTabLength(); j++) {
-            for (int k=0; k<getTabLength();k++)
-                if (tab[j]==tabUser[k]) {
+        for (int j = 0; j < getTabLength(); j++) {
+            for (int k = 0; k < getTabLength(); k++)
+                if (tab[j] == tabUser[k]) {
                     numberOfPresentNumbers++;
                     break;
                 }
-            }
+        }
 
-          numberOfPresentNumbers-=numberOfWritePlaced;
+        numberOfPresentNumbers -= numberOfWritePlaced;
 
 
         if (numberOfWritePlaced == getTabLength()) {
@@ -60,6 +60,20 @@ public class MastermindGame extends GameMode {
     @Override
     public GameMode defender() {
         System.out.println("défenseur Mastermind");
+        combinationLengthGestion();
+        userCombination();
+        String ret = "";
+
+        for (int i = 0; i < getTabLength(); i++) {
+            while (tab[i] != tabUser[i]) {
+
+                    tab[i] += 1;
+                }
+            ret+=tab[i];
+            }
+
+
+        System.out.println("La combinaison est : " + ret);
         return null;
     }
 

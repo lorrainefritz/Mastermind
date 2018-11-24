@@ -108,10 +108,12 @@ public class GameManager {
     }
 
     private void displayEnding() {
-        if (game.isComparaison() == true) {
-            System.out.println("\nBravo tu as gagné!");
-        } else {
-            System.out.println("\nPas de chance");
+        if (chooseMode==1) {
+            if (game.isComparaison() == true) {
+                System.out.println("\nBravo tu as gagné!");
+            } else {
+                System.out.println("\nPas de chance");
+            }
         }
     }
 
