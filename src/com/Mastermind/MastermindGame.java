@@ -10,7 +10,51 @@ public class MastermindGame extends GameMode {
     @Override
     public GameMode challenger() {
         System.out.println("challenger Mastermind");
+        numberOfTriesGestion();
+        randomGestion();
+        int numbOfTries = getNumberOfTries();
+        int j = 0;
+        while (j < numbOfTries) {
+            userCombination();
+            tipsGestion();
+            comparaison();
+            if (isComparaison() == true) break;
+            j++;
+        }
         return null;
+    }
+
+
+
+
+    @Override
+    public void tipsGestion() {
+        int numberOfWritePlaced = 0;
+        int numberOfPresentNumbers = 0;
+        for (int i = 0; i < getTabLength(); i++) {
+            if (tabUser[i] == tab[i]) {
+                numberOfWritePlaced++;
+            }
+        }
+
+      for (int j=0; j<getTabLength(); j++) {
+            for (int k=0; k<getTabLength();k++)
+                if (tab[j]==tabUser[k]) {
+                    numberOfPresentNumbers++;
+                    break;
+                }
+            }
+
+          numberOfPresentNumbers-=numberOfWritePlaced;
+
+
+        if (numberOfWritePlaced == getTabLength()) {
+            setComparaison(true);
+        } else {
+            setComparaison(false);
+        }
+        System.out.println(numberOfWritePlaced + " nombre bien placés ");
+        System.out.println(numberOfPresentNumbers + " nombres présents ");
     }
 
     @Override
