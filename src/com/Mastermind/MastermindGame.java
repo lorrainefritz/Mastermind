@@ -1,8 +1,10 @@
 package com.Mastermind;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MastermindGame extends GameMode {
+    private int number;
 
 
     public MastermindGame() {
@@ -31,22 +33,31 @@ public class MastermindGame extends GameMode {
     public void tipsGestion() {
         int numberOfWritePlaced = 0;
         int numberOfPresentNumbers = 0;
+        ArrayList<Integer> numbersAlreadyCount = new ArrayList<>();
+        ArrayList<Integer> indexOfWritePlaced = new ArrayList<>();
         for (int i = 0; i < getTabLength(); i++) {
+
             if (tabUser[i] == tab[i]) {
                 numberOfWritePlaced++;
+                indexOfWritePlaced.add(i);
+
             }
         }
-
         for (int j = 0; j < getTabLength(); j++) {
-            for (int k = 0; k < getTabLength(); k++)
-                if (tab[j] == tabUser[k]) {
-                    numberOfPresentNumbers++;
+
+            for (int k = 0; k < getTabLength(); k++) {
+
+                if (!indexOfWritePlaced.contains(j) && !indexOfWritePlaced.contains(k) && tab[j] == tabUser[k]) {
+                    number = tabUser[k];
+                    while (!numbersAlreadyCount.contains(number)) {
+                        numbersAlreadyCount.add(number);
+                        numberOfPresentNumbers++;
+                    }
+
                     break;
                 }
+            }
         }
-
-        numberOfPresentNumbers -= numberOfWritePlaced;
-
 
         if (numberOfWritePlaced == getTabLength()) {
             setComparaison(true);
@@ -67,10 +78,10 @@ public class MastermindGame extends GameMode {
         for (int i = 0; i < getTabLength(); i++) {
             while (tab[i] != tabUser[i]) {
 
-                    tab[i] += 1;
-                }
-            ret+=tab[i];
+                tab[i] += 1;
             }
+            ret += tab[i];
+        }
 
 
         System.out.println("La combinaison est : " + ret);
