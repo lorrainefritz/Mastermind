@@ -1,6 +1,4 @@
-package com.Mastermind;
-
-import java.util.Random;
+package main.java;
 
 public class RandomCombination extends Combination {
 

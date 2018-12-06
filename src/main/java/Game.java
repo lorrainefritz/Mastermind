@@ -1,4 +1,4 @@
-package com.Mastermind;
+package main.java;
 
 public  class Game {
 }

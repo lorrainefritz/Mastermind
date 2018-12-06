@@ -1,4 +1,4 @@
-package com.Mastermind;
+package main.java;
 
 import java.util.InputMismatchException;
 import java.util.Random;
@@ -7,7 +7,6 @@ import java.util.Scanner;
 public abstract class GameMode {
     private int numberOfTries;
     private int combinationLength;
-    private int numberRandom;
     private Scanner scanner;
     protected int tab[];
     protected int tabUser[];
@@ -79,9 +78,9 @@ public abstract class GameMode {
 
     }
 
-    public void randomCombination() {
+    public int randomCombination() {
         Random random = new Random();
-        numberRandom = random.nextInt(10);
+        return random.nextInt(10);
 
     }
 
@@ -126,8 +125,7 @@ public abstract class GameMode {
     public void randomGestion() {
         combinationLengthGestion();
         for (int i = 0; i < tabLength; i++) {
-            randomCombination();
-            tab[i] = numberRandom;
+            tab[i] = randomCombination();
             System.out.print(tab[i] + ", ");
         }
 

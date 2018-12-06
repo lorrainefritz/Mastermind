@@ -1,7 +1,6 @@
-package com.Mastermind;
+package main.java;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class MastermindGame extends GameMode {
     private int number;
