@@ -12,10 +12,14 @@ public abstract class GameMode {
     protected int tabUser[];
     private int tabLength;
     private boolean comparaison;
+    private int randomMax;
+    private int randomMin;
 
     public GameMode(int numberOfTries, int combinationLength) {
         this.numberOfTries = numberOfTries;
         this.combinationLength = combinationLength;
+        randomMax=10;
+        randomMin=0;
     }
 
     public GameMode challenger() {
@@ -33,7 +37,7 @@ public abstract class GameMode {
 
     }
 
-    public void combinationLengthGestion() {
+    public void combinationLengthGestion() { // gère la taille de la combinaison
         try {
             scanner = new Scanner(System.in);
             System.out.println("Entrez la taille souhaitée de combinaison :  de 4 min à 10 max");
@@ -55,7 +59,8 @@ public abstract class GameMode {
         }
     }
 
-    public void numberOfTriesGestion() {
+
+    public void numberOfTriesGestion() { // gère le nombre d'essais
         scanner = new Scanner(System.in);
         System.out.println("Merci de rentrer le nombre voulu d'essais ");
         try {
@@ -74,13 +79,15 @@ public abstract class GameMode {
         }
     }
 
+
+
     public void tipsGestion() {
 
     }
 
-    public int randomCombination() {
+    public int randomCombination() { // génère un random entre 0 et 9
         Random random = new Random();
-        return random.nextInt(10);
+        return random.nextInt(randomMax); // retourne un random dont le max est 10
 
     }
 
@@ -109,7 +116,7 @@ public abstract class GameMode {
         }
     }
 
-    public boolean comparaison() {
+    public boolean comparaison() { // compare pour le mode challenger le tableau réponse de l'utilisateur avec le tableau de la combinaison secrète
 
         for (int i = 0; i < tabUser.length; i++) {
             if (tab[i] != tabUser[i]) {
@@ -122,7 +129,7 @@ public abstract class GameMode {
         return true;
     }
 
-    public void randomGestion() {
+    public void randomGestion() { // génère un tableau de random avec la taille de combinaison souhaitée par l'utili
         combinationLengthGestion();
         for (int i = 0; i < tabLength; i++) {
             tab[i] = randomCombination();
@@ -192,6 +199,22 @@ public abstract class GameMode {
 
     public void setNumberOfTries(int numberOfTries) {
         this.numberOfTries = numberOfTries;
+    }
+
+    public int getRandomMax() {
+        return randomMax;
+    }
+
+    public void setRandomMax(int randomMax) {
+        this.randomMax = randomMax;
+    }
+
+    public int getRandomMin() {
+        return randomMin;
+    }
+
+    public void setRandomMin(int randomMin) {
+        this.randomMin = randomMin;
     }
 }
 

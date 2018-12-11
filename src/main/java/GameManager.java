@@ -110,9 +110,15 @@ public class GameManager {
     private void displayEnding() {
         if (chooseMode==1) {
             if (game.isComparaison() == true) {
-                System.out.println("\nBravo tu as gagné!");
+                System.out.println("\nBravo tu as gagné! ☺ ♫");
             } else {
                 System.out.println("\nPas de chance");
+            }
+        } else if (chooseMode==2){
+            if (game.isComparaison()== true){
+                System.out.println("\n\\o/ youpi j'ai trouvé ☺ ♫");
+            } else {
+                System.out.println("\nPas de chance je ferais mieux la prochaine fois!");
             }
         }
     }
