@@ -12,14 +12,14 @@ public abstract class GameMode {
     protected int tabUser[];
     private int tabLength;
     private boolean comparaison;
-    private int randomMax;
-    private int randomMin;
+    private int RANDOM_MAX;
+    private int RANDOM_MIN;
 
     public GameMode(int numberOfTries, int combinationLength) {
         this.numberOfTries = numberOfTries;
         this.combinationLength = combinationLength;
-        randomMax=10;
-        randomMin=0;
+        RANDOM_MAX=10;
+        RANDOM_MIN=0;
     }
 
     public GameMode challenger() {
@@ -87,7 +87,7 @@ public abstract class GameMode {
 
     public int randomCombination() { // génère un random entre 0 et 9
         Random random = new Random();
-        return random.nextInt(randomMax); // retourne un random dont le max est 10
+        return random.nextInt(RANDOM_MAX); // retourne un random dont le max est 10
 
     }
 
@@ -202,19 +202,19 @@ public abstract class GameMode {
     }
 
     public int getRandomMax() {
-        return randomMax;
+        return RANDOM_MAX;
     }
 
     public void setRandomMax(int randomMax) {
-        this.randomMax = randomMax;
+        this.RANDOM_MAX = randomMax;
     }
 
     public int getRandomMin() {
-        return randomMin;
+        return RANDOM_MIN;
     }
 
     public void setRandomMin(int randomMin) {
-        this.randomMin = randomMin;
+        this.RANDOM_MIN = randomMin;
     }
 }
 

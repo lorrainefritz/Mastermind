@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class MoreOrLessGame extends GameMode {
     private boolean compa;
     private int compteur = 0;
-    private int computerTab[]; //tab utilisé pour le mode défenseur pour générer la réponse de l'ordinateur
+    private SolverHelper computerTab[]; //tab utilisé pour le mode défenseur pour générer la réponse de l'ordinateur
     private String userResponse[];//tab utilisé pour le mode défenseur pour la réponse de l'utilisateur
     private ArrayList<Integer> indexOfWriteP; // tab pour garder l'indice des éléments bien placés dans le mode défenseur
     private int writePlaced[]; // tab pour garder les éléments bien placés dans le mode défenseur
@@ -64,7 +64,7 @@ public class MoreOrLessGame extends GameMode {
     }
 
 
-    private void firstTurnComputerResponseGeneration() { // gère la première réponse de l'ordinateur pour le mode défenseur
+    /*private void firstTurnComputerResponseGeneration() { // gère la première réponse de l'ordinateur pour le mode défenseur
         //tour 1
         for (int i = 0; i < computerTabLength; i++) {
             computerTab[i] = mean();
@@ -96,8 +96,8 @@ public class MoreOrLessGame extends GameMode {
             }
         }
     }
-
-    public boolean compa() {
+*/
+/*    public boolean compa() {
         for (int i = 0; i < computerTabLength; i++) {
             if (writePlaced[i] != computerTab[i]) {
                 compa = false;
@@ -107,7 +107,7 @@ public class MoreOrLessGame extends GameMode {
         }
         setComparaison(true);
         return true;
-    }
+    }*/
 
     public void userTips() { // recupération gestion des tips de l'utilisateur
         Scanner sc = new Scanner(System.in);
@@ -144,7 +144,7 @@ public class MoreOrLessGame extends GameMode {
         combinationLengthGestion();
         numberOfTriesGestion();
         computerTabLength = getTabLength();
-        computerTab = new int[computerTabLength];
+        computerTab = new SolverHelper[computerTabLength];
         writePlaced = new int[computerTabLength];
 
         for (int i = 0; i < writePlaced.length; i++) { // solut° pour la comparaison dans compa, qui sinon va avoir tendance à ne pas marcher pour un tableau
@@ -153,8 +153,8 @@ public class MoreOrLessGame extends GameMode {
             writePlaced[i] = num;
         }
 
-        firstTurnComputerResponseGeneration();
-        compa();
+       /* firstTurnComputerResponseGeneration();*/
+       /* compa();*/
         int j = 0;
         while (j < getNumberOfTries()) {
             System.out.println("Voilà ma proposition");
@@ -163,8 +163,8 @@ public class MoreOrLessGame extends GameMode {
             }
             System.out.println("\nVos indices svp (+ - ou =)");
             userTips();
-            computerResponseGeneration();
-            if (compa() == true) break;
+            /*computerResponseGeneration();*/
+           /* if (compa() == true) break;*/
             j++;
         }
 
