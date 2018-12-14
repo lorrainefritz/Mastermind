@@ -6,7 +6,7 @@ public class SolverHelper {
     private int lastTry;
 
     public SolverHelper() {
-        max = 9;
+        max = 10;
         min = 0;
     }
 
@@ -14,14 +14,19 @@ public class SolverHelper {
         lastTry = Math.round((min + max) / 2);
         return lastTry;
     }
-    public void analyse (String s){
-        if(s.equals("+")){
+
+    public void analyse(String s) {
+        if (s.equals("+")) {
             min = lastTry;
-        } else if(s.equals("-")){
-            max= lastTry;
+        } else if (s.equals("-")) {
+            max = lastTry;
         } else {
             min = lastTry;
-            max= lastTry;
+            max = lastTry;
         }
+    }
+
+    public int getLastTry() {
+        return lastTry;
     }
 }
