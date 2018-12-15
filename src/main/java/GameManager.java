@@ -28,7 +28,7 @@ public class GameManager {
      * Display all available Games
      */
 
-    private void displayAvailableGames() {
+    private void displayAvailableGames() {// méthode qui affiche les différents types de jeux disponibles
         System.out.println("Veuillez choisir votre jeu");
         System.out.println("1 - Plus ou Moins");
         System.out.println("2 - Mastermind");
@@ -38,7 +38,7 @@ public class GameManager {
      * Display a selected Game
      */
 
-    private GameMode chooseGame(int nbOfGame) {
+    private GameMode chooseGame(int nbOfGame) { // retour sur le type de jeu choisit
         switch (nbOfGame) {
             case 1:
                 System.out.println("Vous avez choisi le jeu du Plus ou moins");
@@ -58,7 +58,7 @@ public class GameManager {
      * Display all available Modes
      */
 
-    private void displayAvailableModes() {
+    private void displayAvailableModes() { // affiche les différents modes de jeux disponibles
         System.out.println("Veuillez choisir votre mode de jeu");
         System.out.println("1 - Challenger");
         System.out.println("2 - Défenseur");
@@ -69,7 +69,7 @@ public class GameManager {
      * Display selected Game Mode
      */
 
-    private GameMode chooseMode(int nbOfMode) {
+    private GameMode chooseMode(int nbOfMode) { // retour sur le mode de jeu choisit
         switch (nbOfMode) {
             case 1:
                 System.out.println("Vous avez choisi le mode Challenger");
@@ -87,7 +87,7 @@ public class GameManager {
         }
     }
 
-    public void runMode() {
+    public void runMode() {// méthode qui permet de choisir le mode de jeu
         Scanner scanner = new Scanner(System.in);
         try {
             chooseMode = scanner.nextInt();
@@ -107,7 +107,7 @@ public class GameManager {
         }
     }
 
-    private void displayEnding() {
+    private void displayEnding() { // méthode qui gère la phrase de fin en fonction du type de jeu et en fonction de la réussite ou non
         if (chooseMode==1) {
             if (game.isComparaison() == true) {
                 System.out.println("\nBravo tu as gagné! ☺ ♫");
@@ -123,7 +123,7 @@ public class GameManager {
         }
     }
 
-    private void continueOrQuit() {
+    private void continueOrQuit() { // méthode qui gère le continue ou quitter de fin
         System.out.println("Voulez vous continuer? 1 : continuer 2 : quitter ");
         Scanner scanner = new Scanner(System.in);
         try {
@@ -147,7 +147,7 @@ public class GameManager {
     }
 
 
-    public void runGame() {
+    public void runGame() { // méthode qui va gérer le déroulement du programme final
         Scanner scanner = new Scanner(System.in);
         do {
 

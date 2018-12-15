@@ -37,7 +37,7 @@ public abstract class GameMode {
 
     }
 
-    public void combinationLengthGestion() { // gère la taille de la combinaison
+    public void combinationLengthGestion() { // méthode qui gère la taille de la combinaison
         try {
             scanner = new Scanner(System.in);
             System.out.println("Entrez la taille souhaitée de combinaison :  de 4 min à 10 max");
@@ -60,7 +60,7 @@ public abstract class GameMode {
     }
 
 
-    public void numberOfTriesGestion() { // gère le nombre d'essais
+    public void numberOfTriesGestion() { // méthode qui gère le nombre d'essais
         scanner = new Scanner(System.in);
         System.out.println("Merci de rentrer le nombre voulu d'essais ");
         try {
@@ -91,7 +91,7 @@ public abstract class GameMode {
 
     }
 
-    public void userCombination() {
+    public void userCombination() { // méthode qui permet dans le mode challenger de recupérer la proposition de l'utilisateur
         scanner = new Scanner(System.in);
         try {
             System.out.println("\nFaites votre propoposition");

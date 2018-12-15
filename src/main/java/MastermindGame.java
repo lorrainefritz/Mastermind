@@ -29,7 +29,7 @@ public class MastermindGame extends GameMode {
 
 
     @Override
-    public void tipsGestion() {
+    public void tipsGestion() { // gestion des indices pour le mode défenseur
         int numberOfWritePlaced = 0;
         int numberOfPresentNumbers = 0;
         ArrayList<Integer> numbersAlreadyCount = new ArrayList<>();
