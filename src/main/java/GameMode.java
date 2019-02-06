@@ -22,6 +22,11 @@ public abstract class GameMode {
         RANDOM_MIN=0;
     }
 
+    public GameMode(){}; // constructeur vide pour le MastermindDefender.....
+
+
+
+
     public GameMode challenger() {
 
         return null;
