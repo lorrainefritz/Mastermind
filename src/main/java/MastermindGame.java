@@ -41,7 +41,7 @@ public class MastermindGame extends GameMode {
 
 
     @Override
-    public void tipsGestion() { // gestion des indices pour le mode défenseur
+    public void tipsGestion() { // gestion des indices
         int numberOfWritePlaced = 0;
         int numberOfPresentNumbers = 0;
         ArrayList<Integer> numbersAlreadyCount = new ArrayList<>();
@@ -79,39 +79,6 @@ public class MastermindGame extends GameMode {
         System.out.println(numberOfPresentNumbers + " nombres présents ");
     }
 
-    //!!!!!!!!!!!!!! à remanier VALEURS EN DUR
-    public void userTipsMastermind() {
-        Scanner scanner = new Scanner(System.in);
-        writePlacedTab = new int[getNumberOfTries()]; // crée un tableau des éléments bien placés, de la taille du nombre d'essais def par l'utilisateur
-        presentNumbersTab = new int[getNumberOfTries()];// crée un tableau des éléments mal placés mais présent, de la taille du nombre d'essais def par l'utilisateur
-        try {
-            // CHIFFRES BIEN PLACES
-            System.out.println("Bien placés : ");
-            int writePlaced = scanner.nextInt();
-            if (writePlaced < 0 || writePlaced > 9) { //valeur en dur!!! => min et max
-                throw new InputMismatchException();
-            }
-            writePlacedTab[roundCounter] = writePlaced; // round counter = 1 est pour garder le premier élément = 0
-
-            // CHIFFRES PRESENTS
-            System.out.println("Présents : ");
-            int presentNumbers = scanner.nextInt();
-            if (presentNumbers < 0 || presentNumbers > 9) { //valeur en dur!!! => min et max
-                throw new InputMismatchException();
-            }
-            presentNumbersTab[roundCounter] = presentNumbers; //  round counter = 1 est pour garder le premier élément = 0
-
-
-        } catch (InputMismatchException e) {
-            System.out.println(" Merci de rentrer un chiffre entre 0 et 9");
-            userTipsMastermind();
-        } catch (NullPointerException e) {
-            System.out.println(" Merci de rentrer un chiffre entre 0 et 9");
-            userTipsMastermind();
-        }
-
-    }
-
 
     //----------------------------------------------------------------------------------------------------
     public ListOfSolutionsMastermind secret;
@@ -136,26 +103,58 @@ public class MastermindGame extends GameMode {
         }
     }*/
 
-        public MastermindGame(int combinationLength) {
+
+    public void userCombinationMasterMindDefender() { //<====================== ATTENTION DUPLICATION DE LA METHODE userCombination() dans GameMode a voir si on ne peut pas overide
+        Scanner scanner = new Scanner(System.in);
+        try {
+            System.out.println("\nLe secret"); // <================= le changement par rapport à userCombination()
+            tabUser = new int[computerTabLength];
+            String response = scanner.nextLine();
+            if (response.length() != computerTabLength) {
+                throw new InputMismatchException();
+            }
+            //pour découper la réponse
+
+            for (int i = 0; i < response.length(); i++) {
+
+                tabUser[i] = Integer.parseInt(String.valueOf(response.charAt(i)));
+            }
+            //pour retourner la réponse
+            for (int i = 0; i < response.length() / 2; i++) {
+                int temp = tabUser[i];
+                tabUser[i] = tabUser[tabUser.length - i - 1];
+                tabUser[tabUser.length - i - 1] = temp;
+            }
+
+        } catch (InputMismatchException e) {
+            System.out.println("Merci de rentrer un chiffre entre 0 et 9 svp ");
+            userCombinationMasterMindDefender();
+        } catch (NullPointerException e) {
+            System.out.println("Merci de rentrer un chiffre entre 0 et 9 svp ");
+            userCombinationMasterMindDefender();
+        } catch (NumberFormatException e) {
+            System.out.println("Merci de rentrer un nombre");
+            userCombinationMasterMindDefender();
+        }
+
+    }
+
+    public MastermindGame(int combinationLength) {
         computerTabLength = combinationLength;
         usedGuesses = 0;
-        int[] tab = new int[combinationLength];
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Le secret : ");
-        String response = scanner.nextLine();
-        for (int i = 0; i < response.length(); i++) {
-            tab[i] = Integer.parseInt(String.valueOf(response.charAt(i)));
-            secret = null;
-            for (int k = 0; k < combinationLength; k++) {
-                secret = new ListOfSolutionsMastermind(tab[k], secret);
-            }
+        userCombinationMasterMindDefender();
+        secret = null;
+        for (int k = 0; k < combinationLength; k++) {
+            secret = new ListOfSolutionsMastermind(tabUser[k], secret);
         }
     }
-    public MastermindGame (int [] t) { // <======= normalement n'est pas utilisé
-        length = t.length ; usedGuesses = 0 ;
-        secret = null ;
-        for (int k = length-1 ; k >= 0 ; k--)
-            secret = new ListOfSolutionsMastermind (t[k], secret) ;
+
+    public MastermindGame(int[] t) { // <======= normalement n'est pas utilisé
+        length = t.length;
+        usedGuesses = 0;
+        secret = null;
+        for (int k = length - 1; k >= 0; k--)
+            secret = new ListOfSolutionsMastermind(t[k], secret);
     }
 
 
@@ -189,11 +188,13 @@ public class MastermindGame extends GameMode {
     public ResultMastermindDefender processGuess(ListOfSolutionsMastermind guess, boolean verbose) { // ^._.^ à modif si c'est l'utili qui fait son retour
         usedGuesses++;
         ResultMastermindDefender r = secret.evaluate(guess);
+        /*ResultMastermindDefender r = secret.userTipsMastermindDefender(guess);*/
         if (verbose) {
             System.err.println(guess + " = [" + r + "]");
         }
         return r;
     }
+
 
     public ResultMastermindDefender processGuess(ListOfSolutionsMastermind guess) {
         return processGuess(guess, true);

@@ -16,6 +16,22 @@ public class ResultMastermindDefender {
     public String toString() {
         return writePlacedNumbers + ";" + presentNumbers;
     }
+
+    public int getWritePlacedNumbers() {
+        return writePlacedNumbers;
+    }
+
+    public void setWritePlacedNumbers(int writePlacedNumbers) {
+        this.writePlacedNumbers = writePlacedNumbers;
+    }
+
+    public int getPresentNumbers() {
+        return presentNumbers;
+    }
+
+    public void setPresentNumbers(int presentNumbers) {
+        this.presentNumbers = presentNumbers;
+    }
 }
 
 

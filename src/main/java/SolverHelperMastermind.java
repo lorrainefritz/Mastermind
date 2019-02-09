@@ -1,6 +1,8 @@
 package main.java;
 
 import javax.xml.transform.Result;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class SolverHelperMastermind {
     private int max;
@@ -117,9 +119,7 @@ public class SolverHelperMastermind {
     }
 
     // échange les éléments une fois que l'on a trouvé la bonne combinaison
-    private static ListOfListOfSolutionsMastermind permut(TryMastermindDefender tries, int i, int n,
-                                                          int[] tab, ListOfSolutionsMastermind listOfSolutionsMastermind,
-                                                          ListOfListOfSolutionsMastermind listOfListOfSolutionsMastermind) {
+    private static ListOfListOfSolutionsMastermind permut(TryMastermindDefender tries, int i, int n, int[] tab, ListOfSolutionsMastermind listOfSolutionsMastermind, ListOfListOfSolutionsMastermind listOfListOfSolutionsMastermind) {
         if (i >= n) {
             if (compatible(listOfSolutionsMastermind, tries)) {
                 return new ListOfListOfSolutionsMastermind(listOfSolutionsMastermind, listOfListOfSolutionsMastermind);
@@ -151,12 +151,18 @@ public class SolverHelperMastermind {
         return r;
     }
 
+
+
+
+
+
+
     // méthode pour trouver la réponse
     static ListOfSolutionsMastermind find(MastermindGame mastermindGame) {
         combinationLength = mastermindGame.getComputerTabLength();//<++++++ rajout
         TryMastermindDefender tries = null;
         ListOfListOfSolutionsMastermind listOfListOfSol = subsets(combinationLength);
-        listOfListOfSol.printPossibilities(listOfListOfSol);// <================================================ pour écrire les possibilités
+       listOfListOfSol.printPossibilities(listOfListOfSol);// <================================================ pour écrire les possibilités
 
 
         while (listOfListOfSol.previousValue != null) {
