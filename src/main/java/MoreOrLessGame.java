@@ -109,7 +109,7 @@ public class MoreOrLessGame extends GameMode {
 
         for (int i =0; i<computerTabLength; i++){
             tabSolverHelper[i] = new SolverHelper();
-            goodResponseComparaisonTab[i]= "=";// on crée un tableau qui ne contiendra que des = et qui aura la même taillle que le tabSolverHelper[], cela pour pouvoir le comparer dans la méthode defenderModeComparaisonManager()
+            goodResponseComparaisonTab[i]= "=";// on crée un tableau qui ne contiendra que des = et qui aura la même taille que le tabSolverHelper[], cela pour pouvoir le comparer dans la méthode defenderModeComparaisonManager()
         }
         int j = 0;
         while (j < getNumberOfTries()) {
@@ -135,6 +135,16 @@ public class MoreOrLessGame extends GameMode {
 
     @Override
     public GameMode duel() {
+        combinationLengthGestion();
+        numberOfTriesGestion();
+
+        randomGestion();
+        computerTabLength = getTabLength();
+        computerTab = new int[computerTabLength];
+        //----------------------------------------
+
+
+
         System.out.println("+-");
         return null;
     }

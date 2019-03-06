@@ -1,3 +1,4 @@
+/*
 package main.java;
 
 import javax.xml.transform.Result;
@@ -13,13 +14,15 @@ public class SolverHelperMastermind {
     private static int combinationLength; //<= taille rentrée par l'utili
 
 
- /*   public SolverHelperMastermind() {
+ */
+/*   public SolverHelperMastermind() {
         max = 10;
         min = 0;
         position = createdObjectsCounter;
         createdObjectsCounter++;
 
-    }*/
+    }*//*
+
 
     public int guessNumber() { // méthode qui permet de retourner une moyenne d'un max et min qui varient
         tryNumber = min;
@@ -27,8 +30,10 @@ public class SolverHelperMastermind {
     }
 
     public void analyse(int[] tabWritePlaced, int[] tabPresentNumbers, int roundCounter) {
-       /* if (tabWritePlaced[roundCounter-1]<tabWritePlaced[roundCounter]){ // S'il y a un élément bien placé en plus par rapport au tour précédent
-        }*/
+       */
+/* if (tabWritePlaced[roundCounter-1]<tabWritePlaced[roundCounter]){ // S'il y a un élément bien placé en plus par rapport au tour précédent
+        }*//*
+
 
         if (((tabWritePlaced[roundCounter - 1] + tabPresentNumbers[roundCounter - 1]) == (tabWritePlaced[roundCounter] + tabPresentNumbers[roundCounter]))) {
             tryNumber = min++;
@@ -54,9 +59,11 @@ public class SolverHelperMastermind {
     //_____________________________________________________________________________________________________________________
 
 
-   /* public SolverHelperMastermind(int length) {
+   */
+/* public SolverHelperMastermind(int length) {
         this.length = length;
-    }*/
+    }*//*
+
 
 
    // Tous les sous-ensembles (listes ordonnées décroissantes) de 1..2n de taille n
@@ -66,11 +73,13 @@ public class SolverHelperMastermind {
     }
 
 
-      /*Renvoie la concatenation de :
+      */
+/*Renvoie la concatenation de :
       1. La liste de toutes les listes
         (liste de taille card dont les éléments sont pris dans min..max)
         concaténée avec suffix.
-      2.  et de k*/
+      2.  et de k*//*
+
 
 
 
@@ -200,3 +209,4 @@ public class SolverHelperMastermind {
 
 
 
+*/
