@@ -8,11 +8,6 @@ import java.util.Scanner;
 public class MastermindGame extends GameMode {
     private int number;
     private boolean comparaison;
-    /* private int computerTab[]; //tab utilisé pour le mode défenseur pour générer la réponse de l'ordinateur*/
-    /*private SolverHelperMastermind tabSolverHelperMastermind[]; // tableau d'objets du type SolverHelperMastermind*/
-    /* private int writePlacedTab[];
-     private int presentNumbersTab[];//tab utilisé pour le mode défenseur pour la réponse de l'utilisateur
-     private String goodResponseComparaisonTab[]; // tab de comparaison contenant autant de = que la taille de la combinaison  dans le mode défenseur*/
     private int computerTabLength; // var qui contient la taille de combinaison
     private int numberOfTries;// var qui contient le nombre d'essais.
     private int roundCounter; // compte les tours de jeu dans le mode défenseur
@@ -23,7 +18,7 @@ public class MastermindGame extends GameMode {
     private int listSize;//utilisé pour le mode défenseur pour recevoir le nombre de liste de solutions
     private int numberOfWritePlaced; // compteur de chiffres bien placés
     private int numberOfPresentNumbers; // compteur des chiffres présent dans la combinaison mais mal placés
-    private String endingSolution;// utilisé pour le mode défenseur pour afficher quand l'ordinateur a trouvé la bonne combi
+    private boolean roundCountingBoolean;//utilisé pour le mode défenseur sert à gérer le nombre de tours en fonction  de la demande de l'utilisateur
 
 
     public MastermindGame() {
@@ -110,128 +105,7 @@ public class MastermindGame extends GameMode {
     }
 
     //----------------------------------------------------------------------------------------------------
-  /*  public ListOfSolutionsMastermind secret;
-    int length;
-    private int usedGuesses;*/
 
-/*    public MastermindGame(int numberOfTries, int combinationLength) {
-        super(numberOfTries, combinationLength);
-        this.number = number;
-        length = combinationLength;
-        usedGuesses = 0;
-        int[] t = new int[combinationLength];
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Le secret : ");
-        String response = scanner.nextLine();
-        for (int i = 0; i < response.length(); i++) {
-            t[i] = Integer.parseInt(String.valueOf(response.charAt(i)));
-            secret = null;
-            for (int k = 0; k < combinationLength; k++) {
-                secret = new ListOfSolutionsMastermind(t[k], secret);
-            }
-        }
-    }*/
-
-
-  /*  public void userCombinationMasterMindDefender() { //<====================== ATTENTION DUPLICATION DE LA METHODE userCombination() dans GameMode a voir si on ne peut pas overide
-        Scanner scanner = new Scanner(System.in);
-        try {
-            System.out.println("\nLe secret"); // <================= le changement par rapport à userCombination()
-            tabUser = new int[computerTabLength];
-            String response = scanner.nextLine();
-            if (response.length() != computerTabLength) {
-                throw new InputMismatchException();
-            }
-            //pour découper la réponse
-
-            for (int i = 0; i < response.length(); i++) {
-
-                tabUser[i] = Integer.parseInt(String.valueOf(response.charAt(i)));
-            }
-            //pour retourner la réponse
-            for (int i = 0; i < response.length() / 2; i++) {
-                int temp = tabUser[i];
-                tabUser[i] = tabUser[tabUser.length - i - 1];
-                tabUser[tabUser.length - i - 1] = temp;
-            }
-
-        } catch (InputMismatchException e) {
-            System.out.println("Merci de rentrer un chiffre entre 0 et 9 svp ");
-            userCombinationMasterMindDefender();
-        } catch (NullPointerException e) {
-            System.out.println("Merci de rentrer un chiffre entre 0 et 9 svp ");
-            userCombinationMasterMindDefender();
-        } catch (NumberFormatException e) {
-            System.out.println("Merci de rentrer un nombre");
-            userCombinationMasterMindDefender();
-        }
-
-    }
-
-    public MastermindGame(int combinationLength) {
-        computerTabLength = combinationLength;
-        usedGuesses = 0;
-        userCombinationMasterMindDefender();
-        secret = null;
-        for (int k = 0; k < combinationLength; k++) {
-            secret = new ListOfSolutionsMastermind(tabUser[k], secret);
-        }
-    }
-
-    public MastermindGame(int[] t) { // <======= normalement n'est pas utilisé
-        length = t.length;
-        usedGuesses = 0;
-        secret = null;
-        for (int k = length - 1; k >= 0; k--)
-            secret = new ListOfSolutionsMastermind(t[k], secret);
-    }
-
-
-    private void launcher(MastermindGame mastermindGame) {
-        System.out.println("Le secret est :" + mastermindGame);
-        ListOfSolutionsMastermind solution = SolverHelperMastermind.find(mastermindGame);
-        if (winningResult(processGuess(solution, false))) {
-            System.out.println("Finder a perdu (la tête): " + solution);
-        } else {
-            System.out.println("Finder a trouvé en " + (getUsedGuesses() - 1) + " coups");
-        }
-    }*/
-
-
-    /*  public boolean winningResult(ResultMastermindDefender r) {
-          return r.writePlacedNumbers == length;
-      }
-
-      public ResultMastermindDefender processGuess(ListOfSolutionsMastermind guess, boolean verbose) { // ^._.^ à modif si c'est l'utili qui fait son retour
-          usedGuesses++;
-          ResultMastermindDefender r = secret.evaluate(guess);
-          *//*ResultMastermindDefender r = secret.userTipsMastermindDefender(guess);*//*
-        if (verbose) {
-            System.err.println(guess + " = [" + r + "]");
-        }
-        return r;
-    }
-
-
-    public ResultMastermindDefender processGuess(ListOfSolutionsMastermind guess) {
-        return processGuess(guess, true);
-    }
-
-    int getUsedGuesses() {
-        return usedGuesses;
-    }
-
-    public String toString() {
-        return secret.toString();
-    }
-
-    public ListOfSolutionsMastermind getSecret() {
-        return secret;
-    }
-
-    public int getComputerTabLength() {
-        return computerTabLength;
-    }*/
     private void secretGestion() {
         System.out.println("Le secret");
         Scanner scan = new Scanner(System.in);
@@ -253,7 +127,7 @@ public class MastermindGame extends GameMode {
 
     @Override
     public GameMode defender() {
-        //INTRO
+        //INTRO//
 
         combinationLengthGestion();
         numberOfTriesGestion();
@@ -276,53 +150,6 @@ public class MastermindGame extends GameMode {
         }
         solve(solution);
 
-
-
-        /*MastermindGame mastermindGame = new MastermindGame(*//*numberOfTries,*//*computerTabLength);
-        launcher(mastermindGame);*/
-
-
-        //-----------------------------------------------------------------------------
-
-
-        // <=========================================================================
-     /*SolverHelperMastermind solverHelperMa = new SolverHelperMastermind();
-        ListOfListOfSolutionsMastermind listOfListOfSol = solverHelperMa.subsets(computerTabLength);
-        listOfListOfSol.printPossibilities(listOfListOfSol);*/
-
-       /* computerTab = new int[computerTabLength];
-        goodResponseComparaisonTab = new String[computerTabLength];
-        tabSolverHelperMastermind = new SolverHelperMastermind[computerTabLength];
-
-
-        for (int i = 0; i < computerTabLength; i++) {
-            tabSolverHelperMastermind[i] = new SolverHelperMastermind();
-        }
-        int j = 0;
-        while (j < getNumberOfTries()) {
-            for (int i = 0; i < computerTabLength; i++) {
-
-                computerTab[i] = tabSolverHelperMastermind[i].guessNumber();
-            }
-            System.out.println("Voilà ma proposition");
-            for (int i = 0; i < computerTabLength; i++) {
-                System.out.print(computerTab[i]);
-            }
-            System.out.println("\nVos indices svp ");
-            userTipsMastermind();
-                for (int i = 0; i < computerTabLength; i++) {
-                    if (writePlacedTab[roundCounter - 1] < writePlacedTab[roundCounter]){
-                        computerTab[roundCounter-1] = tabSolverHelperMastermind[roundCounter-1].getTryNumber(); // tentative d'assigner une valeur à une place ♠
-                    }
-
-                    tabSolverHelperMastermind[i].analyse(writePlacedTab, presentNumbersTab, roundCounter);
-                }
-            if (defenderModeComparaisonManagerMastermind() == true) break;
-            roundCounter++;
-            j++;
-
-        }
-*/
 
         return null;
     }
@@ -356,76 +183,74 @@ public class MastermindGame extends GameMode {
     }
 
     private void solve(int[] tabSol) {
-       /* int j = 0;
-        while (j < getNumberOfTries()) {*/
-        for (; list.size() != 1; ) {
-            System.out.print("Solution proposée : ");
-            printFirst(list.get(0));
-            int[] save = copySol(solution);
-            int[] saveProp = copySol(list.get(0));
 
-            /*userFeedBack();*///<========================================*/
-            numberOfWritePlaced = countWellPlaced(list.get(0), save);
-            numberOfPresentNumbers = countMissPlaced(list.get(0), save);
-            int sumWellPlacedAndMissPlaced = numberOfPresentNumbers + numberOfWritePlaced; //<=================================
-            listSize = list.size();
-            System.out.println("Bp : " + numberOfWritePlaced);
-            System.out.println("MP : " + numberOfPresentNumbers);
-           /* if (numberOfWritePlaced == computerTabLength) {
-                endingSolution = String.valueOf(saveProp);
-            }*/
-            System.out.println("taille de liste : " + listSize);
+        while (roundCounting() == false) {
+            for (; list.size() != 1; ) {
+                System.out.println("tour : " + roundCounter);
+                System.out.print("Solution proposée : ");
+                printFirst(list.get(0));
+                int[] save = copySol(solution);
+                int[] saveProp = copySol(list.get(0));
 
-            System.out.println("tour : " + roundCounter);
-            roundCounter++;
+                /*userFeedBack();//<========================================*/
+                numberOfWritePlaced = countWellPlaced(list.get(0), save);
+                numberOfPresentNumbers = countMissPlaced(list.get(0), save);
+                int sumWellPlacedAndMissPlaced = numberOfPresentNumbers + numberOfWritePlaced; //<=================================
+                listSize = list.size();
+                System.out.println("Bp : " + numberOfWritePlaced);
+                System.out.println("MP : " + numberOfPresentNumbers);
 
-            list.remove(0);
+                System.out.println("taille de liste : " + listSize);
+                roundCounter++;
 
-            if (defenderModeComparaisonManagerMastermind() == true) {
-                System.out.print("FIN la solution était : " /*+ endingSolution*/);
-                break;
-            } else if (sumWellPlacedAndMissPlaced == 0) {
-                filterList(saveProp);
-                // supr toutes les listes qui ont un pt commun
-            } else if (sumWellPlacedAndMissPlaced == 1) {
-                //prevoir méthode qui extrait de la liste toutes les combinaisons qui ont au - un nb en commun
-                extractWhenSimilarPoint(saveProp);
-            } else if (sumWellPlacedAndMissPlaced == 2) {
-                // extraire tous les duos de nb contenu dedans
-                extractPair(extractIngerList(saveProp));
-                filterList(2);
-            } else if (sumWellPlacedAndMissPlaced == 3) {
-                // extraire tous les trio de nb contenu dedans
-                extractTrio(extractIngerList(saveProp));
-                filterList(3);
-            } else if (sumWellPlacedAndMissPlaced == 4) {
+//            list.remove(0);
+//pour le debug uniquement
 
-                extractQuatuor(extractIngerList(saveProp));
-                filterList(4);
-            } else if (sumWellPlacedAndMissPlaced == 5) {
+                if (defenderModeComparaisonManagerMastermind() == true) {
+                    System.out.print("FIN la solution était : " /*+ endingSolution*/);
+                    break;
+                } else if (sumWellPlacedAndMissPlaced == 0) {
+                    filterList(saveProp);
+                    // supr toutes les listes qui ont un pt commun
+                } else if (sumWellPlacedAndMissPlaced == 1) {
+                    //prevoir méthode qui extrait de la liste toutes les combinaisons qui ont au - un nb en commun
+                    extractWhenSimilarPoint(saveProp);
+                } else if (sumWellPlacedAndMissPlaced == 2) {
+                    // extraire tous les duos de nb contenu dedans
+                    extractPair(extractIngerList(saveProp));
+                    filterList(2);
+                } else if (sumWellPlacedAndMissPlaced == 3) {
+                    // extraire tous les trio de nb contenu dedans
+                    extractTrio(extractIngerList(saveProp));
+                    filterList(3);
+                } else if (sumWellPlacedAndMissPlaced == 4) {
 
-                extractQuinte(extractIngerList(saveProp));
-                filterList(5);
-            } else if (sumWellPlacedAndMissPlaced == 6) {
+                    extractQuatuor(extractIngerList(saveProp));
+                    filterList(4);
+                } else if (sumWellPlacedAndMissPlaced == 5) {
 
-                extractSixte(extractIngerList(saveProp));
-                filterList(6);
-            } else if (sumWellPlacedAndMissPlaced == 7) {
+                    extractQuinte(extractIngerList(saveProp));
+                    filterList(5);
+                } else if (sumWellPlacedAndMissPlaced == 6) {
 
-                extractSeptuor(extractIngerList(saveProp));
-                filterList(7);
-            } else if (sumWellPlacedAndMissPlaced == 8) {
+                    extractSixte(extractIngerList(saveProp));
+                    filterList(6);
+                } else if (sumWellPlacedAndMissPlaced == 7) {
 
-                extractOctuor(extractIngerList(saveProp));
-                filterList(8);
-            } else if (sumWellPlacedAndMissPlaced == 9) {
+                    extractSeptuor(extractIngerList(saveProp));
+                    filterList(7);
+                } else if (sumWellPlacedAndMissPlaced == 8) {
 
-                extractNonet(extractIngerList(saveProp));
-                filterList(9);
+                    extractOctuor(extractIngerList(saveProp));
+                    filterList(8);
+                } else if (sumWellPlacedAndMissPlaced == 9) {
+
+                    extractNonet(extractIngerList(saveProp));
+                    filterList(9);
+                }
+                if (roundCounting() == true) break;
             }
         }
-       /* }
-        j++;*/
 
     }
 
@@ -480,8 +305,8 @@ public class MastermindGame extends GameMode {
         list.remove(0);
         for (int i = 0; i < list.size(); i++) {
             boolean flag = false;
-            for (int j = 0; j < maxNumberOfNumbers; j++) {// anterieurement max
-                for (int k = 0; k < maxNumberOfNumbers; k++) {// anterieurement max
+            for (int j = 0; j < list.get(i).length; j++) {// anterieurement max
+                for (int k = 0; k < list.get(i).length; k++) {// anterieurement max
                     if (tab[j] == list.get(i)[k]) {
                         flag = true;
                     }
@@ -692,8 +517,8 @@ public class MastermindGame extends GameMode {
         list.remove(0);
         for (int i = 0; i < list.size(); i++) {
             boolean flag = true;
-            for (int j = 0; j < maxNumberOfNumbers; j++) { // anterieurement max
-                for (int k = 0; k < maxNumberOfNumbers; k++) {// anterieurement max
+            for (int j = 0; j < list.get(i).length; j++) { // anterieurement max
+                for (int k = 0; k < list.get(i).length; k++) {// anterieurement max
                     if (tab[j] == list.get(i)[k]) {
                         flag = false;
                     }
@@ -714,32 +539,6 @@ public class MastermindGame extends GameMode {
         return ret;
     }
 
-  /*  private void ListOfListGenerator(int sumWellPlacedAndMissPlaced) {
-        for (int i = 0; i < listSize; i++) {//<=============================== ATTENTION listSize?
-            *//* listOfList.add(list);*//*
-        }
-    }
-
-    // cherche point commun
-    private void filterListOfList(int[] tab) {
-        List<List<int[]>> temp = new ArrayList<List<int[]>>();
-        for (int i = 0; i < list.size(); i++) {
-            boolean flag = true;
-            for (int j = 0; j < maxNumberOfNumbers; j++) { // anterieurement max
-                for (int k = 0; k < maxNumberOfNumbers; k++) {// anterieurement max
-                    if (tab[j] == list.get(i)[k]) {
-                        flag = false;
-                    }
-                }
-
-            }
-            if (flag == true) {
-                *//*temp.add(listOfList.get(0));*//*//<=================================================================================
-            }
-        }
-        *//*listOfList = temp;*//*
-    }*/
-
 
     private void printFirst(int[] ints) {
         for (int i = 0; i < computerTabLength; i++) {
@@ -748,8 +547,9 @@ public class MastermindGame extends GameMode {
         System.out.print("\n");
     }
 
-    private int countWellPlaced(int[] tab, int[] save) {
+    private int countWellPlaced(int[] t, int[] save) {
         int ret = 0;
+        int[] tab = copySol(t);
         for (int i = 0; i < computerTabLength; i++) {
             if (tab[i] == save[i]) {
                 ret++;
@@ -761,8 +561,9 @@ public class MastermindGame extends GameMode {
         return ret;
     }
 
-    private int countMissPlaced(int[] tab, int[] save) {
+    private int countMissPlaced(int[] t, int[] save) {
         int ret = 0;
+        int[] tab = copySol(t);
         for (int i = 0; i < computerTabLength; i++) {
             for (int j = 0; j < computerTabLength; j++) {
                 if (tab[i] != -1 && tab[i] == save[j]) {
@@ -776,7 +577,7 @@ public class MastermindGame extends GameMode {
         return ret;
     }
 
-    public boolean defenderModeComparaisonManagerMastermind() {
+    private boolean defenderModeComparaisonManagerMastermind() {
         for (int i = 0; i < computerTabLength; i++) {
             if (numberOfWritePlaced != computerTabLength) {
                 comparaison = false;
@@ -788,11 +589,21 @@ public class MastermindGame extends GameMode {
         return true;
     }
 
+    private boolean roundCounting() {
+        if (roundCounter != getNumberOfTries() + 1) {
+            roundCountingBoolean = false;
+        } else {
+            roundCountingBoolean = true;
+        }
+        return roundCountingBoolean;
+    }
+
+
     @Override
     public GameMode duel() {
         System.out.println("duel Mastermind");
         return null;
     }
-    public void patate(){}
+
 
 }

@@ -56,10 +56,9 @@ public class MoreOrLessGame extends GameMode {
     }
 
 
-
-   public boolean defenderModeComparaisonManager() {
+    public boolean defenderModeComparaisonManager() {
         for (int i = 0; i < computerTabLength; i++) { // comparaison pour le mode défenseur
-            if (!goodResponseComparaisonTab[i].equals( userResponse[i])) {
+            if (!goodResponseComparaisonTab[i].equals(userResponse[i])) {
                 comparaison = false;
                 setComparaison(false);
                 return comparaison;
@@ -107,14 +106,14 @@ public class MoreOrLessGame extends GameMode {
         goodResponseComparaisonTab = new String[computerTabLength];
         tabSolverHelper = new SolverHelper[computerTabLength];
 
-        for (int i =0; i<computerTabLength; i++){
+        for (int i = 0; i < computerTabLength; i++) {
             tabSolverHelper[i] = new SolverHelper();
-            goodResponseComparaisonTab[i]= "=";// on crée un tableau qui ne contiendra que des = et qui aura la même taille que le tabSolverHelper[], cela pour pouvoir le comparer dans la méthode defenderModeComparaisonManager()
+            goodResponseComparaisonTab[i] = "=";// on crée un tableau qui ne contiendra que des = et qui aura la même taille que le tabSolverHelper[], cela pour pouvoir le comparer dans la méthode defenderModeComparaisonManager()
         }
         int j = 0;
         while (j < getNumberOfTries()) {
-            for (int i =0; i<computerTabLength; i++){
-                computerTab[i]= tabSolverHelper[i].guessNumber();
+            for (int i = 0; i < computerTabLength; i++) {
+                computerTab[i] = tabSolverHelper[i].guessNumber();
             }
             System.out.println("Voilà ma proposition");
             for (int i = 0; i < computerTabLength; i++) {
@@ -122,7 +121,7 @@ public class MoreOrLessGame extends GameMode {
             }
             System.out.println("\nVos indices svp (+ - ou =)");
             userTips();
-            for (int i =0; i<computerTabLength; i++) {
+            for (int i = 0; i < computerTabLength; i++) {
                 tabSolverHelper[i].analyse(userResponse[i]);
             }
             if (defenderModeComparaisonManager() == true) break;
@@ -142,7 +141,6 @@ public class MoreOrLessGame extends GameMode {
         computerTabLength = getTabLength();
         computerTab = new int[computerTabLength];
         //----------------------------------------
-
 
 
         System.out.println("+-");
