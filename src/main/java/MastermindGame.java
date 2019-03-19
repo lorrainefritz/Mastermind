@@ -28,6 +28,7 @@ public class MastermindGame extends GameMode {
     @Override
     public GameMode challenger() {
         System.out.println("challenger Mastermind");
+        combinationLengthGestion();
         numberOfTriesGestion();
         randomGestion();
         int numbOfTries = getNumberOfTries();

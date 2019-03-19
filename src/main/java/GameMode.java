@@ -12,17 +12,19 @@ public abstract class GameMode {
     protected int tabUser[];
     private int tabLength;
     private boolean comparaison;
-    private int RANDOM_MAX;
+    private int RANDOM_MAX =10;//<=========================================================================
     private int RANDOM_MIN;
 
-    public GameMode(int numberOfTries, int combinationLength) {
-        this.numberOfTries = numberOfTries;
-        this.combinationLength = combinationLength;
+    public GameMode(/*int numberOfTries, int combinationLength*/ GameProperties gameProperties) {
+        this.numberOfTries = gameProperties.getNumbersOfTries() /*numberOfTries*/;
+        this.combinationLength = gameProperties.getGameLength() /*combinationLength*/  ;
+        //this.difficulty = gameProperties.getDifficulty()
+        // même chose pour le dev mode
         RANDOM_MAX=10;
         RANDOM_MIN=0;
     }
 
-    public GameMode(){}; // constructeur vide pour le MastermindDefender.....
+    public GameMode(int i, int i1){}; // constructeur vide pour le MastermindDefender.....
 
 
 
@@ -135,8 +137,8 @@ public abstract class GameMode {
     }
 
     public void randomGestion() { // génère un tableau de random avec la taille de combinaison souhaitée par l'utili
-        combinationLengthGestion();
-        for (int i = 0; i < tabLength; i++) {
+       /* combinationLengthGestion();*/
+        for (int i = 0; i < getTabLength(); i++) {
             tab[i] = randomCombination();
             System.out.print(tab[i] + ", ");
         }

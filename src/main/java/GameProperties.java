@@ -4,6 +4,7 @@ public class GameProperties {
     private int numbersOfTries;
     private int difficulty;
     private int gameLength;
+    private boolean devMode;
 
     public GameProperties() {
     }
@@ -30,5 +31,13 @@ public class GameProperties {
 
     public void setGameLength(int gameLength) {
         this.gameLength = gameLength;
+    }
+
+    public boolean isDevMode() {
+        return devMode;
+    }
+
+    public void setDevMode(boolean devMode) {
+        this.devMode = devMode;
     }
 }

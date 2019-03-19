@@ -39,6 +39,7 @@ public class MoreOrLessGame extends GameMode {
 
     @Override
     public GameMode challenger() { // mode de jeu challenger
+        combinationLengthGestion();//<=================
         numberOfTriesGestion();
         randomGestion();
         int numbOfTries = getNumberOfTries();
