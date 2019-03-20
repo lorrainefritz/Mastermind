@@ -14,6 +14,7 @@ public abstract class GameMode {
     private boolean comparaison;
     private int RANDOM_MAX =10;//<=========================================================================
     private int RANDOM_MIN;
+    private int secretCombinationOfRandom[];
 
     public GameMode(/*int numberOfTries, int combinationLength*/ GameProperties gameProperties) {
         this.numberOfTries = gameProperties.getNumbersOfTries() /*numberOfTries*/;
@@ -138,12 +139,21 @@ public abstract class GameMode {
 
     public void randomGestion() { // génère un tableau de random avec la taille de combinaison souhaitée par l'utili
        /* combinationLengthGestion();*/
+        secretCombinationOfRandom = new int[tabLength];
         for (int i = 0; i < getTabLength(); i++) {
             tab[i] = randomCombination();
-            System.out.print(tab[i] + ", ");
+            secretCombinationOfRandom[i] = tab[i];// création d'une var tierce pour stocker la combinaison et s'en resservir au besoin
+           /* */
         }
 
 
+    }
+
+    public void secretCombinationOfRandomPrint(){
+        System.out.println("Le secret généré par l'ordinateur : ");
+        for (int i =0; i<getTabLength(); i++){
+            System.out.print(secretCombinationOfRandom[i] + ", ");
+        }
     }
 
     public int[] getTab() {
@@ -222,6 +232,14 @@ public abstract class GameMode {
 
     public void setRandomMin(int randomMin) {
         this.RANDOM_MIN = randomMin;
+    }
+
+    public int[] getSecretCombinationOfRandom() {
+        return secretCombinationOfRandom;
+    }
+
+    public void setSecretCombinationOfRandom(int[] secretCombinationOfRandom) {
+        this.secretCombinationOfRandom = secretCombinationOfRandom;
     }
 }
 

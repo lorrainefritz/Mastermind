@@ -31,6 +31,7 @@ public class MastermindGame extends GameMode {
         combinationLengthGestion();
         numberOfTriesGestion();
         randomGestion();
+
         int numbOfTries = getNumberOfTries();
         int j = 0;
         while (j < numbOfTries) {

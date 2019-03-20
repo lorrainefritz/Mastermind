@@ -42,6 +42,7 @@ public class MoreOrLessGame extends GameMode {
         combinationLengthGestion();//<=================
         numberOfTriesGestion();
         randomGestion();
+        secretCombinationOfRandomPrint();//pour l'affichage du secret
         int numbOfTries = getNumberOfTries();
         int j = 0;
         while (j < numbOfTries) {
@@ -137,14 +138,48 @@ public class MoreOrLessGame extends GameMode {
     public GameMode duel() {
         combinationLengthGestion();
         numberOfTriesGestion();
-
         randomGestion();
         computerTabLength = getTabLength();
         computerTab = new int[computerTabLength];
         //----------------------------------------
 
+        goodResponseComparaisonTab = new String[computerTabLength];
+        tabSolverHelper = new SolverHelper[computerTabLength];
 
-        System.out.println("+-");
+        for (int i = 0; i < computerTabLength; i++) {
+            tabSolverHelper[i] = new SolverHelper();
+            goodResponseComparaisonTab[i] = "=";// on crée un tableau qui ne contiendra que des = et qui aura la même taille que le tabSolverHelper[],
+            // cela pour pouvoir le comparer dans la méthode defenderModeComparaisonManager()
+        }
+
+        int j = 0;
+        while (j < getNumberOfTries()) {
+            System.out.println("\ntour n°" + j+1);
+//----------------------------------------------------------------------------------------------------------------------------
+            System.out.println("tour utilisateur");
+            for (int i = 0; i < computerTabLength; i++) {
+                computerTab[i] = tabSolverHelper[i].guessNumber();
+            }
+            System.out.println("Voilà ma proposition");
+            for (int i = 0; i < computerTabLength; i++) {
+                System.out.print(computerTab[i]);
+            }
+            System.out.println("\nVos indices svp (+ - ou =)");
+            userTips();
+            for (int i = 0; i < computerTabLength; i++) {
+                tabSolverHelper[i].analyse(userResponse[i]);
+            }
+            if (defenderModeComparaisonManager() == true) break;
+//----------------------------------------------------------------------------------------------------------------
+            System.out.println("tour ordi");
+            secretCombinationOfRandomPrint();//pour l'affichage du secret
+            userCombination();
+            tipsGestion();
+            comparaison();
+            if (isComparaison() == true) break;
+
+            j++;
+        }
         return null;
     }
 }
