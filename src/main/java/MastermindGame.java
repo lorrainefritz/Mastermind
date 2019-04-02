@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 public class MastermindGame extends GameMode {
     private int number;
@@ -19,6 +20,8 @@ public class MastermindGame extends GameMode {
     private int numberOfWritePlaced; // compteur de chiffres bien placés
     private int numberOfPresentNumbers; // compteur des chiffres présent dans la combinaison mais mal placés
     private boolean roundCountingBoolean;//utilisé pour le mode défenseur sert à gérer le nombre de tours en fonction  de la demande de l'utilisateur
+
+    private final static Logger logger = Logger.getLogger(MastermindGame.class.getName());
 
 
     public MastermindGame() {
@@ -95,13 +98,13 @@ public class MastermindGame extends GameMode {
                 throw new InputMismatchException();
             }
         } catch (InputMismatchException e) {
-            System.out.println("Merci de rentrer un chiffre entre 4 et 10 svp ");
+            logger.warning("Merci de rentrer un chiffre entre 4 et 10 svp ");
             combinationLengthGestion();
         } catch (NullPointerException e) {
-            System.out.println("Merci de rentrer un chiffre entre 4 et 10 svp ");
+            logger.warning("Merci de rentrer un chiffre entre 4 et 10 svp ");
             combinationLengthGestion();
         } catch (NegativeArraySizeException e) {
-            System.out.println("Merci de rentrer un chiffre entre 4 et 10 svp ");
+            logger.warning("Merci de rentrer un chiffre entre 4 et 10 svp ");
 
         }
     }
@@ -122,7 +125,8 @@ public class MastermindGame extends GameMode {
             }
 
         } catch (InputMismatchException e) {
-            System.out.println("Merci de rentrer une solution de taille équivalente à la longueur de combinaison rentrée précédement : " + getTabLength());
+            logger.warning("Merci de rentrer une solution de taille équivalente à la longueur de combinaison rentrée précédement : "
+                    + getTabLength());
             secretGestion();
         }
     }
@@ -151,7 +155,6 @@ public class MastermindGame extends GameMode {
 
         }
         solve(solution);
-
 
         return null;
     }
@@ -186,7 +189,7 @@ public class MastermindGame extends GameMode {
 
     private void solve(int[] tabSol) {
 
-        while (roundCounting() == false) {
+        while (roundCounting() == true) {
             for (; list.size() != 1; ) {
                 System.out.println("tour : " + roundCounter);
                 System.out.print("Solution proposée : ");
@@ -205,8 +208,7 @@ public class MastermindGame extends GameMode {
                 System.out.println("taille de liste : " + listSize);
                 roundCounter++;
 
-//            list.remove(0);
-//pour le debug uniquement
+
 
                 if (defenderModeComparaisonManagerMastermind() == true) {
                     System.out.print("FIN la solution était : " /*+ endingSolution*/);
@@ -250,8 +252,9 @@ public class MastermindGame extends GameMode {
                     extractNonet(extractIngerList(saveProp));
                     filterList(9);
                 }
-                if (roundCounting() == true) break;
+                if (roundCounting() == false) break;
             }
+
         }
 
     }
@@ -593,9 +596,9 @@ public class MastermindGame extends GameMode {
 
     private boolean roundCounting() {
         if (roundCounter != getNumberOfTries() + 1) {
-            roundCountingBoolean = false;
-        } else {
             roundCountingBoolean = true;
+        } else {
+            roundCountingBoolean = false;
         }
         return roundCountingBoolean;
     }
@@ -604,7 +607,106 @@ public class MastermindGame extends GameMode {
     @Override
     public GameMode duel() {
         System.out.println("duel Mastermind");
-        return null;
+
+        combinationLengthGestion();
+        numberOfTriesGestion();
+        randomGestion();
+        int numbOfTries = getNumberOfTries();
+        // bloc initialisation utilisateur
+        //-------------------------------------------------------------
+        combinationNumberOfNumbers();
+        secretGestion();
+        computerTabLength = getTabLength();
+        numberOfTries = getNumberOfTries();
+        int[] tab = initTab();
+        list.add(copySol(tab));
+        for (; isFinished(tab); ) {
+            tab[computerTabLength - 1]++;
+            if (tab[computerTabLength - 1] > maxNumberOfNumbers) {
+                increment(tab);
+            }
+            list.add(copySol(tab));
+
+        }
+        //----------------------------------------------------------
+        int j = 0;
+
+        while (j < numbOfTries) {
+            System.out.println("\ntour n°" + (j+1));
+            //--------------------------------------------------------------------------------------------
+            System.out.println("tour utilisateur");
+            for (; list.size() != 1; ) {
+                System.out.print("Solution proposée : ");
+                printFirst(list.get(0));
+                int[] save = copySol(solution);
+                int[] saveProp = copySol(list.get(0));
+                userFeedBack();//<========================================
+                /*numberOfWritePlaced = countWellPlaced(list.get(0), save);
+                numberOfPresentNumbers = countMissPlaced(list.get(0), save);*/
+                int sumWellPlacedAndMissPlaced = numberOfPresentNumbers + numberOfWritePlaced; //<=================================
+                listSize = list.size();
+                System.out.println("Bp : " + numberOfWritePlaced);
+                System.out.println("MP : " + numberOfPresentNumbers);
+                System.out.println("taille de liste : " + listSize);
+
+                if (defenderModeComparaisonManagerMastermind() == true) {
+                    System.out.print("FIN la solution était : " /*+ endingSolution*/);
+                    break;
+                } else if (sumWellPlacedAndMissPlaced == 0) {
+                    filterList(saveProp);
+                    // supr toutes les listes qui ont un pt commun
+                } else if (sumWellPlacedAndMissPlaced == 1) {
+                    //prevoir méthode qui extrait de la liste toutes les combinaisons qui ont au - un nb en commun
+                    extractWhenSimilarPoint(saveProp);
+                } else if (sumWellPlacedAndMissPlaced == 2) {
+                    // extraire tous les duos de nb contenu dedans
+                    extractPair(extractIngerList(saveProp));
+                    filterList(2);
+                } else if (sumWellPlacedAndMissPlaced == 3) {
+                    // extraire tous les trio de nb contenu dedans
+                    extractTrio(extractIngerList(saveProp));
+                    filterList(3);
+                } else if (sumWellPlacedAndMissPlaced == 4) {
+
+                    extractQuatuor(extractIngerList(saveProp));
+                    filterList(4);
+                } else if (sumWellPlacedAndMissPlaced == 5) {
+
+                    extractQuinte(extractIngerList(saveProp));
+                    filterList(5);
+                } else if (sumWellPlacedAndMissPlaced == 6) {
+
+                    extractSixte(extractIngerList(saveProp));
+                    filterList(6);
+                } else if (sumWellPlacedAndMissPlaced == 7) {
+
+                    extractSeptuor(extractIngerList(saveProp));
+                    filterList(7);
+                } else if (sumWellPlacedAndMissPlaced == 8) {
+
+                    extractOctuor(extractIngerList(saveProp));
+                    filterList(8);
+                } else if (sumWellPlacedAndMissPlaced == 9) {
+
+                    extractNonet(extractIngerList(saveProp));
+                    filterList(9);
+                }
+                if (roundCounting() == true) break;//<========================== va poser problème
+            }
+
+            //---------------------------------------------------------------------------------------------
+            System.out.println("tour ordi");
+            secretCombinationOfRandomPrint();//pour l'affichage du secret
+            userCombination();
+            tipsGestion();
+            comparaison();
+            if (isComparaison() == true) break;
+
+            j++;
+
+        }
+
+            return null;
     }
 
 

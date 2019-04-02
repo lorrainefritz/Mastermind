@@ -3,6 +3,7 @@ package main.java;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 public class MoreOrLessGame extends GameMode {
     private boolean comparaison;
@@ -11,6 +12,8 @@ public class MoreOrLessGame extends GameMode {
     private String userResponse[];//tab utilisé pour le mode défenseur pour la réponse de l'utilisateur
     private String goodResponseComparaisonTab[]; // tab de comparaison contenant autant de = que la taille de la combinaison  dans le mode défenseur
     private int computerTabLength; // var qui contient la taille du tableau computerTab
+
+    private final static Logger logger = Logger.getLogger(MoreOrLessGame.class.getName());
 
     public MoreOrLessGame() {
         super(0, 0);
@@ -86,13 +89,13 @@ public class MoreOrLessGame extends GameMode {
             }
 
         } catch (InputMismatchException e) {
-            System.out.println("Merci de rentrer = + ou - ");
+            logger.warning("Merci de rentrer = + ou - ");
             userTips();
         } catch (NullPointerException e) {
-            System.out.println("Merci de rentrer = + ou - ");
+            logger.warning("Merci de rentrer = + ou - ");
             userTips();
         } catch (NumberFormatException e) {
-            System.out.println("Merci de rentrer = + ou -");
+            logger.warning("Merci de rentrer = + ou - ");
             userTips();
         }
 
@@ -169,14 +172,20 @@ public class MoreOrLessGame extends GameMode {
             for (int i = 0; i < computerTabLength; i++) {
                 tabSolverHelper[i].analyse(userResponse[i]);
             }
-            if (defenderModeComparaisonManager() == true) break;
+            if (defenderModeComparaisonManager() == true){
+                setComputerSucess(true);
+                break;
+            }
 //----------------------------------------------------------------------------------------------------------------
             System.out.println("tour ordi");
             secretCombinationOfRandomPrint();//pour l'affichage du secret
             userCombination();
             tipsGestion();
             comparaison();
-            if (isComparaison() == true) break;
+            if (isComparaison() == true){
+                setUserSucces(true);
+                break;
+            }
 
             j++;
         }

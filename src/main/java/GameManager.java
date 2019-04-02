@@ -2,12 +2,14 @@ package main.java;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 public class GameManager {
     private GameMode game;
     private int chooseGame;
     int chooseMode;
     boolean continueOrQuit;
+    private final static Logger logger = Logger.getLogger(GameManager.class.getName());
 
 
     public GameManager() {
@@ -41,15 +43,15 @@ public class GameManager {
     private GameMode chooseGame(int nbOfGame) { // retour sur le type de jeu choisit
         switch (nbOfGame) {
             case 1:
-                System.out.println("Vous avez choisi le jeu du Plus ou moins");
+                logger.info("Vous avez choisi le jeu du Plus ou moins");
                 game = new MoreOrLessGame();
                 return game;
             case 2:
-                System.out.println("Vous avez choisi le jeu du Mastermind");
+                logger.info("Vous avez choisi le jeu du Mastermind");
                 game = new MastermindGame();
                 return game;
             default:
-                System.out.println("hey! Mais ce jeu n'a pas encore été programmé ;) merci de saisir 1 ou 2... ");
+                logger.warning("hey! Mais ce jeu n'a pas encore été programmé ;) merci de saisir 1 ou 2... ");
                 return null;
         }
     }
@@ -72,17 +74,17 @@ public class GameManager {
     private GameMode chooseMode(int nbOfMode) { // retour sur le mode de jeu choisit
         switch (nbOfMode) {
             case 1:
-                System.out.println("Vous avez choisi le mode Challenger");
+                logger.info("Vous avez choisi le mode Challenger");
                 return game.challenger();
 
             case 2:
-                System.out.println("Vous avez choisi le mode Défenseur");
+                logger.info("Vous avez choisi le mode Défenseur");
                 return game.defender();
             case 3:
-                System.out.println("Vous avez choisi le mode Duel");
+                logger.info("Vous avez choisi le mode Duel");
                 return game.duel();
             default:
-                System.out.println("hey! Mais ce mode de jeu n'a pas encore été programmé ;) merci de saisir 1  2 ou 3... ");
+                logger.warning("hey! Mais ce mode de jeu n'a pas encore été programmé ;) merci de saisir 1  2 ou 3... ");
                 return null;
         }
     }
@@ -99,10 +101,10 @@ public class GameManager {
                 throw new NullPointerException();
             }
         } catch (NullPointerException exception) {
-            System.out.println("Merci de choisir 1 2 ou 3");
+            logger.warning("Merci de choisir 1 2 ou 3");
             runMode();
         } catch (InputMismatchException exception) {
-            System.out.println("Merci de choisir 1 2 ou 3");
+            logger.warning("Merci de choisir 1 2 ou 3");
             runMode();
         }
     }
@@ -119,6 +121,14 @@ public class GameManager {
                 System.out.println("\n\\o/ youpi j'ai trouvé ☺ ♫");
             } else {
                 System.out.println("\nPas de chance je ferais mieux la prochaine fois!");
+            }
+        } else if (chooseMode==3){
+            if (game.isUserSucces()==true){
+                System.out.println("\nBravo tu as gagné! ☺ ♫");
+            } else if (game.isComputerSucess() == true){
+                System.out.println("\n\\o/ youpi j'ai trouvé ☺ ♫");
+            } else {
+                System.out.println("Match nul ☺ ");
             }
         }
     }
@@ -137,10 +147,10 @@ public class GameManager {
                 throw new InputMismatchException();
             }
         } catch (InputMismatchException e) {
-            System.out.println("Merci de rentrer 1 ou 2");
+            logger.warning("Merci de rentrer 1 ou 2");
             continueOrQuit();
         } catch (NullPointerException e) {
-            System.out.println("Merci de rentrer 1 ou 2");
+            logger.warning("Merci de rentrer 1 ou 2");
             continueOrQuit();
 
         }
@@ -167,10 +177,10 @@ public class GameManager {
 
                 } while (chooseGame != 1 && chooseGame != 2);
             } catch (NullPointerException e) {
-                System.out.println("Merci de choisir 1 ou 2");
+                logger.warning("Merci de rentrer 1 ou 2");
                 runGame();
             } catch (InputMismatchException e) {
-                System.out.println("Merci de choisir 1 ou 2");
+                logger.warning("Merci de rentrer 1 ou 2");
                 runGame();
             }
             //END
