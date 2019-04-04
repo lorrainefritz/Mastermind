@@ -19,6 +19,8 @@ public class MastermindGame extends GameMode {
     private int listSize;//utilisé pour le mode défenseur pour recevoir le nombre de liste de solutions
     private int numberOfWritePlaced; // compteur de chiffres bien placés
     private int numberOfPresentNumbers; // compteur des chiffres présent dans la combinaison mais mal placés
+    private int sumWellPlacedAndMissPlaced;// Somme des chiffres présent et mal placés
+    private int[] saveProp; // un tableau qui permet le maintien des propositions
     private boolean roundCountingBoolean;//utilisé pour le mode défenseur sert à gérer le nombre de tours en fonction  de la demande de l'utilisateur
 
     private final static Logger logger = Logger.getLogger(MastermindGame.class.getName());
@@ -38,13 +40,17 @@ public class MastermindGame extends GameMode {
         int numbOfTries = getNumberOfTries();
         int j = 0;
         while (j < numbOfTries) {
-            userCombination();
-            tipsGestion();
-            comparaison();
+            combinationAndTipsGestion();
             if (isComparaison() == true) break;
             j++;
         }
         return null;
+    }
+
+    private void combinationAndTipsGestion() {
+        userCombination();
+        tipsGestion();
+        comparaison();
     }
 
 
@@ -187,72 +193,82 @@ public class MastermindGame extends GameMode {
         }
     }
 
+    private void roundGestion() {
+        System.out.println("tour : " + roundCounter);
+        System.out.print("Solution proposée : ");
+        printFirst(list.get(0));
+        int[] save = copySol(solution);
+        saveProp = copySol(list.get(0));
+
+        /*userFeedBack();//<========================================*/
+        numberOfWritePlaced = countWellPlaced(list.get(0), save);
+        numberOfPresentNumbers = countMissPlaced(list.get(0), save);
+        sumWellPlacedAndMissPlaced = numberOfPresentNumbers + numberOfWritePlaced; //<=================================
+        listSize = list.size();
+        System.out.println("Bp : " + numberOfWritePlaced);
+        System.out.println("MP : " + numberOfPresentNumbers);
+
+        System.out.println("taille de liste : " + listSize);
+        roundCounter++;
+
+    }
+
+    private void listGestion() {
+        if (sumWellPlacedAndMissPlaced == 0) {
+            filterList(saveProp);
+            // supr toutes les listes qui ont un pt commun
+        } else if (sumWellPlacedAndMissPlaced == 1) {
+            //prevoir méthode qui extrait de la liste toutes les combinaisons qui ont au - un nb en commun
+            extractWhenSimilarPoint(saveProp);
+        } else if (sumWellPlacedAndMissPlaced == 2) {
+            // extraire tous les duos de nb contenu dedans
+            extractPair(extractIngerList(saveProp));
+            filterList(2);
+        } else if (sumWellPlacedAndMissPlaced == 3) {
+            // extraire tous les trio de nb contenu dedans
+            extractTrio(extractIngerList(saveProp));
+            filterList(3);
+        } else if (sumWellPlacedAndMissPlaced == 4) {
+
+            extractQuatuor(extractIngerList(saveProp));
+            filterList(4);
+        } else if (sumWellPlacedAndMissPlaced == 5) {
+
+            extractQuinte(extractIngerList(saveProp));
+            filterList(5);
+        } else if (sumWellPlacedAndMissPlaced == 6) {
+
+            extractSixte(extractIngerList(saveProp));
+            filterList(6);
+        } else if (sumWellPlacedAndMissPlaced == 7) {
+
+            extractSeptuor(extractIngerList(saveProp));
+            filterList(7);
+        } else if (sumWellPlacedAndMissPlaced == 8) {
+
+            extractOctuor(extractIngerList(saveProp));
+            filterList(8);
+        } else if (sumWellPlacedAndMissPlaced == 9) {
+
+            extractNonet(extractIngerList(saveProp));
+            filterList(9);
+        }
+    }
+
     private void solve(int[] tabSol) {
         boolean flag = false;
 
         while (roundCounting() == true && flag == false) {
             for (; list.size() != 1; ) {
-                System.out.println("tour : " + roundCounter);
-                System.out.print("Solution proposée : ");
-                printFirst(list.get(0));
-                int[] save = copySol(solution);
-                int[] saveProp = copySol(list.get(0));
-
-                /*userFeedBack();//<========================================*/
-                numberOfWritePlaced = countWellPlaced(list.get(0), save);
-                numberOfPresentNumbers = countMissPlaced(list.get(0), save);
-                int sumWellPlacedAndMissPlaced = numberOfPresentNumbers + numberOfWritePlaced; //<=================================
-                listSize = list.size();
-                System.out.println("Bp : " + numberOfWritePlaced);
-                System.out.println("MP : " + numberOfPresentNumbers);
-
-                System.out.println("taille de liste : " + listSize);
-                roundCounter++;
-
+                roundGestion();
 
                 if (defenderModeComparaisonManagerMastermind() == true) {
                     flag = true;
                     System.out.print("FIN la solution était : " /*+ endingSolution*/);
+                    setComputerSucess(true);
                     break;
-                } else if (sumWellPlacedAndMissPlaced == 0) {
-                    filterList(saveProp);
-                    // supr toutes les listes qui ont un pt commun
-                } else if (sumWellPlacedAndMissPlaced == 1) {
-                    //prevoir méthode qui extrait de la liste toutes les combinaisons qui ont au - un nb en commun
-                    extractWhenSimilarPoint(saveProp);
-                } else if (sumWellPlacedAndMissPlaced == 2) {
-                    // extraire tous les duos de nb contenu dedans
-                    extractPair(extractIngerList(saveProp));
-                    filterList(2);
-                } else if (sumWellPlacedAndMissPlaced == 3) {
-                    // extraire tous les trio de nb contenu dedans
-                    extractTrio(extractIngerList(saveProp));
-                    filterList(3);
-                } else if (sumWellPlacedAndMissPlaced == 4) {
-
-                    extractQuatuor(extractIngerList(saveProp));
-                    filterList(4);
-                } else if (sumWellPlacedAndMissPlaced == 5) {
-
-                    extractQuinte(extractIngerList(saveProp));
-                    filterList(5);
-                } else if (sumWellPlacedAndMissPlaced == 6) {
-
-                    extractSixte(extractIngerList(saveProp));
-                    filterList(6);
-                } else if (sumWellPlacedAndMissPlaced == 7) {
-
-                    extractSeptuor(extractIngerList(saveProp));
-                    filterList(7);
-                } else if (sumWellPlacedAndMissPlaced == 8) {
-
-                    extractOctuor(extractIngerList(saveProp));
-                    filterList(8);
-                } else if (sumWellPlacedAndMissPlaced == 9) {
-
-                    extractNonet(extractIngerList(saveProp));
-                    filterList(9);
                 }
+                listGestion();
                 if (roundCounting() == false) break;
             }
 
@@ -631,76 +647,30 @@ public class MastermindGame extends GameMode {
         }
         //----------------------------------------------------------
         int j = 0;
-        while (j < numbOfTries ) {
+        while (j < numbOfTries) {
             System.out.println("\ntour n°" + (j + 1));
             //--------------------------------------------------------------------------------------------
             System.out.println("tour utilisateur");
             for (; list.size() != 1; ) {
-                System.out.print("Solution proposée : ");
-                printFirst(list.get(0));
-                int[] save = copySol(solution);
-                int[] saveProp = copySol(list.get(0));
-                /*userFeedBack();//<========================================*/
-                numberOfWritePlaced = countWellPlaced(list.get(0), save);
-                numberOfPresentNumbers = countMissPlaced(list.get(0), save);
-                int sumWellPlacedAndMissPlaced = numberOfPresentNumbers + numberOfWritePlaced; //<=================================
-                listSize = list.size();
-                System.out.println("Bp : " + numberOfWritePlaced);
-                System.out.println("MP : " + numberOfPresentNumbers);
-                System.out.println("taille de liste : " + listSize);
+                roundGestion();
 
                 if (defenderModeComparaisonManagerMastermind() == true) {
                     System.out.print("FIN la solution était : " /*+ endingSolution*/);
-                   return null;
-                } else if (sumWellPlacedAndMissPlaced == 0) {
-                    filterList(saveProp);
-                    // supr toutes les listes qui ont un pt commun
-                } else if (sumWellPlacedAndMissPlaced == 1) {
-                    //prevoir méthode qui extrait de la liste toutes les combinaisons qui ont au - un nb en commun
-                    extractWhenSimilarPoint(saveProp);
-                } else if (sumWellPlacedAndMissPlaced == 2) {
-                    // extraire tous les duos de nb contenu dedans
-                    extractPair(extractIngerList(saveProp));
-                    filterList(2);
-                } else if (sumWellPlacedAndMissPlaced == 3) {
-                    // extraire tous les trio de nb contenu dedans
-                    extractTrio(extractIngerList(saveProp));
-                    filterList(3);
-                } else if (sumWellPlacedAndMissPlaced == 4) {
-
-                    extractQuatuor(extractIngerList(saveProp));
-                    filterList(4);
-                } else if (sumWellPlacedAndMissPlaced == 5) {
-
-                    extractQuinte(extractIngerList(saveProp));
-                    filterList(5);
-                } else if (sumWellPlacedAndMissPlaced == 6) {
-
-                    extractSixte(extractIngerList(saveProp));
-                    filterList(6);
-                } else if (sumWellPlacedAndMissPlaced == 7) {
-
-                    extractSeptuor(extractIngerList(saveProp));
-                    filterList(7);
-                } else if (sumWellPlacedAndMissPlaced == 8) {
-
-                    extractOctuor(extractIngerList(saveProp));
-                    filterList(8);
-                } else if (sumWellPlacedAndMissPlaced == 9) {
-
-                    extractNonet(extractIngerList(saveProp));
-                    filterList(9);
+                    setComputerSucess(true);
+                    return null;
                 }
-                if (roundCounting() == true) break;//<========================== va poser problème
+                listGestion();
+                if (roundCounting() == true) break;
             }
 
             //---------------------------------------------------------------------------------------------
             System.out.println("tour ordi");
             secretCombinationOfRandomPrint();//pour l'affichage du secret
-            userCombination();
-            tipsGestion();
-            comparaison();
-            if (isComparaison() == true) break;
+            combinationAndTipsGestion();
+            if (isComparaison() == true) {
+                setUserSucces(true);
+                break;
+            }
 
             j++;
 

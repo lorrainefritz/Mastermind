@@ -39,7 +39,12 @@ public class MoreOrLessGame extends GameMode {
 
 
     }
+    private void combinationAndTipsGestion(){
+        userCombination();
+        tipsGestion();
+        comparaison();
 
+    }
     @Override
     public GameMode challenger() { // mode de jeu challenger
         combinationLengthGestion();//<=================
@@ -49,9 +54,7 @@ public class MoreOrLessGame extends GameMode {
         int numbOfTries = getNumberOfTries();
         int j = 0;
         while (j < numbOfTries) {
-            userCombination();
-            tipsGestion();
-            comparaison();
+            combinationAndTipsGestion();
             if (isComparaison() == true) break;
             j++;
 
@@ -59,6 +62,8 @@ public class MoreOrLessGame extends GameMode {
 
         return null;
     }
+
+
 
 
     public boolean defenderModeComparaisonManager() {
@@ -179,9 +184,7 @@ public class MoreOrLessGame extends GameMode {
 //----------------------------------------------------------------------------------------------------------------
             System.out.println("tour ordi");
             secretCombinationOfRandomPrint();//pour l'affichage du secret
-            userCombination();
-            tipsGestion();
-            comparaison();
+            combinationAndTipsGestion();
             if (isComparaison() == true){
                 setUserSucces(true);
                 break;
