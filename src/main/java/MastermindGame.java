@@ -188,8 +188,9 @@ public class MastermindGame extends GameMode {
     }
 
     private void solve(int[] tabSol) {
+        boolean flag = false;
 
-        while (roundCounting() == true) {
+        while (roundCounting() == true && flag == false) {
             for (; list.size() != 1; ) {
                 System.out.println("tour : " + roundCounter);
                 System.out.print("Solution proposée : ");
@@ -209,8 +210,8 @@ public class MastermindGame extends GameMode {
                 roundCounter++;
 
 
-
                 if (defenderModeComparaisonManagerMastermind() == true) {
+                    flag = true;
                     System.out.print("FIN la solution était : " /*+ endingSolution*/);
                     break;
                 } else if (sumWellPlacedAndMissPlaced == 0) {
@@ -630,9 +631,8 @@ public class MastermindGame extends GameMode {
         }
         //----------------------------------------------------------
         int j = 0;
-
-        while (j < numbOfTries) {
-            System.out.println("\ntour n°" + (j+1));
+        while (j < numbOfTries ) {
+            System.out.println("\ntour n°" + (j + 1));
             //--------------------------------------------------------------------------------------------
             System.out.println("tour utilisateur");
             for (; list.size() != 1; ) {
@@ -640,9 +640,9 @@ public class MastermindGame extends GameMode {
                 printFirst(list.get(0));
                 int[] save = copySol(solution);
                 int[] saveProp = copySol(list.get(0));
-                userFeedBack();//<========================================
-                /*numberOfWritePlaced = countWellPlaced(list.get(0), save);
-                numberOfPresentNumbers = countMissPlaced(list.get(0), save);*/
+                /*userFeedBack();//<========================================*/
+                numberOfWritePlaced = countWellPlaced(list.get(0), save);
+                numberOfPresentNumbers = countMissPlaced(list.get(0), save);
                 int sumWellPlacedAndMissPlaced = numberOfPresentNumbers + numberOfWritePlaced; //<=================================
                 listSize = list.size();
                 System.out.println("Bp : " + numberOfWritePlaced);
@@ -651,7 +651,7 @@ public class MastermindGame extends GameMode {
 
                 if (defenderModeComparaisonManagerMastermind() == true) {
                     System.out.print("FIN la solution était : " /*+ endingSolution*/);
-                    break;
+                   return null;
                 } else if (sumWellPlacedAndMissPlaced == 0) {
                     filterList(saveProp);
                     // supr toutes les listes qui ont un pt commun
@@ -706,7 +706,7 @@ public class MastermindGame extends GameMode {
 
         }
 
-            return null;
+        return null;
     }
 
 
