@@ -23,8 +23,8 @@ public abstract class GameMode {
 
 
     public GameMode(/*int numberOfTries, int combinationLength*/ GameProperties gameProperties) {
-        this.numberOfTries = gameProperties.getNumbersOfTries() /*numberOfTries*/;
-        this.combinationLength = gameProperties.getGameLength() /*combinationLength*/  ;
+        this.numberOfTries = /* gameProperties.getNumbersOfTries()*/ numberOfTries;
+        this.combinationLength = /*gameProperties.getGameLength()*/ combinationLength  ;
         //this.difficulty = gameProperties.getDifficulty()
         // même chose pour le dev mode
         RANDOM_MAX=10;
@@ -52,11 +52,11 @@ public abstract class GameMode {
     }
 
     public void combinationLengthGestion() { // méthode qui gère la taille de la combinaison
+        GameProperties gp = new GameProperties();
         try {
-            scanner = new Scanner(System.in);
             /*logger.info("Entrez la taille souhaitée de combinaison :  de 4 min à 10 max");*/
             System.out.println("Entrez la taille souhaitée de combinaison :  de 4 min à 10 max");
-            tabLength = scanner.nextInt();
+            tabLength = gp.getGameLength();
             if (tabLength >= 4 && tabLength <= 10) {
                 tab = new int[tabLength];
             } else {
@@ -76,17 +76,17 @@ public abstract class GameMode {
 
 
     public void numberOfTriesGestion() { // méthode qui gère le nombre d'essais
-        scanner = new Scanner(System.in);
+        GameProperties gp = new GameProperties();
         System.out.println("Merci de rentrer le nombre voulu d'essais ");
         try {
-            numberOfTries = scanner.nextInt();
+            numberOfTries = gp.getNumbersOfTries();
             if (numberOfTries < 1 || numberOfTries > 10000) {
                 throw new InputMismatchException();
             }
 
 
         } catch (InputMismatchException e) {
-            logger.warning("Merci de rentrer un chiffre entre 1 et 1000 ");
+            logger.warning("Merci de rentrer un chiffre entre 1 et 10000 ");
             numberOfTriesGestion();
         } catch (NullPointerException e) {
             logger.warning("Merci de rentrer un chiffre ");

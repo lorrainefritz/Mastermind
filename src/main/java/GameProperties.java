@@ -1,5 +1,7 @@
 package main.java;
 
+import java.io.IOException;
+
 public class GameProperties {
     private int numbersOfTries;
     private int difficulty;
@@ -7,6 +9,11 @@ public class GameProperties {
     private boolean devMode;
 
     public GameProperties() {
+        GameGetPropertyValues gameGetPropertyValues = new GameGetPropertyValues();
+        this.setDifficulty(gameGetPropertyValues.getDifficulty());
+        this.setGameLength(gameGetPropertyValues.getGameLength());
+        this.setNumbersOfTries(gameGetPropertyValues.getNumberOfTries());
+        this.setDevMode(gameGetPropertyValues.getDevMode());
     }
 
     public int getNumbersOfTries() {
@@ -37,7 +44,11 @@ public class GameProperties {
         return devMode;
     }
 
-    public void setDevMode(boolean devMode) {
-        this.devMode = devMode;
+    public void setDevMode(String devMode) {
+        if (devMode.equals("1")){
+            this.devMode=true;
+        } else if (devMode.equals("2")) {
+            this.devMode = false;
+        }
     }
 }
