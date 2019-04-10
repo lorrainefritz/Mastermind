@@ -3,6 +3,7 @@ package main.java;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 public class MoreOrLessGame extends GameMode {
     private boolean comparaison;
@@ -11,6 +12,8 @@ public class MoreOrLessGame extends GameMode {
     private String userResponse[];//tab utilisé pour le mode défenseur pour la réponse de l'utilisateur
     private String goodResponseComparaisonTab[]; // tab de comparaison contenant autant de = que la taille de la combinaison  dans le mode défenseur
     private int computerTabLength; // var qui contient la taille du tableau computerTab
+
+    private final static Logger logger = Logger.getLogger(MoreOrLessGame.class.getName());
 
     public MoreOrLessGame() {
         super(0, 0);
@@ -36,17 +39,22 @@ public class MoreOrLessGame extends GameMode {
 
 
     }
+    private void combinationAndTipsGestion(){
+        userCombination();
+        tipsGestion();
+        comparaison();
 
+    }
     @Override
     public GameMode challenger() { // mode de jeu challenger
+        combinationLengthGestion();//<=================
         numberOfTriesGestion();
         randomGestion();
+        secretCombinationOfRandomPrint();//pour l'affichage du secret
         int numbOfTries = getNumberOfTries();
         int j = 0;
         while (j < numbOfTries) {
-            userCombination();
-            tipsGestion();
-            comparaison();
+            combinationAndTipsGestion();
             if (isComparaison() == true) break;
             j++;
 
@@ -57,9 +65,10 @@ public class MoreOrLessGame extends GameMode {
 
 
 
-   public boolean defenderModeComparaisonManager() {
+
+    public boolean defenderModeComparaisonManager() {
         for (int i = 0; i < computerTabLength; i++) { // comparaison pour le mode défenseur
-            if (!goodResponseComparaisonTab[i].equals( userResponse[i])) {
+            if (!goodResponseComparaisonTab[i].equals(userResponse[i])) {
                 comparaison = false;
                 setComparaison(false);
                 return comparaison;
@@ -85,13 +94,13 @@ public class MoreOrLessGame extends GameMode {
             }
 
         } catch (InputMismatchException e) {
-            System.out.println("Merci de rentrer = + ou - ");
+            logger.warning("Merci de rentrer = + ou - ");
             userTips();
         } catch (NullPointerException e) {
-            System.out.println("Merci de rentrer = + ou - ");
+            logger.warning("Merci de rentrer = + ou - ");
             userTips();
         } catch (NumberFormatException e) {
-            System.out.println("Merci de rentrer = + ou -");
+            logger.warning("Merci de rentrer = + ou - ");
             userTips();
         }
 
@@ -107,14 +116,14 @@ public class MoreOrLessGame extends GameMode {
         goodResponseComparaisonTab = new String[computerTabLength];
         tabSolverHelper = new SolverHelper[computerTabLength];
 
-        for (int i =0; i<computerTabLength; i++){
+        for (int i = 0; i < computerTabLength; i++) {
             tabSolverHelper[i] = new SolverHelper();
-            goodResponseComparaisonTab[i]= "=";// on crée un tableau qui ne contiendra que des = et qui aura la même taillle que le tabSolverHelper[], cela pour pouvoir le comparer dans la méthode defenderModeComparaisonManager()
+            goodResponseComparaisonTab[i] = "=";// on crée un tableau qui ne contiendra que des = et qui aura la même taille que le tabSolverHelper[], cela pour pouvoir le comparer dans la méthode defenderModeComparaisonManager()
         }
         int j = 0;
         while (j < getNumberOfTries()) {
-            for (int i =0; i<computerTabLength; i++){
-                computerTab[i]= tabSolverHelper[i].guessNumber();
+            for (int i = 0; i < computerTabLength; i++) {
+                computerTab[i] = tabSolverHelper[i].guessNumber();
             }
             System.out.println("Voilà ma proposition");
             for (int i = 0; i < computerTabLength; i++) {
@@ -122,7 +131,7 @@ public class MoreOrLessGame extends GameMode {
             }
             System.out.println("\nVos indices svp (+ - ou =)");
             userTips();
-            for (int i =0; i<computerTabLength; i++) {
+            for (int i = 0; i < computerTabLength; i++) {
                 tabSolverHelper[i].analyse(userResponse[i]);
             }
             if (defenderModeComparaisonManager() == true) break;
@@ -135,7 +144,54 @@ public class MoreOrLessGame extends GameMode {
 
     @Override
     public GameMode duel() {
-        System.out.println("+-");
+        combinationLengthGestion();
+        numberOfTriesGestion();
+        randomGestion();
+        computerTabLength = getTabLength();
+        computerTab = new int[computerTabLength];
+        //----------------------------------------
+
+        goodResponseComparaisonTab = new String[computerTabLength];
+        tabSolverHelper = new SolverHelper[computerTabLength];
+
+        for (int i = 0; i < computerTabLength; i++) {
+            tabSolverHelper[i] = new SolverHelper();
+            goodResponseComparaisonTab[i] = "=";// on crée un tableau qui ne contiendra que des = et qui aura la même taille que le tabSolverHelper[],
+            // cela pour pouvoir le comparer dans la méthode defenderModeComparaisonManager()
+        }
+
+        int j = 0;
+        while (j < getNumberOfTries()) {
+            System.out.println("\ntour n°" + j+1);
+//----------------------------------------------------------------------------------------------------------------------------
+            System.out.println("tour utilisateur");
+            for (int i = 0; i < computerTabLength; i++) {
+                computerTab[i] = tabSolverHelper[i].guessNumber();
+            }
+            System.out.println("Voilà ma proposition");
+            for (int i = 0; i < computerTabLength; i++) {
+                System.out.print(computerTab[i]);
+            }
+            System.out.println("\nVos indices svp (+ - ou =)");
+            userTips();
+            for (int i = 0; i < computerTabLength; i++) {
+                tabSolverHelper[i].analyse(userResponse[i]);
+            }
+            if (defenderModeComparaisonManager() == true){
+                setComputerSucess(true);
+                break;
+            }
+//----------------------------------------------------------------------------------------------------------------
+            System.out.println("tour ordi");
+            secretCombinationOfRandomPrint();//pour l'affichage du secret
+            combinationAndTipsGestion();
+            if (isComparaison() == true){
+                setUserSucces(true);
+                break;
+            }
+
+            j++;
+        }
         return null;
     }
 }

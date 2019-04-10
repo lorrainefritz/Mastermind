@@ -3,6 +3,7 @@ package main.java;
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.logging.*;
 
 public abstract class GameMode {
     private int numberOfTries;
@@ -12,17 +13,25 @@ public abstract class GameMode {
     protected int tabUser[];
     private int tabLength;
     private boolean comparaison;
-    private int RANDOM_MAX;
+    private int RANDOM_MAX =10;//<=========================================================================
     private int RANDOM_MIN;
+    private int secretCombinationOfRandom[];
+    private boolean userSucces;
+    private boolean computerSucess;
 
-    public GameMode(int numberOfTries, int combinationLength) {
-        this.numberOfTries = numberOfTries;
-        this.combinationLength = combinationLength;
+   private final static Logger logger = Logger.getLogger(GameMode.class.getName());
+
+
+    public GameMode(/*int numberOfTries, int combinationLength*/ GameProperties gameProperties) {
+        this.numberOfTries = gameProperties.getNumbersOfTries() /*numberOfTries*/;
+        this.combinationLength = gameProperties.getGameLength() /*combinationLength*/  ;
+        //this.difficulty = gameProperties.getDifficulty()
+        // même chose pour le dev mode
         RANDOM_MAX=10;
         RANDOM_MIN=0;
     }
 
-    public GameMode(){}; // constructeur vide pour le MastermindDefender.....
+    public GameMode(int i, int i1){}; // constructeur vide pour le MastermindDefender.....
 
 
 
@@ -45,6 +54,7 @@ public abstract class GameMode {
     public void combinationLengthGestion() { // méthode qui gère la taille de la combinaison
         try {
             scanner = new Scanner(System.in);
+            /*logger.info("Entrez la taille souhaitée de combinaison :  de 4 min à 10 max");*/
             System.out.println("Entrez la taille souhaitée de combinaison :  de 4 min à 10 max");
             tabLength = scanner.nextInt();
             if (tabLength >= 4 && tabLength <= 10) {
@@ -53,13 +63,13 @@ public abstract class GameMode {
                 throw new InputMismatchException();
             }
         } catch (InputMismatchException e) {
-            System.out.println("Merci de rentrer un chiffre entre 4 et 10 svp ");
+            logger.warning("Merci de rentrer un chiffre entre 4 et 10 svp ");
             combinationLengthGestion();
         } catch (NullPointerException e) {
-            System.out.println("Merci de rentrer un chiffre entre 4 et 10 svp ");
+            logger.warning("Merci de rentrer un chiffre entre 4 et 10 svp ");
             combinationLengthGestion();
         } catch (NegativeArraySizeException e) {
-            System.out.println("Merci de rentrer un chiffre entre 4 et 10 svp ");
+            logger.warning("Merci de rentrer un chiffre entre 4 et 10 svp ");
 
         }
     }
@@ -70,16 +80,16 @@ public abstract class GameMode {
         System.out.println("Merci de rentrer le nombre voulu d'essais ");
         try {
             numberOfTries = scanner.nextInt();
-            if (numberOfTries < 1 || numberOfTries > 1000) {
+            if (numberOfTries < 1 || numberOfTries > 10000) {
                 throw new InputMismatchException();
             }
 
 
         } catch (InputMismatchException e) {
-            System.out.println("Merci de rentrer un chiffre entre 1 et 1000 ");
+            logger.warning("Merci de rentrer un chiffre entre 1 et 1000 ");
             numberOfTriesGestion();
         } catch (NullPointerException e) {
-            System.out.println("Merci de rentrer un chiffre ");
+            logger.warning("Merci de rentrer un chiffre ");
             numberOfTriesGestion();
         }
     }
@@ -110,13 +120,13 @@ public abstract class GameMode {
             }
 
         } catch (InputMismatchException e) {
-            System.out.println("Merci de rentrer un chiffre entre 0 et 9 svp ");
+            logger.warning("Merci de rentrer un chiffre entre 0 et 9 svp ");
             userCombination();
         } catch (NullPointerException e) {
-            System.out.println("Merci de rentrer un chiffre entre 0 et 9 svp ");
+            logger.warning("Merci de rentrer un chiffre entre 0 et 9 svp ");
             userCombination();
         } catch (NumberFormatException e) {
-            System.out.println("Merci de rentrer un nombre");
+            logger.warning("Merci de rentrer un nombre");
             userCombination();
         }
     }
@@ -135,13 +145,22 @@ public abstract class GameMode {
     }
 
     public void randomGestion() { // génère un tableau de random avec la taille de combinaison souhaitée par l'utili
-        combinationLengthGestion();
-        for (int i = 0; i < tabLength; i++) {
+       /* combinationLengthGestion();*/
+        secretCombinationOfRandom = new int[tabLength];
+        for (int i = 0; i < getTabLength(); i++) {
             tab[i] = randomCombination();
-            System.out.print(tab[i] + ", ");
+            secretCombinationOfRandom[i] = tab[i];// création d'une var tierce pour stocker la combinaison et s'en resservir au besoin
+           /* */
         }
 
 
+    }
+
+    public void secretCombinationOfRandomPrint(){
+        logger.info("Le secret généré par l'ordinateur : "); //<===================================================
+        for (int i =0; i<getTabLength(); i++){
+            System.out.print(secretCombinationOfRandom[i] + ", ");
+        }
     }
 
     public int[] getTab() {
@@ -220,6 +239,30 @@ public abstract class GameMode {
 
     public void setRandomMin(int randomMin) {
         this.RANDOM_MIN = randomMin;
+    }
+
+    public int[] getSecretCombinationOfRandom() {
+        return secretCombinationOfRandom;
+    }
+
+    public void setSecretCombinationOfRandom(int[] secretCombinationOfRandom) {
+        this.secretCombinationOfRandom = secretCombinationOfRandom;
+    }
+
+    public boolean isUserSucces() {
+        return userSucces;
+    }
+
+    public void setUserSucces(boolean userSucces) {
+        this.userSucces = userSucces;
+    }
+
+    public boolean isComputerSucess() {
+        return computerSucess;
+    }
+
+    public void setComputerSucess(boolean computerSucess) {
+        this.computerSucess = computerSucess;
     }
 }
 
