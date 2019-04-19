@@ -10,6 +10,11 @@ public class GameProperties {
 
     public GameProperties() {
         GameGetPropertyValues gameGetPropertyValues = new GameGetPropertyValues();
+        try {
+            gameGetPropertyValues.getPropValues();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         this.setDifficulty(gameGetPropertyValues.getDifficulty());
         this.setGameLength(gameGetPropertyValues.getGameLength());
         this.setNumbersOfTries(gameGetPropertyValues.getNumberOfTries());

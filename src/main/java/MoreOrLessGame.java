@@ -2,8 +2,9 @@ package main.java;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.Random;
 import java.util.Scanner;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 public class MoreOrLessGame extends GameMode {
     private boolean comparaison;
@@ -19,6 +20,15 @@ public class MoreOrLessGame extends GameMode {
         super(0, 0);
     }
 
+
+    @Override
+    public int randomCombination() {
+        { // génère un random entre 0 et 9
+            Random random = new Random();
+            return random.nextInt(10); // retourne un random dont le max est 10
+
+        }
+    }
 
     @Override
     public void tipsGestion() { // gestion des indices pour le mode challenger
@@ -50,7 +60,8 @@ public class MoreOrLessGame extends GameMode {
         combinationLengthGestion();//<=================
         numberOfTriesGestion();
         randomGestion();
-        secretCombinationOfRandomPrint();//pour l'affichage du secret
+        devMode();
+        /*secretCombinationOfRandomPrint();//pour l'affichage du secret*/
         int numbOfTries = getNumberOfTries();
         int j = 0;
         while (j < numbOfTries) {
@@ -94,13 +105,13 @@ public class MoreOrLessGame extends GameMode {
             }
 
         } catch (InputMismatchException e) {
-            logger.warning("Merci de rentrer = + ou - ");
+            logger.warn("Merci de rentrer = + ou - ");
             userTips();
         } catch (NullPointerException e) {
-            logger.warning("Merci de rentrer = + ou - ");
+            logger.warn("Merci de rentrer = + ou - ");
             userTips();
         } catch (NumberFormatException e) {
-            logger.warning("Merci de rentrer = + ou - ");
+            logger.warn("Merci de rentrer = + ou - ");
             userTips();
         }
 
@@ -162,7 +173,7 @@ public class MoreOrLessGame extends GameMode {
 
         int j = 0;
         while (j < getNumberOfTries()) {
-            System.out.println("\ntour n°" + j+1);
+            System.out.println("\ntour n°" + (j+1));
 //----------------------------------------------------------------------------------------------------------------------------
             System.out.println("tour utilisateur");
             for (int i = 0; i < computerTabLength; i++) {
@@ -183,7 +194,8 @@ public class MoreOrLessGame extends GameMode {
             }
 //----------------------------------------------------------------------------------------------------------------
             System.out.println("tour ordi");
-            secretCombinationOfRandomPrint();//pour l'affichage du secret
+            devMode();//pour l'affichage du secret
+            /*secretCombinationOfRandomPrint();*/
             combinationAndTipsGestion();
             if (isComparaison() == true){
                 setUserSucces(true);

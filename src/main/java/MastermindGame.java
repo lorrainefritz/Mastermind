@@ -1,10 +1,9 @@
 package main.java;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
-import java.util.logging.Logger;
+import java.io.IOException;
+import java.util.*;
+
+import org.apache.log4j.Logger;
 
 public class MastermindGame extends GameMode {
     private int number;
@@ -27,7 +26,23 @@ public class MastermindGame extends GameMode {
 
 
     public MastermindGame() {
-        super(0, 0);
+        super();
+        GameGetPropertyValues gpv= new GameGetPropertyValues();
+        try {
+            gpv.getPropValues();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        this.numberOfTries =  gpv.getNumberOfTries();
+        this.combinationLength = gpv.getGameLength()  ;
+        this.difficulty = gpv.getDifficulty();
+        this.devMode = gpv.getDevMode().equals("1");
+    }
+
+    @Override
+    public int randomCombination() {// génère un random entre 0 et 9
+            Random random = new Random();
+            return random.nextInt(difficulty); // retourne un random dont le max est 10
     }
 
     @Override
@@ -36,6 +51,7 @@ public class MastermindGame extends GameMode {
         combinationLengthGestion();
         numberOfTriesGestion();
         randomGestion();
+        devMode();
 
         int numbOfTries = getNumberOfTries();
         int j = 0;
@@ -95,22 +111,21 @@ public class MastermindGame extends GameMode {
 
     public void combinationNumberOfNumbers() { // méthode qui gère le nombre de chiffres utilisables pour le Mastermind
         try {
-            Scanner scan = new Scanner(System.in);
-            System.out.println("Entrez le maximum :  4 min à 10 max");
-            int response = scan.nextInt();
+
+            int response = combinationLength;
             if (response >= 4 && response <= 10) {
                 maxNumberOfNumbers = response;
             } else {
                 throw new InputMismatchException();
             }
         } catch (InputMismatchException e) {
-            logger.warning("Merci de rentrer un chiffre entre 4 et 10 svp ");
+            logger.warn("Merci de rentrer un chiffre entre 4 et 10 svp ");
             combinationLengthGestion();
         } catch (NullPointerException e) {
-            logger.warning("Merci de rentrer un chiffre entre 4 et 10 svp ");
+            logger.warn("Merci de rentrer un chiffre entre 4 et 10 svp ");
             combinationLengthGestion();
         } catch (NegativeArraySizeException e) {
-            logger.warning("Merci de rentrer un chiffre entre 4 et 10 svp ");
+            logger.warn("Merci de rentrer un chiffre entre 4 et 10 svp ");
 
         }
     }
@@ -131,7 +146,7 @@ public class MastermindGame extends GameMode {
             }
 
         } catch (InputMismatchException e) {
-            logger.warning("Merci de rentrer une solution de taille équivalente à la longueur de combinaison rentrée précédement : "
+            logger.warn("Merci de rentrer une solution de taille équivalente à la longueur de combinaison rentrée précédement : "
                     + getTabLength());
             secretGestion();
         }
@@ -195,7 +210,14 @@ public class MastermindGame extends GameMode {
 
     private void roundGestion() {
         System.out.println("tour : " + roundCounter);
-        System.out.print("Solution proposée : ");
+        insideOfRound();
+        roundCounter++;
+
+    }
+
+    private void insideOfRound(){
+        logger.info("Solution proposée : ");
+        /*System.out.print("Solution proposée : ");*/
         printFirst(list.get(0));
         int[] save = copySol(solution);
         saveProp = copySol(list.get(0));
@@ -207,11 +229,10 @@ public class MastermindGame extends GameMode {
         listSize = list.size();
         System.out.println("Bp : " + numberOfWritePlaced);
         System.out.println("MP : " + numberOfPresentNumbers);
-
-        System.out.println("taille de liste : " + listSize);
-        roundCounter++;
-
+        /*System.out.println("taille de liste : " + listSize);*/
     }
+
+
 
     private void listGestion() {
         if (sumWellPlacedAndMissPlaced == 0) {
@@ -652,7 +673,7 @@ public class MastermindGame extends GameMode {
             //--------------------------------------------------------------------------------------------
             System.out.println("tour utilisateur");
             for (; list.size() != 1; ) {
-                roundGestion();
+                insideOfRound();
 
                 if (defenderModeComparaisonManagerMastermind() == true) {
                     System.out.print("FIN la solution était : " /*+ endingSolution*/);
@@ -665,7 +686,7 @@ public class MastermindGame extends GameMode {
 
             //---------------------------------------------------------------------------------------------
             System.out.println("tour ordi");
-            secretCombinationOfRandomPrint();//pour l'affichage du secret
+            devMode();//pour l'affichage du secret
             combinationAndTipsGestion();
             if (isComparaison() == true) {
                 setUserSucces(true);
