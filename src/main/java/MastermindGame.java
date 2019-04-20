@@ -14,7 +14,6 @@ public class MastermindGame extends GameMode {
     private int maxNumberOfNumbers; // gère le max des chiffres utilisables (de 0 à 4/10)
     private List<int[]> list = new ArrayList<>();//utilisé pour le mode défenseur  une liste qui va nous permettre de gérer les solutions
     private List<List<Integer>> listOfList = new ArrayList<>();//utilisé pour le mode défenseur  une liste de liste qui va nous permettre de gérer les solutions
-    private int[] solution;//tab utilisé pour le mode défenseur pour recevoir la solution
     private int listSize;//utilisé pour le mode défenseur pour recevoir le nombre de liste de solutions
     private int numberOfWritePlaced; // compteur de chiffres bien placés
     private int numberOfPresentNumbers; // compteur des chiffres présent dans la combinaison mais mal placés
@@ -47,7 +46,7 @@ public class MastermindGame extends GameMode {
 
     @Override
     public GameMode challenger() {
-        System.out.println("challenger Mastermind");
+        logger.info("challenger Mastermind");
         combinationLengthGestion();
         numberOfTriesGestion();
         randomGestion();
@@ -105,8 +104,8 @@ public class MastermindGame extends GameMode {
         } else {
             setComparaison(false);
         }
-        System.out.println(numberOfWritePlaced + " nombre bien placés ");
-        System.out.println(numberOfPresentNumbers + " nombres présents ");
+        logger.info(numberOfWritePlaced + " nombre bien placés ");
+        logger.info(numberOfPresentNumbers + " nombres présents ");
     }
 
     public void combinationNumberOfNumbers() { // méthode qui gère le nombre de chiffres utilisables pour le Mastermind
@@ -132,25 +131,7 @@ public class MastermindGame extends GameMode {
 
     //----------------------------------------------------------------------------------------------------
 
-    private void secretGestion() {
-        System.out.println("Le secret");
-        Scanner scan = new Scanner(System.in);
-        try {
-            String sol = scan.nextLine();
-            if (sol.length() != getTabLength()) {
-                throw new InputMismatchException();
-            }
-            solution = new int[getTabLength()];
-            for (int i = 0; i < sol.length(); i++) {
-                solution[i] = Integer.parseInt(String.valueOf(sol.charAt(i)));
-            }
 
-        } catch (InputMismatchException e) {
-            logger.warn("Merci de rentrer une solution de taille équivalente à la longueur de combinaison rentrée précédement : "
-                    + getTabLength());
-            secretGestion();
-        }
-    }
 
     @Override
     public GameMode defender() {
@@ -175,7 +156,7 @@ public class MastermindGame extends GameMode {
             list.add(copySol(tab));
 
         }
-        solve(solution);
+        solve(getSolution());
 
         return null;
     }
@@ -209,7 +190,7 @@ public class MastermindGame extends GameMode {
     }
 
     private void roundGestion() {
-        System.out.println("tour : " + roundCounter);
+        logger.info("tour : " + roundCounter);
         insideOfRound();
         roundCounter++;
 
@@ -217,9 +198,8 @@ public class MastermindGame extends GameMode {
 
     private void insideOfRound(){
         logger.info("Solution proposée : ");
-        /*System.out.print("Solution proposée : ");*/
         printFirst(list.get(0));
-        int[] save = copySol(solution);
+        int[] save = copySol(getSolution());
         saveProp = copySol(list.get(0));
 
         /*userFeedBack();//<========================================*/
@@ -227,9 +207,8 @@ public class MastermindGame extends GameMode {
         numberOfPresentNumbers = countMissPlaced(list.get(0), save);
         sumWellPlacedAndMissPlaced = numberOfPresentNumbers + numberOfWritePlaced; //<=================================
         listSize = list.size();
-        System.out.println("Bp : " + numberOfWritePlaced);
-        System.out.println("MP : " + numberOfPresentNumbers);
-        /*System.out.println("taille de liste : " + listSize);*/
+        logger.info("Bp : " + numberOfWritePlaced);
+        logger.info("MP : " + numberOfPresentNumbers);
     }
 
 
@@ -285,7 +264,6 @@ public class MastermindGame extends GameMode {
 
                 if (defenderModeComparaisonManagerMastermind() == true) {
                     flag = true;
-                    System.out.print("FIN la solution était : " /*+ endingSolution*/);
                     setComputerSucess(true);
                     break;
                 }
@@ -336,9 +314,9 @@ public class MastermindGame extends GameMode {
 
     private void userFeedBack() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Nombre de bien placés :");
+        logger.info("Nombre de bien placés :");
         numberOfWritePlaced = scanner.nextInt();
-        System.out.println("Nombre de mal placés :");
+        logger.info("Nombre de mal placés :");
         numberOfPresentNumbers = scanner.nextInt();
     }
 
@@ -644,7 +622,7 @@ public class MastermindGame extends GameMode {
 
     @Override
     public GameMode duel() {
-        System.out.println("duel Mastermind");
+       logger.info("duel Mastermind");
 
         combinationLengthGestion();
         numberOfTriesGestion();
@@ -669,14 +647,13 @@ public class MastermindGame extends GameMode {
         //----------------------------------------------------------
         int j = 0;
         while (j < numbOfTries) {
-            System.out.println("\ntour n°" + (j + 1));
+           logger.info("\ntour n°" + (j + 1));
             //--------------------------------------------------------------------------------------------
-            System.out.println("tour utilisateur");
+            logger.info("tour utilisateur");
             for (; list.size() != 1; ) {
                 insideOfRound();
 
                 if (defenderModeComparaisonManagerMastermind() == true) {
-                    System.out.print("FIN la solution était : " /*+ endingSolution*/);
                     setComputerSucess(true);
                     return null;
                 }
@@ -685,7 +662,7 @@ public class MastermindGame extends GameMode {
             }
 
             //---------------------------------------------------------------------------------------------
-            System.out.println("tour ordi");
+           logger.info("tour ordi");
             devMode();//pour l'affichage du secret
             combinationAndTipsGestion();
             if (isComparaison() == true) {

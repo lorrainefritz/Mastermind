@@ -4,6 +4,7 @@ public class SolverHelper { // classe utilisée pour le mode défenseur du + ou 
     private int max;
     private int min;
     private int lastTry;
+   private static int counter;// compteur qui va jouer dans la triche
 
     public SolverHelper() {
         max = 10;
@@ -18,15 +19,31 @@ public class SolverHelper { // classe utilisée pour le mode défenseur du + ou 
     public void analyse(String s) { // méthode qui en fonction du type de retour (+ ou -) va augmenter ou diminuer min et max
         if (s.equals("+")) {
             min = lastTry;
+            if (min == lastTry && lastTry == 9) {// vérif triche
+                counter++;
+            }
+
         } else if (s.equals("-")) {
             max = lastTry;
+            if (min == lastTry && lastTry == 0) { // vérif  triche
+                counter++;
+            }
         } else {
             min = lastTry;
             max = lastTry;
+
         }
     }
 
     public int getLastTry() {
         return lastTry;
+    }
+
+    public int getCounter() {
+        return counter;
+    }
+
+    public void setCounter(int counter) {
+        this.counter = counter;
     }
 }

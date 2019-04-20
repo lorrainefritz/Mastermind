@@ -24,6 +24,8 @@ public abstract class GameMode {
     private boolean userSucces;
     private boolean computerSucess;
     protected boolean devMode;
+    private int[] solution;//tab utilisé pour le mode défenseur pour recevoir la solution
+    private boolean isCheating;// en cas de tricherie
 
 
     private final static Logger logger = Logger.getLogger(GameMode.class.getName());
@@ -71,8 +73,7 @@ public abstract class GameMode {
     public void combinationLengthGestion() { // méthode qui gère la taille de la combinaison
         GameProperties gp = new GameProperties();
         try {
-            /*logger.info("Entrez la taille souhaitée de combinaison :  de 4 min à 10 max");*/
-            /*  System.out.println("Entrez la taille souhaitée de combinaison :  de 4 min à 10 max");*/
+
             tabLength = gp.getGameLength();
             if (tabLength >= 4 && tabLength <= 10) {
                 tab = new int[tabLength];
@@ -94,7 +95,6 @@ public abstract class GameMode {
 
     public void numberOfTriesGestion() { // méthode qui gère le nombre d'essais
         GameProperties gp = new GameProperties();
-        /* System.out.println("Merci de rentrer le nombre voulu d'essais ");*/
         try {
             numberOfTries = gp.getNumbersOfTries();
             if (numberOfTries < 1 || numberOfTries > 10000) {
@@ -136,11 +136,6 @@ public abstract class GameMode {
         try {
             devMode = gp.isDevMode();
             if (devMode == true) {
-               /* for (int i = 0; i < getSecretCombinationOfRandom().length; i++) {
-                    secretCombination[i] = String.valueOf(secretCombinationOfRandom[i]);
-                }
-                *//*System.out.println("La combinaison secrète est : " + combination);*//*
-                logger.info("La combinaison secrète est : " +  Arrays.toString(secretCombination));*/
                 logger.info("La combinaison secrète est : ");
                 for (int i = 0; i < getTabLength(); i++) {
                     System.out.print(secretCombinationOfRandom[i] + ", ");
@@ -167,7 +162,7 @@ public abstract class GameMode {
     public void userCombination() { // méthode qui permet dans le mode challenger de recupérer la proposition de l'utilisateur
         scanner = new Scanner(System.in);
         try {
-            System.out.println("\nFaites votre propoposition");
+            logger.info("\nFaites votre propoposition");
             tabUser = new int[tabLength];
             String response = scanner.nextLine();
             if (response.length() != tabLength) {
@@ -186,6 +181,26 @@ public abstract class GameMode {
         } catch (NumberFormatException e) {
             logger.warn("Merci de rentrer un nombre");
             userCombination();
+        }
+    }
+
+    public void secretGestion() { // méthode qui permet de demander à l'utilisateur sa combinaison secrète
+        logger.info("Le secret");
+        Scanner scan = new Scanner(System.in);
+        try {
+            String sol = scan.nextLine();
+            if (sol.length() != getTabLength()) {
+                throw new InputMismatchException();
+            }
+            solution = new int[getTabLength()];
+            for (int i = 0; i < sol.length(); i++) {
+                solution[i] = Integer.parseInt(String.valueOf(sol.charAt(i)));
+            }
+
+        } catch (InputMismatchException e) {
+            logger.warn("Merci de rentrer une solution de taille équivalente à la longueur de combinaison rentrée précédement : "
+                    + getTabLength());
+            secretGestion();
         }
     }
 
@@ -208,20 +223,9 @@ public abstract class GameMode {
         for (int i = 0; i < getTabLength(); i++) {
             tab[i] = randomCombination();
             secretCombinationOfRandom[i] = tab[i];// création d'une var tierce pour stocker la combinaison et s'en resservir au besoin
-            /* */
         }
-
-
     }
 
-  /*  public void secretCombinationOfRandomPrint() {
-        logger.info("Le secret généré par l'ordinateur : "); //<===================================================
-        *//* System.out.println("Le secret généré par l'ordinateur : ");*//*
-
-        for (int i = 0; i < getTabLength(); i++) {
-            System.out.print(secretCombinationOfRandom[i] + ", ");
-        }
-    }*/
 
     public int[] getTab() {
         return tab;
@@ -326,7 +330,21 @@ public abstract class GameMode {
         this.computerSucess = computerSucess;
     }
 
+    public int[] getSolution() {
+        return solution;
+    }
 
+    public void setSolution(int[] solution) {
+        this.solution = solution;
+    }
+
+    public boolean isCheating() {
+        return isCheating;
+    }
+
+    public void setCheating(boolean cheating) {
+        isCheating = cheating;
+    }
 }
 
 

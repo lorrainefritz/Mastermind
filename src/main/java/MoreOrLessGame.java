@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
+
 import org.apache.log4j.Logger;
 
 public class MoreOrLessGame extends GameMode {
@@ -13,6 +14,8 @@ public class MoreOrLessGame extends GameMode {
     private String userResponse[];//tab utilisé pour le mode défenseur pour la réponse de l'utilisateur
     private String goodResponseComparaisonTab[]; // tab de comparaison contenant autant de = que la taille de la combinaison  dans le mode défenseur
     private int computerTabLength; // var qui contient la taille du tableau computerTab
+    private int counterForCheating;
+
 
     private final static Logger logger = Logger.getLogger(MoreOrLessGame.class.getName());
 
@@ -45,16 +48,18 @@ public class MoreOrLessGame extends GameMode {
                 setComparaison(false);
             }
         }
-        System.out.print(ret);
+        logger.info(ret);
 
 
     }
-    private void combinationAndTipsGestion(){
+
+    private void combinationAndTipsGestion() {
         userCombination();
         tipsGestion();
         comparaison();
 
     }
+
     @Override
     public GameMode challenger() { // mode de jeu challenger
         combinationLengthGestion();//<=================
@@ -73,8 +78,6 @@ public class MoreOrLessGame extends GameMode {
 
         return null;
     }
-
-
 
 
     public boolean defenderModeComparaisonManager() {
@@ -120,8 +123,10 @@ public class MoreOrLessGame extends GameMode {
     @Override
     public GameMode defender() {
         //INTRO
+
         combinationLengthGestion();
         numberOfTriesGestion();
+        secretGestion();
         computerTabLength = getTabLength();
         computerTab = new int[computerTabLength];
         goodResponseComparaisonTab = new String[computerTabLength];
@@ -133,19 +138,12 @@ public class MoreOrLessGame extends GameMode {
         }
         int j = 0;
         while (j < getNumberOfTries()) {
-            for (int i = 0; i < computerTabLength; i++) {
-                computerTab[i] = tabSolverHelper[i].guessNumber();
-            }
-            System.out.println("Voilà ma proposition");
-            for (int i = 0; i < computerTabLength; i++) {
-                System.out.print(computerTab[i]);
-            }
-            System.out.println("\nVos indices svp (+ - ou =)");
-            userTips();
-            for (int i = 0; i < computerTabLength; i++) {
-                tabSolverHelper[i].analyse(userResponse[i]);
-            }
-            if (defenderModeComparaisonManager() == true) break;
+            roundDefenderGestion();
+            propositionGestion();
+            if (isCheating() == true) {
+                logger.info("Cheater spotted!");
+                break;
+            } else if (defenderModeComparaisonManager() == true) break;
             j++;
         }
 
@@ -153,10 +151,37 @@ public class MoreOrLessGame extends GameMode {
         return null;
     }
 
+    private void roundDefenderGestion() {
+        for (int i = 0; i < computerTabLength; i++) {
+            computerTab[i] = tabSolverHelper[i].guessNumber();
+        }
+    }
+
+
+    private void propositionGestion() {
+        String string = new String();
+        logger.info("Voilà ma proposition");
+        for (int i = 0; i < computerTabLength; i++) {
+            logger.info(computerTab[i] + "");
+        }
+        logger.info("\nVos indices svp (+ - ou =)");
+        userTips();
+        for (int i = 0; i < computerTabLength; i++) {
+            tabSolverHelper[i].analyse(userResponse[i]);
+            counterForCheating = tabSolverHelper[i].getCounter();
+            int var = counterForCheating / getTabLength();
+            if (var >= 2) {
+                setCheating(true);
+            }
+        }
+    }
+
+
     @Override
     public GameMode duel() {
         combinationLengthGestion();
         numberOfTriesGestion();
+        secretGestion();
         randomGestion();
         computerTabLength = getTabLength();
         computerTab = new int[computerTabLength];
@@ -173,33 +198,28 @@ public class MoreOrLessGame extends GameMode {
 
         int j = 0;
         while (j < getNumberOfTries()) {
-            System.out.println("\ntour n°" + (j+1));
+            logger.info("\ntour n°" + (j + 1));
 //----------------------------------------------------------------------------------------------------------------------------
-            System.out.println("tour utilisateur");
-            for (int i = 0; i < computerTabLength; i++) {
-                computerTab[i] = tabSolverHelper[i].guessNumber();
-            }
-            System.out.println("Voilà ma proposition");
-            for (int i = 0; i < computerTabLength; i++) {
-                System.out.print(computerTab[i]);
-            }
-            System.out.println("\nVos indices svp (+ - ou =)");
-            userTips();
-            for (int i = 0; i < computerTabLength; i++) {
-                tabSolverHelper[i].analyse(userResponse[i]);
-            }
-            if (defenderModeComparaisonManager() == true){
+            logger.info("\ntour utilisateur");
+            roundDefenderGestion();
+            propositionGestion();
+            if (isCheating() == true) {
+                logger.info("Cheater Spotted!");
+                break;
+            } else if (defenderModeComparaisonManager() == true) {
                 setComputerSucess(true);
                 break;
             }
+
 //----------------------------------------------------------------------------------------------------------------
-            System.out.println("tour ordi");
-            devMode();//pour l'affichage du secret
-            /*secretCombinationOfRandomPrint();*/
-            combinationAndTipsGestion();
-            if (isComparaison() == true){
-                setUserSucces(true);
-                break;
+            if (isCheating() == false) {
+                logger.info("\ntour ordi");
+                devMode();//pour l'affichage du secret
+                combinationAndTipsGestion();
+                if (isComparaison() == true) {
+                    setUserSucces(true);
+                    break;
+                }
             }
 
             j++;

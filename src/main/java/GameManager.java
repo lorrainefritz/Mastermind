@@ -7,8 +7,8 @@ import org.apache.log4j.Logger;
 public class GameManager {
     private GameMode game;
     private int chooseGame;
-    int chooseMode;
-    boolean continueOrQuit;
+    private int chooseMode;
+    private boolean continueOrQuit;
     private final static Logger logger = Logger.getLogger(GameManager.class.getName());
 
 
@@ -25,9 +25,7 @@ public class GameManager {
         logger.info("                               Bienvenue sur le Mastermind ");
         logger.info("********************************************************************************************");
 
-       /* System.out.println("********************************************************************************************");
-        System.out.println("                               Bienvenue sur le Mastermind ");
-        System.out.println("********************************************************************************************");*/
+
 
     }
 
@@ -39,10 +37,7 @@ public class GameManager {
         logger.info("Veuillez choisir votre jeu");
         logger.info("1 - Plus ou Moins");
         logger.info("2 - Mastermind");
-/*
-        System.out.println("Veuillez choisir votre jeu");
-        System.out.println("1 - Plus ou Moins");
-        System.out.println("2 - Mastermind");*/
+
     }
 
     /**
@@ -53,12 +48,10 @@ public class GameManager {
         switch (nbOfGame) {
             case 1:
                 logger.info("Vous avez choisi le jeu du Plus ou moins");
-                /*System.out.println("Vous avez choisi le jeu du Plus ou moins");*/
                 game = new MoreOrLessGame();
                 return game;
             case 2:
                 logger.info("Vous avez choisi le jeu du Mastermind");
-                /*System.out.println("Vous avez choisi le jeu du Mastermind");*/
                 game = new MastermindGame();
                 return game;
             default:
@@ -77,11 +70,7 @@ public class GameManager {
         logger.info("2 - Défenseur");
         logger.info("3 - Duel");
 
-        /*System.out.println("Veuillez choisir votre mode de jeu");
-        System.out.println("1 - Challenger");
-        System.out.println("2 - Défenseur");
-        System.out.println("3 - Duel");
-*/
+
     }
 
     /**
@@ -92,16 +81,13 @@ public class GameManager {
         switch (nbOfMode) {
             case 1:
                 logger.info("Vous avez choisi le mode Challenger");
-                /*System.out.println("Vous avez choisi le mode Challenger");*/
                 return game.challenger();
 
             case 2:
                 logger.info("Vous avez choisi le mode Défenseur");
-                /*System.out.println("Vous avez choisi le mode Défenseur");*/
                 return game.defender();
             case 3:
                 logger.info("Vous avez choisi le mode Duel");
-                /*System.out.println("Vous avez choisi le mode Duel");*/
                 return game.duel();
             default:
                 logger.warn("hey! Mais ce mode de jeu n'a pas encore été programmé ;) merci de saisir 1  2 ou 3... ");
@@ -133,36 +119,34 @@ public class GameManager {
         if (chooseMode==1) {
             if (game.isComparaison() == true) {
                 logger.info("\nBravo tu as gagné! ☺ ♫");
-                /*System.out.println("\nBravo tu as gagné! ☺ ♫");*/
             } else {
                 logger.info("\nPas de chance");
-                /*System.out.println("\nPas de chance");*/
             }
         } else if (chooseMode==2){
             if (game.isComparaison()== true){
                 logger.info("\n\\o/ youpi j'ai trouvé ☺ ♫");
-                /*System.out.println("\n\\o/ youpi j'ai trouvé ☺ ♫");*/
-            } else {
+            } else if (game.isCheating()==true){
+                logger.info("\nTricher c'est mal ! ");
+            }
+            else {
                 logger.info("\nPas de chance je ferais mieux la prochaine fois!");
-                /*System.out.println("\nPas de chance je ferais mieux la prochaine fois!");*/
             }
         } else if (chooseMode==3){
             if (game.isUserSucces()==true){
                 logger.info("\nBravo tu as gagné! ☺ ♫");
-               /* System.out.println("\nBravo tu as gagné! ☺ ♫");*/
             } else if (game.isComputerSucess() == true){
                 logger.info("\n\\o/ youpi j'ai trouvé ☺ ♫");
-                /*System.out.println("\n\\o/ youpi j'ai trouvé ☺ ♫");*/
-            } else {
+            }else if (game.isCheating()==true){
+                logger.info("\nTricher c'est mal ! ");
+            }
+            else {
                 logger.info("Match nul ☺ ");
-                /*System.out.println("Match nul ☺ ");*/
             }
         }
     }
 
     private void continueOrQuit() { // méthode qui gère le continue ou quitter de fin
         logger.info("Voulez vous continuer? 1 : continuer 2 : quitter ");
-        /*System.out.println("Voulez vous continuer? 1 : continuer 2 : quitter ");*/
         Scanner scanner = new Scanner(System.in);
         try {
 
