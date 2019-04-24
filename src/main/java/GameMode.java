@@ -1,25 +1,21 @@
 package main.java;
 
 import org.apache.log4j.Logger;
-
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.InputMismatchException;
-import java.util.Random;
 import java.util.Scanner;
 
 
 public abstract class GameMode {
-    private int numberOfTries;
-    protected int combinationLength;
+    private int numberOfTries; // contient le nombre d'essais
+    protected int combinationLength; // contient la taille de combinaison
     private Scanner scanner;
-    protected int tab[];
-    protected int tabUser[];
-    private int tabLength;
-    private boolean comparaison;
-    protected int difficulty;
-    /* private int RANDOM_MAX =10;//<=========================================================================*/
-    private int RANDOM_MIN;
+    protected int tab[];  // tableau contenaire CAD qui permet la recupération de certaines données
+    protected int tabUser[];// tableau de combinaison utilisateur
+    private int tabLength;  // taille de combinaison
+    private boolean comparaison; // utilisé pour l'affichage de la phrase de fin
+    protected int difficulty; // contient la difficulté/ le max de la combinaison
+    private int RANDOM_MIN; // le minimum de la combinaison
     protected int secretCombinationOfRandom[];
     private boolean userSucces;
     private boolean computerSucess;
@@ -47,8 +43,6 @@ public abstract class GameMode {
 
     public GameMode(int i, int i1) {
     }
-
-    ;
 
     public GameMode() {
 
@@ -131,7 +125,7 @@ public abstract class GameMode {
 
     }
 
-    public void devMode() {
+    public void devMode() { // méthode qui gère le mode Dev => CAD Qui affiche la combinaison générée par l'ordinateur
         GameProperties gp = new GameProperties();
         try {
             devMode = gp.isDevMode();
@@ -141,9 +135,7 @@ public abstract class GameMode {
                     System.out.print(secretCombinationOfRandom[i] + ", ");
                 }
 
-
             }
-
 
         } catch (InputMismatchException e) {
             logger.warn("Merci de rentrer un chiffre valide");
@@ -151,7 +143,6 @@ public abstract class GameMode {
             logger.warn("Merci de rentrer un chiffre");
         }
     }
-
 
     public void tipsGestion() {
 
@@ -162,14 +153,14 @@ public abstract class GameMode {
     public void userCombination() { // méthode qui permet dans le mode challenger de recupérer la proposition de l'utilisateur
         scanner = new Scanner(System.in);
         try {
-            logger.info("\nFaites votre propoposition");
+            logger.info("\nFais ta proposition");
             tabUser = new int[tabLength];
             String response = scanner.nextLine();
             if (response.length() != tabLength) {
                 throw new InputMismatchException();
             }
             for (int i = 0; i < response.length(); i++) {
-                tabUser[i] = Integer.parseInt(new String(String.valueOf(response.charAt(i))));
+                tabUser[i] = Integer.parseInt(String.valueOf(response.charAt(i)));
             }
 
         } catch (InputMismatchException e) {
@@ -218,7 +209,6 @@ public abstract class GameMode {
     }
 
     public void randomGestion() { // génère un tableau de random avec la taille de combinaison souhaitée par l'utili
-        /* combinationLengthGestion();*/
         secretCombinationOfRandom = new int[tabLength];
         for (int i = 0; i < getTabLength(); i++) {
             tab[i] = randomCombination();
@@ -226,52 +216,10 @@ public abstract class GameMode {
         }
     }
 
-
-    public int[] getTab() {
-        return tab;
-    }
-
-    public void setTab(int[] tab) {
-        this.tab = tab;
-    }
-
-    //recup élément précis du tableau tableau de random
-    public int getElementFromTabAt(int position) {
-        return tab[position];
-    }
-
-    //sett un élément précis du tableau tab de random
-    public void setElementFromTabAt(int position, int value) {
-        tab[position] = value;
-    }
-
-
-    public int[] getTabUser() {
-        return tabUser;
-    }
-
-    public void setTabUser(int[] tabUser) {
-        this.tabUser = tabUser;
-    }
-
-    //recup élément précis du tableau User
-    public int getElementFromTabUserAt(int position) {
-        return tabUser[position];
-    }
-
-    //sett un élément précis du tableau User
-    public void setElementFromTabUserAt(int position, int value) {
-        tabUser[position] = value;
-    }
-
-
     public int getTabLength() {
         return tabLength;
     }
 
-    public void setTabLength(int tabLength) {
-        this.tabLength = tabLength;
-    }
 
     public boolean isComparaison() {
         return comparaison;
@@ -285,34 +233,6 @@ public abstract class GameMode {
         return numberOfTries;
     }
 
-    public void setNumberOfTries(int numberOfTries) {
-        this.numberOfTries = numberOfTries;
-    }
-
-
-    public int getDifficulty() {
-        return difficulty;
-    }
-
-    public void setDifficulty(int difficulty) {
-        this.difficulty = difficulty;
-    }
-
-    public int getRandomMin() {
-        return RANDOM_MIN;
-    }
-
-    public void setRandomMin(int randomMin) {
-        this.RANDOM_MIN = randomMin;
-    }
-
-    public int[] getSecretCombinationOfRandom() {
-        return secretCombinationOfRandom;
-    }
-
-    public void setSecretCombinationOfRandom(int[] secretCombinationOfRandom) {
-        this.secretCombinationOfRandom = secretCombinationOfRandom;
-    }
 
     public boolean isUserSucces() {
         return userSucces;
@@ -332,10 +252,6 @@ public abstract class GameMode {
 
     public int[] getSolution() {
         return solution;
-    }
-
-    public void setSolution(int[] solution) {
-        this.solution = solution;
     }
 
     public boolean isCheating() {

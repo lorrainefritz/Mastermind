@@ -12,9 +12,9 @@ public class MoreOrLessGame extends GameMode {
     private int computerTab[]; //tab utilisé pour le mode défenseur pour générer la réponse de l'ordinateur
     private SolverHelper tabSolverHelper[]; // tableau d'objets du type SolverHelper => ces objets ont un min un max et un lastTry qui var en fonction du retour utilisateur
     private String userResponse[];//tab utilisé pour le mode défenseur pour la réponse de l'utilisateur
-    private String goodResponseComparaisonTab[]; // tab de comparaison contenant autant de = que la taille de la combinaison  dans le mode défenseur
+    private String goodResponseComparaisonTab[]; // tab de comparaison contenant autant de = que la taille de la combinaison dans le mode défenseur
     private int computerTabLength; // var qui contient la taille du tableau computerTab
-    private int counterForCheating;
+    private int counterForCheating;// var qui va intervenir dans la méthode pour gérer certaines tentatives de tricherie.
 
 
     private final static Logger logger = Logger.getLogger(MoreOrLessGame.class.getName());
@@ -25,11 +25,10 @@ public class MoreOrLessGame extends GameMode {
 
 
     @Override
-    public int randomCombination() {
-        { // génère un random entre 0 et 9
+    public int randomCombination() {// méthode génère un random entre 0 et 9
+        {
             Random random = new Random();
             return random.nextInt(10); // retourne un random dont le max est 10
-
         }
     }
 
@@ -49,11 +48,9 @@ public class MoreOrLessGame extends GameMode {
             }
         }
         logger.info(ret);
-
-
     }
 
-    private void combinationAndTipsGestion() {
+    private void combinationAndTipsGestion() {// méthode qui permet de condenser un groupe de méthode pour dupliquer un peu moins de code dans le mode duel
         userCombination();
         tipsGestion();
         comparaison();
@@ -62,26 +59,25 @@ public class MoreOrLessGame extends GameMode {
 
     @Override
     public GameMode challenger() { // mode de jeu challenger
-        combinationLengthGestion();//<=================
+        //INTRO
+        combinationLengthGestion();
         numberOfTriesGestion();
         randomGestion();
         devMode();
-        /*secretCombinationOfRandomPrint();//pour l'affichage du secret*/
         int numbOfTries = getNumberOfTries();
         int j = 0;
+        //DEROULEMENT DU JEU
         while (j < numbOfTries) {
             combinationAndTipsGestion();
             if (isComparaison() == true) break;
             j++;
-
         }
-
         return null;
     }
 
 
-    public boolean defenderModeComparaisonManager() {
-        for (int i = 0; i < computerTabLength; i++) { // comparaison pour le mode défenseur
+    public boolean defenderModeComparaisonManager() {// comparaison entre la réponse et du retour utilisateur pour le mode défenseur
+        for (int i = 0; i < computerTabLength; i++) {
             if (!goodResponseComparaisonTab[i].equals(userResponse[i])) {
                 comparaison = false;
                 setComparaison(false);
@@ -92,7 +88,7 @@ public class MoreOrLessGame extends GameMode {
         return true;
     }
 
-    public void userTips() { // recupération gestion des tips de l'utilisateur
+    public void userTips() { // méthode qui gère les indices de l'utilisateur
         Scanner sc = new Scanner(System.in);
         userResponse = new String[getTabLength()];
         try {
@@ -101,12 +97,11 @@ public class MoreOrLessGame extends GameMode {
                 throw new InputMismatchException();
             }
             for (int i = 0; i < userResponse.length; i++) {
-                userResponse[i] = new String(String.valueOf(response.charAt(i)));
+                userResponse[i] = String.valueOf(response.charAt(i));
                 if (!response.contains("=") && !response.contains("+") && !response.contains("-")) {// filtrage des tips utilisateur
                     throw new InputMismatchException();
                 }
             }
-
         } catch (InputMismatchException e) {
             logger.warn("Merci de rentrer = + ou - ");
             userTips();
@@ -121,9 +116,8 @@ public class MoreOrLessGame extends GameMode {
     }
 
     @Override
-    public GameMode defender() {
+    public GameMode defender() { // mode défenseur
         //INTRO
-
         combinationLengthGestion();
         numberOfTriesGestion();
         secretGestion();
@@ -137,6 +131,7 @@ public class MoreOrLessGame extends GameMode {
             goodResponseComparaisonTab[i] = "=";// on crée un tableau qui ne contiendra que des = et qui aura la même taille que le tabSolverHelper[], cela pour pouvoir le comparer dans la méthode defenderModeComparaisonManager()
         }
         int j = 0;
+        //DEROULEMENT DU JEU
         while (j < getNumberOfTries()) {
             roundDefenderGestion();
             propositionGestion();
@@ -146,25 +141,21 @@ public class MoreOrLessGame extends GameMode {
             } else if (defenderModeComparaisonManager() == true) break;
             j++;
         }
-
-
         return null;
     }
 
-    private void roundDefenderGestion() {
+    private void roundDefenderGestion() {// méthode qui gère le contenu de chaque round du mode défenseur
         for (int i = 0; i < computerTabLength; i++) {
             computerTab[i] = tabSolverHelper[i].guessNumber();
         }
     }
 
-
-    private void propositionGestion() {
-        String string = new String();
+    private void propositionGestion() { // méthode qui gère les propositions de l'ordinateur et les indices utilisateurs
         logger.info("Voilà ma proposition");
         for (int i = 0; i < computerTabLength; i++) {
-            logger.info(computerTab[i] + "");
+            System.out.print(computerTab[i] + "|");
         }
-        logger.info("\nVos indices svp (+ - ou =)");
+        logger.info("\nTes indices stp (+ - ou =)");
         userTips();
         for (int i = 0; i < computerTabLength; i++) {
             tabSolverHelper[i].analyse(userResponse[i]);
@@ -176,30 +167,27 @@ public class MoreOrLessGame extends GameMode {
         }
     }
 
-
     @Override
-    public GameMode duel() {
+    public GameMode duel() {// mode duel
+        //INTRO
         combinationLengthGestion();
         numberOfTriesGestion();
         secretGestion();
         randomGestion();
         computerTabLength = getTabLength();
         computerTab = new int[computerTabLength];
-        //----------------------------------------
-
         goodResponseComparaisonTab = new String[computerTabLength];
         tabSolverHelper = new SolverHelper[computerTabLength];
-
         for (int i = 0; i < computerTabLength; i++) {
             tabSolverHelper[i] = new SolverHelper();
             goodResponseComparaisonTab[i] = "=";// on crée un tableau qui ne contiendra que des = et qui aura la même taille que le tabSolverHelper[],
             // cela pour pouvoir le comparer dans la méthode defenderModeComparaisonManager()
         }
-
         int j = 0;
+        //DEROULEMENT DU JEU
         while (j < getNumberOfTries()) {
             logger.info("\ntour n°" + (j + 1));
-//----------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------
             logger.info("\ntour utilisateur");
             roundDefenderGestion();
             propositionGestion();
@@ -210,8 +198,7 @@ public class MoreOrLessGame extends GameMode {
                 setComputerSucess(true);
                 break;
             }
-
-//----------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------
             if (isCheating() == false) {
                 logger.info("\ntour ordi");
                 devMode();//pour l'affichage du secret
@@ -221,7 +208,6 @@ public class MoreOrLessGame extends GameMode {
                     break;
                 }
             }
-
             j++;
         }
         return null;

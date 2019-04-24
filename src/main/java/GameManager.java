@@ -2,56 +2,40 @@ package main.java;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
 import org.apache.log4j.Logger;
 
 public class GameManager {
     private GameMode game;
-    private int chooseGame;
-    private int chooseMode;
+    private int chooseGame; // contient le choix du jeu
+    private int chooseMode; // contient le choix du mode
     private boolean continueOrQuit;
     private final static Logger logger = Logger.getLogger(GameManager.class.getName());
 
-
     public GameManager() {
-
     }
-
-    /**
-     * Display Intro
-     */
 
     private void displayIntroduction() {
         logger.info("********************************************************************************************");
         logger.info("                               Bienvenue sur le Mastermind ");
         logger.info("********************************************************************************************");
-
-
-
     }
 
-    /**
-     * Display all available Games
-     */
-
     private void displayAvailableGames() {// méthode qui affiche les différents types de jeux disponibles
-        logger.info("Veuillez choisir votre jeu");
+        logger.info("Choisis ton jeu");
         logger.info("1 - Plus ou Moins");
         logger.info("2 - Mastermind");
 
     }
 
-    /**
-     * Display a selected Game
-     */
-
-    private GameMode chooseGame(int nbOfGame) { // retour sur le type de jeu choisit
+    private GameMode chooseGame(int nbOfGame) { // retour sur le type de jeu qui a été choisi
         switch (nbOfGame) {
             case 1:
-                logger.info("Vous avez choisi le jeu du Plus ou moins");
+                logger.info("Tu as choisi le jeu du Plus ou moins");
                 game = new MoreOrLessGame();
                 return game;
             case 2:
-                logger.info("Vous avez choisi le jeu du Mastermind");
+                logger.info("Tu as choisi le jeu du Mastermind");
                 game = new MastermindGame();
                 return game;
             default:
@@ -60,12 +44,8 @@ public class GameManager {
         }
     }
 
-    /**
-     * Display all available Modes
-     */
-
     private void displayAvailableModes() { // affiche les différents modes de jeux disponibles
-        logger.info("Veuillez choisir votre mode de jeu");
+        logger.info("Choisis ton mode de jeu");
         logger.info("1 - Challenger");
         logger.info("2 - Défenseur");
         logger.info("3 - Duel");
@@ -73,21 +53,17 @@ public class GameManager {
 
     }
 
-    /**
-     * Display selected Game Mode
-     */
-
-    private GameMode chooseMode(int nbOfMode) { // retour sur le mode de jeu choisit
+    private GameMode chooseMode(int nbOfMode) { // retour sur le mode de jeu qui a été choisi
         switch (nbOfMode) {
             case 1:
-                logger.info("Vous avez choisi le mode Challenger");
+                logger.info("Tu as choisi le mode Challenger");
                 return game.challenger();
 
             case 2:
-                logger.info("Vous avez choisi le mode Défenseur");
+                logger.info("Tu as choisi le mode Défenseur");
                 return game.defender();
             case 3:
-                logger.info("Vous avez choisi le mode Duel");
+                logger.info("Tu as choisi le mode Duel");
                 return game.duel();
             default:
                 logger.warn("hey! Mais ce mode de jeu n'a pas encore été programmé ;) merci de saisir 1  2 ou 3... ");
@@ -115,38 +91,36 @@ public class GameManager {
         }
     }
 
-    private void displayEnding() { // méthode qui gère la phrase de fin en fonction du type de jeu et en fonction de la réussite ou non
-        if (chooseMode==1) {
+    private void displayEnding() { // méthode qui affiche une phrase de fin
+        if (chooseMode == 1) {
             if (game.isComparaison() == true) {
                 logger.info("\nBravo tu as gagné! ☺ ♫");
             } else {
                 logger.info("\nPas de chance");
             }
-        } else if (chooseMode==2){
-            if (game.isComparaison()== true){
+        } else if (chooseMode == 2) {
+            if (game.isComparaison() == true) {
                 logger.info("\n\\o/ youpi j'ai trouvé ☺ ♫");
-            } else if (game.isCheating()==true){
+            } else if (game.isCheating() == true) {
                 logger.info("\nTricher c'est mal ! ");
-            }
-            else {
+            } else {
                 logger.info("\nPas de chance je ferais mieux la prochaine fois!");
             }
-        } else if (chooseMode==3){
-            if (game.isUserSucces()==true){
+        } else if (chooseMode == 3) {
+            if (game.isUserSucces() == true) {
                 logger.info("\nBravo tu as gagné! ☺ ♫");
-            } else if (game.isComputerSucess() == true){
+            } else if (game.isComputerSucess() == true) {
                 logger.info("\n\\o/ youpi j'ai trouvé ☺ ♫");
-            }else if (game.isCheating()==true){
+            } else if (game.isCheating() == true) {
                 logger.info("\nTricher c'est mal ! ");
-            }
-            else {
+            } else {
                 logger.info("Match nul ☺ ");
             }
         }
     }
 
     private void continueOrQuit() { // méthode qui gère le continue ou quitter de fin
-        logger.info("Voulez vous continuer? 1 : continuer 2 : quitter ");
+        logger.info("Veux-tu continuer? 1 : continuer 2 : quitter ");
         Scanner scanner = new Scanner(System.in);
         try {
 

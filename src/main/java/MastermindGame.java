@@ -26,34 +26,34 @@ public class MastermindGame extends GameMode {
 
     public MastermindGame() {
         super();
-        GameGetPropertyValues gpv= new GameGetPropertyValues();
+        GameGetPropertyValues gpv = new GameGetPropertyValues();
         try {
             gpv.getPropValues();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.numberOfTries =  gpv.getNumberOfTries();
-        this.combinationLength = gpv.getGameLength()  ;
+        this.numberOfTries = gpv.getNumberOfTries();
+        this.combinationLength = gpv.getGameLength();
         this.difficulty = gpv.getDifficulty();
         this.devMode = gpv.getDevMode().equals("1");
     }
 
     @Override
     public int randomCombination() {// génère un random entre 0 et 9
-            Random random = new Random();
-            return random.nextInt(difficulty); // retourne un random dont le max est 10
+        Random random = new Random();
+        return random.nextInt(difficulty); // retourne un random dont le max est 10
     }
 
     @Override
-    public GameMode challenger() {
-        logger.info("challenger Mastermind");
+    public GameMode challenger() { // gère le mode challenger
+        //INTRO//
         combinationLengthGestion();
         numberOfTriesGestion();
         randomGestion();
         devMode();
-
         int numbOfTries = getNumberOfTries();
         int j = 0;
+        //DEROULEMENT DU JEU
         while (j < numbOfTries) {
             combinationAndTipsGestion();
             if (isComparaison() == true) break;
@@ -63,11 +63,10 @@ public class MastermindGame extends GameMode {
     }
 
     private void combinationAndTipsGestion() {
-        userCombination();
-        tipsGestion();
-        comparaison();
+        userCombination(); // gère la combinaison utilisateur
+        tipsGestion(); // gère les indices
+        comparaison(); // comparaison tab utilisateur versus tab combinaison secrète
     }
-
 
     @Override
     public void tipsGestion() { // gestion des indices
@@ -76,41 +75,34 @@ public class MastermindGame extends GameMode {
         ArrayList<Integer> numbersAlreadyCount = new ArrayList<>();
         ArrayList<Integer> indexOfWritePlaced = new ArrayList<>();
         for (int i = 0; i < getTabLength(); i++) {
-
             if (tabUser[i] == tab[i]) {
                 numberOfWritePlaced++;
                 indexOfWritePlaced.add(i);
-
             }
         }
         for (int j = 0; j < getTabLength(); j++) {
-
             for (int k = 0; k < getTabLength(); k++) {
-
                 if (!indexOfWritePlaced.contains(j) && !indexOfWritePlaced.contains(k) && tab[j] == tabUser[k]) {
                     number = tabUser[k];
                     while (!numbersAlreadyCount.contains(number)) {
                         numbersAlreadyCount.add(number);
                         numberOfPresentNumbers++;
                     }
-
                     break;
                 }
             }
         }
-
         if (numberOfWritePlaced == getTabLength()) {
             setComparaison(true);
         } else {
             setComparaison(false);
         }
-        logger.info(numberOfWritePlaced + " nombre bien placés ");
-        logger.info(numberOfPresentNumbers + " nombres présents ");
+        logger.info(numberOfWritePlaced + " chiffres bien placés ");
+        logger.info(numberOfPresentNumbers + " chiffres présents ");
     }
 
-    public void combinationNumberOfNumbers() { // méthode qui gère le nombre de chiffres utilisables pour le Mastermind
+    private void combinationNumberOfNumbers() { // méthode qui gère le nombre de chiffres utilisables pour le Mastermind
         try {
-
             int response = combinationLength;
             if (response >= 4 && response <= 10) {
                 maxNumberOfNumbers = response;
@@ -118,34 +110,30 @@ public class MastermindGame extends GameMode {
                 throw new InputMismatchException();
             }
         } catch (InputMismatchException e) {
-            logger.warn("Merci de rentrer un chiffre entre 4 et 10 svp ");
+            logger.warn("Merci de rentrer un chiffre entre 4 et 10 stp ");
             combinationLengthGestion();
         } catch (NullPointerException e) {
-            logger.warn("Merci de rentrer un chiffre entre 4 et 10 svp ");
+            logger.warn("Merci de rentrer un chiffre entre 4 et 10 stp ");
             combinationLengthGestion();
         } catch (NegativeArraySizeException e) {
-            logger.warn("Merci de rentrer un chiffre entre 4 et 10 svp ");
-
+            logger.warn("Merci de rentrer un chiffre entre 4 et 10 stp ");
         }
     }
 
     //----------------------------------------------------------------------------------------------------
 
 
-
     @Override
-    public GameMode defender() {
+    public GameMode defender() { // gère le mode défenseur
         //INTRO//
-
         combinationLengthGestion();
         numberOfTriesGestion();
         combinationNumberOfNumbers();
         secretGestion();
-
-
         roundCounter = 1; // commence à 1 pour les besoin de la méthode analyse dans SolverHelperMastermind
         computerTabLength = getTabLength();
         numberOfTries = getNumberOfTries();
+        // Partie qui permet de générer toutes les listes combinaisons possibles
         int[] tab = initTab();
         list.add(copySol(tab));
         for (; isFinished(tab); ) {
@@ -189,73 +177,68 @@ public class MastermindGame extends GameMode {
         }
     }
 
-    private void roundGestion() {
+    private void roundGestion() { //gestion  des rounds de jeu avec le compteur
         logger.info("tour : " + roundCounter);
         insideOfRound();
         roundCounter++;
-
     }
-
-    private void insideOfRound(){
-        logger.info("Solution proposée : ");
+// pour comptage auto des BP /MP  de-commenter lignes 189...
+    private void insideOfRound() {  // intérieur du round en lui même. Cette option a été adoptée pour pouvoir être appelée seule dans le mode duel
+        logger.info("Voilà ma proposition : ");
         printFirst(list.get(0));
-        int[] save = copySol(getSolution());
+        /*  int[] save = copySol(getSolution());*///<===================================================== à sweetcher pour le comptage automatique BP MP
         saveProp = copySol(list.get(0));
-
-        /*userFeedBack();//<========================================*/
-        numberOfWritePlaced = countWellPlaced(list.get(0), save);
-        numberOfPresentNumbers = countMissPlaced(list.get(0), save);
-        sumWellPlacedAndMissPlaced = numberOfPresentNumbers + numberOfWritePlaced; //<=================================
+        userFeedBack();//<======================================================= à sweetcher pour le retour utilisateur
+/*      numberOfWritePlaced = countWellPlaced(list.get(0), save); //<===================================== à sweetcher pour le comptage automatique BP MP
+        numberOfPresentNumbers = countMissPlaced(list.get(0), save);*///<================================= à sweetcher pour le comptage automatique BP MP
+        sumWellPlacedAndMissPlaced = numberOfPresentNumbers + numberOfWritePlaced;
         listSize = list.size();
-        logger.info("Bp : " + numberOfWritePlaced);
-        logger.info("MP : " + numberOfPresentNumbers);
+        /*logger.info("Bp : " + numberOfWritePlaced);//<================================================== à sweetcher pour le comptage automatique BP MP
+        logger.info("MP : " + numberOfPresentNumbers);*///<=============================================== à sweetcher pour le comptage automatique BP MP
     }
 
-
-
-    private void listGestion() {
+    private void listGestion() { // méthode qui permet de gérer toutes les listes de solutions
         if (sumWellPlacedAndMissPlaced == 0) {
             filterList(saveProp);
-            // supr toutes les listes qui ont un pt commun
+            // supprime toutes les listes qui ont un point commun avec la solution proposée précédemment
         } else if (sumWellPlacedAndMissPlaced == 1) {
-            //prevoir méthode qui extrait de la liste toutes les combinaisons qui ont au - un nb en commun
             extractWhenSimilarPoint(saveProp);
+            // supprime toutes les listes qui ont un duos de chiffre en commun
         } else if (sumWellPlacedAndMissPlaced == 2) {
-            // extraire tous les duos de nb contenu dedans
             extractPair(extractIngerList(saveProp));
             filterList(2);
+            // supprime toutes les listes qui ont un ensemble de 3 chiffres en commun
         } else if (sumWellPlacedAndMissPlaced == 3) {
-            // extraire tous les trio de nb contenu dedans
             extractTrio(extractIngerList(saveProp));
             filterList(3);
+            // supprime toutes les listes qui ont un ensemble de 4 chiffres en commun
         } else if (sumWellPlacedAndMissPlaced == 4) {
-
             extractQuatuor(extractIngerList(saveProp));
             filterList(4);
+            // supprime toutes les listes qui ont un ensemble de 5 chiffres en commun
         } else if (sumWellPlacedAndMissPlaced == 5) {
-
             extractQuinte(extractIngerList(saveProp));
             filterList(5);
+            // supprime toutes les listes qui ont un ensemble de 6 chiffres en commun
         } else if (sumWellPlacedAndMissPlaced == 6) {
-
             extractSixte(extractIngerList(saveProp));
             filterList(6);
+            // supprime toutes les listes qui ont un ensemble de 7 chiffres en commun
         } else if (sumWellPlacedAndMissPlaced == 7) {
-
             extractSeptuor(extractIngerList(saveProp));
             filterList(7);
+            // supprime toutes les listes qui ont un ensemble de 8 chiffres en commun
         } else if (sumWellPlacedAndMissPlaced == 8) {
-
             extractOctuor(extractIngerList(saveProp));
             filterList(8);
+            // supprime toutes les listes qui ont un ensemble de 9 chiffres en commun
         } else if (sumWellPlacedAndMissPlaced == 9) {
-
             extractNonet(extractIngerList(saveProp));
             filterList(9);
         }
     }
 
-    private void solve(int[] tabSol) {
+    private void solve(int[] tabSol) { // méthode qui va générer la solution
         boolean flag = false;
 
         while (roundCounting() == true && flag == false) {
@@ -274,7 +257,6 @@ public class MastermindGame extends GameMode {
         }
 
     }
-
 
     private void filterList(int i) {
         List<int[]> ret = new ArrayList<>();
@@ -296,9 +278,7 @@ public class MastermindGame extends GameMode {
             }
             if (count >= i && !ret.contains(list.get(j))) {
                 ret.add(copySol(list.get(j)));
-
             }
-
         }
         list = ret;
     }
@@ -312,22 +292,22 @@ public class MastermindGame extends GameMode {
         return ret;
     }
 
-    private void userFeedBack() {
+    private void userFeedBack() {  // permet de récupérer le feed back utilisateur sur les chiffres bien placés et mal placés
         Scanner scanner = new Scanner(System.in);
-        logger.info("Nombre de bien placés :");
+        logger.info("Bien placés :");
         numberOfWritePlaced = scanner.nextInt();
-        logger.info("Nombre de mal placés :");
+        logger.info("Mal placés :");
         numberOfPresentNumbers = scanner.nextInt();
     }
 
-    // bis
+    // les listes qui ont un point commun avec la solution proposée précédemment
     private void extractWhenSimilarPoint(int[] tab) {
         List<int[]> temp = new ArrayList<>();
         list.remove(0);
         for (int i = 0; i < list.size(); i++) {
             boolean flag = false;
-            for (int j = 0; j < list.get(i).length; j++) {// anterieurement max
-                for (int k = 0; k < list.get(i).length; k++) {// anterieurement max
+            for (int j = 0; j < list.get(i).length; j++) {
+                for (int k = 0; k < list.get(i).length; k++) {
                     if (tab[j] == list.get(i)[k]) {
                         flag = true;
                     }
@@ -340,6 +320,7 @@ public class MastermindGame extends GameMode {
         list = temp;
     }
 
+    // les listes qui ont 2 points communs avec la solution proposée précédemment
     private void extractPair(List<Integer> list1) {
         List<List<Integer>> val = new ArrayList<>();
         for (int i1 = 0; i1 < list1.size(); i1++) {
@@ -353,6 +334,7 @@ public class MastermindGame extends GameMode {
         listOfList = val;
     }
 
+    // les listes qui ont 3 points communs avec la solution proposée précédemment
     private void extractTrio(List<Integer> list1) {
         List<List<Integer>> val = new ArrayList<>();
         for (int i1 = 0; i1 < list1.size(); i1++) {
@@ -369,7 +351,7 @@ public class MastermindGame extends GameMode {
         listOfList = val;
     }
 
-
+    // les listes qui ont 4 points communs avec la solution proposée précédemment
     private void extractQuatuor(List<Integer> list1) {
         List<List<Integer>> val = new ArrayList<>();
         for (int i1 = 0; i1 < list1.size(); i1++) {
@@ -389,6 +371,7 @@ public class MastermindGame extends GameMode {
         listOfList = val;
     }
 
+    // les listes qui ont 5 points communs avec la solution proposée précédemment
     private void extractQuinte(List<Integer> list1) {
         List<List<Integer>> val = new ArrayList<>();
         for (int i1 = 0; i1 < list1.size(); i1++) {
@@ -411,7 +394,7 @@ public class MastermindGame extends GameMode {
         listOfList = val;
     }
 
-
+    // les listes qui ont 6 points communs avec la solution proposée précédemment
     private void extractSixte(List<Integer> list1) {
         List<List<Integer>> val = new ArrayList<>();
         for (int i1 = 0; i1 < list1.size(); i1++) {
@@ -437,7 +420,7 @@ public class MastermindGame extends GameMode {
         listOfList = val;
     }
 
-
+    // les listes qui ont 7 points communs avec la solution proposée précédemment
     private void extractSeptuor(List<Integer> list1) {
         List<List<Integer>> val = new ArrayList<>();
         for (int i1 = 0; i1 < list1.size(); i1++) {
@@ -466,6 +449,7 @@ public class MastermindGame extends GameMode {
         listOfList = val;
     }
 
+    // les listes qui ont 8 points communs avec la solution proposée précédemment
     private void extractOctuor(List<Integer> list1) {
         List<List<Integer>> val = new ArrayList<>();
         for (int i1 = 0; i1 < list1.size(); i1++) {
@@ -497,6 +481,7 @@ public class MastermindGame extends GameMode {
         listOfList = val;
     }
 
+    // les listes qui ont 9 points communs avec la solution proposée précédemment
     private void extractNonet(List<Integer> list1) {
         List<List<Integer>> val = new ArrayList<>();
         for (int i1 = 0; i1 < list1.size(); i1++) {
@@ -532,14 +517,14 @@ public class MastermindGame extends GameMode {
     }
 
 
-    // cherche point commun
+    // Permet de chercher les éléments communs au sein des listes et de supprimer les listes devenues inutiles
     private void filterList(int[] tab) {
         List<int[]> temp = new ArrayList<>();
         list.remove(0);
         for (int i = 0; i < list.size(); i++) {
             boolean flag = true;
-            for (int j = 0; j < list.get(i).length; j++) { // anterieurement max
-                for (int k = 0; k < list.get(i).length; k++) {// anterieurement max
+            for (int j = 0; j < list.get(i).length; j++) {
+                for (int k = 0; k < list.get(i).length; k++) {
                     if (tab[j] == list.get(i)[k]) {
                         flag = false;
                     }
@@ -560,7 +545,6 @@ public class MastermindGame extends GameMode {
         return ret;
     }
 
-
     private void printFirst(int[] ints) {
         for (int i = 0; i < computerTabLength; i++) {
             System.out.print(ints[i] + "|");
@@ -568,7 +552,7 @@ public class MastermindGame extends GameMode {
         System.out.print("\n");
     }
 
-    private int countWellPlaced(int[] t, int[] save) {
+    private int countWellPlaced(int[] t, int[] save) { // méthode qui compte automatiquement les chiffres bien placés (donc sans retour utilisateur)
         int ret = 0;
         int[] tab = copySol(t);
         for (int i = 0; i < computerTabLength; i++) {
@@ -582,13 +566,13 @@ public class MastermindGame extends GameMode {
         return ret;
     }
 
-    private int countMissPlaced(int[] t, int[] save) {
+    private int countMissPlaced(int[] t, int[] save) { // méthode qui compte automatiquement les chiffres mal placés (donc sans retour utilisateur)
         int ret = 0;
         int[] tab = copySol(t);
         for (int i = 0; i < computerTabLength; i++) {
             for (int j = 0; j < computerTabLength; j++) {
                 if (tab[i] != -1 && tab[i] == save[j]) {
-                    tab[i] = -1;//<=================================================================================*/
+                    tab[i] = -1;
                     ret++;
                     save[j] = -1;
                 }
@@ -598,7 +582,7 @@ public class MastermindGame extends GameMode {
         return ret;
     }
 
-    private boolean defenderModeComparaisonManagerMastermind() {
+    private boolean defenderModeComparaisonManagerMastermind() { // gère la fin de jeu pour le mode défenseur
         for (int i = 0; i < computerTabLength; i++) {
             if (numberOfWritePlaced != computerTabLength) {
                 comparaison = false;
@@ -619,17 +603,14 @@ public class MastermindGame extends GameMode {
         return roundCountingBoolean;
     }
 
-
+    //---------------------------------------------------------------------------------------------------------------------
     @Override
     public GameMode duel() {
-       logger.info("duel Mastermind");
-
+        //INTRO
         combinationLengthGestion();
         numberOfTriesGestion();
         randomGestion();
         int numbOfTries = getNumberOfTries();
-        // bloc initialisation utilisateur
-        //-------------------------------------------------------------
         combinationNumberOfNumbers();
         secretGestion();
         computerTabLength = getTabLength();
@@ -642,17 +623,15 @@ public class MastermindGame extends GameMode {
                 increment(tab);
             }
             list.add(copySol(tab));
-
         }
-        //----------------------------------------------------------
+        //DEROULEMENT DU JEU
         int j = 0;
         while (j < numbOfTries) {
-           logger.info("\ntour n°" + (j + 1));
+            logger.info("\ntour n°" + (j + 1));
             //--------------------------------------------------------------------------------------------
-            logger.info("tour utilisateur");
+            logger.info("\ntour utilisateur");
             for (; list.size() != 1; ) {
                 insideOfRound();
-
                 if (defenderModeComparaisonManagerMastermind() == true) {
                     setComputerSucess(true);
                     return null;
@@ -660,18 +639,15 @@ public class MastermindGame extends GameMode {
                 listGestion();
                 if (roundCounting() == true) break;
             }
-
             //---------------------------------------------------------------------------------------------
-           logger.info("tour ordi");
-            devMode();//pour l'affichage du secret
+            logger.info("\ntour ordi");
+            devMode();
             combinationAndTipsGestion();
             if (isComparaison() == true) {
                 setUserSucces(true);
                 break;
             }
-
             j++;
-
         }
 
         return null;
