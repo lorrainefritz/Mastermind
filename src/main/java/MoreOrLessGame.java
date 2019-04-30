@@ -1,6 +1,4 @@
 package main.java;
-
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
@@ -8,13 +6,11 @@ import java.util.Scanner;
 import org.apache.log4j.Logger;
 
 public class MoreOrLessGame extends GameMode {
-    private boolean comparaison;
-    private int computerTab[]; //tab utilisé pour le mode défenseur pour générer la réponse de l'ordinateur
-    private SolverHelper tabSolverHelper[]; // tableau d'objets du type SolverHelper => ces objets ont un min un max et un lastTry qui var en fonction du retour utilisateur
-    private String userResponse[];//tab utilisé pour le mode défenseur pour la réponse de l'utilisateur
-    private String goodResponseComparaisonTab[]; // tab de comparaison contenant autant de = que la taille de la combinaison dans le mode défenseur
+    private int[] computerTab; //tab utilisé pour le mode défenseur pour générer la réponse de l'ordinateur
+    private SolverHelper[] tabSolverHelper; // tableau d'objets du type SolverHelper => ces objets ont un min un max et un lastTry qui var en fonction du retour utilisateur
+    private String[] userResponse;//tab utilisé pour le mode défenseur pour la réponse de l'utilisateur
+    private String[] goodResponseComparaisonTab; // tab de comparaison contenant autant de = que la taille de la combinaison dans le mode défenseur
     private int computerTabLength; // var qui contient la taille du tableau computerTab
-    private int counterForCheating;// var qui va intervenir dans la méthode pour gérer certaines tentatives de tricherie.
 
 
     private final static Logger logger = Logger.getLogger(MoreOrLessGame.class.getName());
@@ -79,7 +75,7 @@ public class MoreOrLessGame extends GameMode {
     public boolean defenderModeComparaisonManager() {// comparaison entre la réponse et du retour utilisateur pour le mode défenseur
         for (int i = 0; i < computerTabLength; i++) {
             if (!goodResponseComparaisonTab[i].equals(userResponse[i])) {
-                comparaison = false;
+                boolean comparaison = false;
                 setComparaison(false);
                 return comparaison;
             }
@@ -102,13 +98,7 @@ public class MoreOrLessGame extends GameMode {
                     throw new InputMismatchException();
                 }
             }
-        } catch (InputMismatchException e) {
-            logger.warn("Merci de rentrer = + ou - ");
-            userTips();
-        } catch (NullPointerException e) {
-            logger.warn("Merci de rentrer = + ou - ");
-            userTips();
-        } catch (NumberFormatException e) {
+        } catch (InputMismatchException | NullPointerException | NumberFormatException e) {
             logger.warn("Merci de rentrer = + ou - ");
             userTips();
         }
@@ -159,7 +149,8 @@ public class MoreOrLessGame extends GameMode {
         userTips();
         for (int i = 0; i < computerTabLength; i++) {
             tabSolverHelper[i].analyse(userResponse[i]);
-            counterForCheating = tabSolverHelper[i].getCounter();
+            // var qui va intervenir dans la méthode pour gérer certaines tentatives de tricherie.
+            int counterForCheating = tabSolverHelper[i].getCounter();
             int var = counterForCheating / getTabLength();
             if (var >= 2) {
                 setCheating(true);

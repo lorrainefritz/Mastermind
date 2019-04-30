@@ -35,15 +35,8 @@ public class SolverHelper { // classe utilisée pour le mode défenseur du + ou 
         }
     }
 
-    public int getLastTry() {
-        return lastTry;
-    }
-
     public int getCounter() {
         return counter;
     }
 
-    public void setCounter(int counter) {
-        this.counter = counter;
-    }
 }

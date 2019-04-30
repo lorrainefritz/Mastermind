@@ -10,13 +10,12 @@ public abstract class GameMode {
     private int numberOfTries; // contient le nombre d'essais
     protected int combinationLength; // contient la taille de combinaison
     private Scanner scanner;
-    protected int tab[];  // tableau contenaire CAD qui permet la recupération de certaines données
-    protected int tabUser[];// tableau de combinaison utilisateur
+    protected int[] tab;  // tableau contenaire CAD qui permet la recupération de certaines données
+    protected int[] tabUser;// tableau de combinaison utilisateur
     private int tabLength;  // taille de combinaison
     private boolean comparaison; // utilisé pour l'affichage de la phrase de fin
     protected int difficulty; // contient la difficulté/ le max de la combinaison
-    private int RANDOM_MIN; // le minimum de la combinaison
-    protected int secretCombinationOfRandom[];
+    protected int[] secretCombinationOfRandom;
     private boolean userSucces;
     private boolean computerSucess;
     protected boolean devMode;
@@ -38,7 +37,6 @@ public abstract class GameMode {
         this.combinationLength = gpv.getGameLength();
         this.difficulty = gpv.getDifficulty();
         this.devMode = gpv.getDevMode().equals("1");
-        RANDOM_MIN = 0;
     }
 
     public GameMode(int i, int i1) {
@@ -74,10 +72,7 @@ public abstract class GameMode {
             } else {
                 throw new InputMismatchException();
             }
-        } catch (InputMismatchException e) {
-            logger.warn("Merci de rentrer un chiffre entre 4 et 10 svp ");
-            combinationLengthGestion();
-        } catch (NullPointerException e) {
+        } catch (InputMismatchException | NullPointerException e) {
             logger.warn("Merci de rentrer un chiffre entre 4 et 10 svp ");
             combinationLengthGestion();
         } catch (NegativeArraySizeException e) {
@@ -105,25 +100,6 @@ public abstract class GameMode {
         }
     }
 
-
-    public void difficultyGestion() { // méthode qui gère la difficulté : CAD le nombre max
-        GameProperties gp = new GameProperties();
-        try {
-            difficulty = gp.getDifficulty();
-            if (difficulty < 1 || difficulty < 10) {
-                throw new InputMismatchException();
-            }
-        } catch (InputMismatchException e) {
-            logger.warn("Merci de rentrer un chiffre entre 1 et 10 ");
-            difficultyGestion();
-
-        } catch (NullPointerException e) {
-            logger.warn("Merci de rentrer un chiffre");
-            difficultyGestion();
-
-        }
-
-    }
 
     public void devMode() { // méthode qui gère le mode Dev => CAD Qui affiche la combinaison générée par l'ordinateur
         GameProperties gp = new GameProperties();
@@ -163,10 +139,7 @@ public abstract class GameMode {
                 tabUser[i] = Integer.parseInt(String.valueOf(response.charAt(i)));
             }
 
-        } catch (InputMismatchException e) {
-            logger.warn("Merci de rentrer un chiffre entre 0 et 9 svp ");
-            userCombination();
-        } catch (NullPointerException e) {
+        } catch (InputMismatchException | NullPointerException e) {
             logger.warn("Merci de rentrer un chiffre entre 0 et 9 svp ");
             userCombination();
         } catch (NumberFormatException e) {

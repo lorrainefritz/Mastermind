@@ -7,8 +7,7 @@ import java.util.Properties;
 import java.util.logging.*;
 
 public class GameGetPropertyValues {
-    String result = "";
-    InputStream inputStream;
+    private InputStream inputStream;
     private final static Logger logger = Logger.getLogger(GameGetPropertyValues.class.getName());
    private Integer difficulty;
     private String devMode;

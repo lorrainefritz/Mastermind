@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 
 public class GameManager {
     private GameMode game;
-    private int chooseGame; // contient le choix du jeu
     private int chooseMode; // contient le choix du mode
     private boolean continueOrQuit;
     private final static Logger logger = Logger.getLogger(GameManager.class.getName());
@@ -28,19 +27,18 @@ public class GameManager {
 
     }
 
-    private GameMode chooseGame(int nbOfGame) { // retour sur le type de jeu qui a été choisi
+    private void chooseGame(int nbOfGame) { // retour sur le type de jeu qui a été choisi
         switch (nbOfGame) {
             case 1:
                 logger.info("Tu as choisi le jeu du Plus ou moins");
                 game = new MoreOrLessGame();
-                return game;
+                return;
             case 2:
                 logger.info("Tu as choisi le jeu du Mastermind");
                 game = new MastermindGame();
-                return game;
+                return;
             default:
                 logger.warn("hey! Mais ce jeu n'a pas encore été programmé ;) merci de saisir 1 ou 2... ");
-                return null;
         }
     }
 
@@ -53,25 +51,27 @@ public class GameManager {
 
     }
 
-    private GameMode chooseMode(int nbOfMode) { // retour sur le mode de jeu qui a été choisi
+    private void chooseMode(int nbOfMode) { // retour sur le mode de jeu qui a été choisi
         switch (nbOfMode) {
             case 1:
                 logger.info("Tu as choisi le mode Challenger");
-                return game.challenger();
+                game.challenger();
+                return;
 
             case 2:
                 logger.info("Tu as choisi le mode Défenseur");
-                return game.defender();
+                game.defender();
+                return;
             case 3:
                 logger.info("Tu as choisi le mode Duel");
-                return game.duel();
+                game.duel();
+                return;
             default:
                 logger.warn("hey! Mais ce mode de jeu n'a pas encore été programmé ;) merci de saisir 1  2 ou 3... ");
-                return null;
         }
     }
 
-    public void runMode() {// méthode qui permet de choisir le mode de jeu
+    private void runMode() {// méthode qui permet de choisir le mode de jeu
         Scanner scanner = new Scanner(System.in);
         try {
             chooseMode = scanner.nextInt();
@@ -82,10 +82,7 @@ public class GameManager {
             } else {
                 throw new NullPointerException();
             }
-        } catch (NullPointerException exception) {
-            logger.warn("Merci de choisir 1 2 ou 3");
-            runMode();
-        } catch (InputMismatchException exception) {
+        } catch (NullPointerException | InputMismatchException exception) {
             logger.warn("Merci de choisir 1 2 ou 3");
             runMode();
         }
@@ -132,13 +129,9 @@ public class GameManager {
             } else {
                 throw new InputMismatchException();
             }
-        } catch (InputMismatchException e) {
+        } catch (InputMismatchException | NullPointerException e) {
             logger.warn("Merci de rentrer 1 ou 2");
             continueOrQuit();
-        } catch (NullPointerException e) {
-            logger.warn("Merci de rentrer 1 ou 2");
-            continueOrQuit();
-
         }
     }
 
@@ -151,6 +144,8 @@ public class GameManager {
             displayIntroduction();
 
             try {
+                // contient le choix du jeu
+                int chooseGame;
                 do {
                     displayAvailableGames();
                     chooseGame = scanner.nextInt();
@@ -162,10 +157,7 @@ public class GameManager {
                     }
 
                 } while (chooseGame != 1 && chooseGame != 2);
-            } catch (NullPointerException e) {
-                logger.warn("Merci de rentrer 1 ou 2");
-                runGame();
-            } catch (InputMismatchException e) {
+            } catch (NullPointerException | InputMismatchException e) {
                 logger.warn("Merci de rentrer 1 ou 2");
                 runGame();
             }

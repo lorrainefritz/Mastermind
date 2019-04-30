@@ -6,20 +6,15 @@ import java.util.*;
 import org.apache.log4j.Logger;
 
 public class MastermindGame extends GameMode {
-    private int number;
-    private boolean comparaison;
     private int computerTabLength; // var qui contient la taille de combinaison
-    private int numberOfTries;// var qui contient le nombre d'essais.
     private int roundCounter; // compte les tours de jeu dans le mode défenseur
     private int maxNumberOfNumbers; // gère le max des chiffres utilisables (de 0 à 4/10)
     private List<int[]> list = new ArrayList<>();//utilisé pour le mode défenseur  une liste qui va nous permettre de gérer les solutions
     private List<List<Integer>> listOfList = new ArrayList<>();//utilisé pour le mode défenseur  une liste de liste qui va nous permettre de gérer les solutions
-    private int listSize;//utilisé pour le mode défenseur pour recevoir le nombre de liste de solutions
     private int numberOfWritePlaced; // compteur de chiffres bien placés
     private int numberOfPresentNumbers; // compteur des chiffres présent dans la combinaison mais mal placés
     private int sumWellPlacedAndMissPlaced;// Somme des chiffres présent et mal placés
     private int[] saveProp; // un tableau qui permet le maintien des propositions
-    private boolean roundCountingBoolean;//utilisé pour le mode défenseur sert à gérer le nombre de tours en fonction  de la demande de l'utilisateur
 
     private final static Logger logger = Logger.getLogger(MastermindGame.class.getName());
 
@@ -32,7 +27,6 @@ public class MastermindGame extends GameMode {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.numberOfTries = gpv.getNumberOfTries();
         this.combinationLength = gpv.getGameLength();
         this.difficulty = gpv.getDifficulty();
         this.devMode = gpv.getDevMode().equals("1");
@@ -56,7 +50,7 @@ public class MastermindGame extends GameMode {
         //DEROULEMENT DU JEU
         while (j < numbOfTries) {
             combinationAndTipsGestion();
-            if (isComparaison() == true) break;
+            if (isComparaison()) break;
             j++;
         }
         return null;
@@ -83,7 +77,7 @@ public class MastermindGame extends GameMode {
         for (int j = 0; j < getTabLength(); j++) {
             for (int k = 0; k < getTabLength(); k++) {
                 if (!indexOfWritePlaced.contains(j) && !indexOfWritePlaced.contains(k) && tab[j] == tabUser[k]) {
-                    number = tabUser[k];
+                    int number = tabUser[k];
                     while (!numbersAlreadyCount.contains(number)) {
                         numbersAlreadyCount.add(number);
                         numberOfPresentNumbers++;
@@ -109,10 +103,7 @@ public class MastermindGame extends GameMode {
             } else {
                 throw new InputMismatchException();
             }
-        } catch (InputMismatchException e) {
-            logger.warn("Merci de rentrer un chiffre entre 4 et 10 stp ");
-            combinationLengthGestion();
-        } catch (NullPointerException e) {
+        } catch (InputMismatchException | NullPointerException e) {
             logger.warn("Merci de rentrer un chiffre entre 4 et 10 stp ");
             combinationLengthGestion();
         } catch (NegativeArraySizeException e) {
@@ -132,7 +123,6 @@ public class MastermindGame extends GameMode {
         secretGestion();
         roundCounter = 1; // commence à 1 pour les besoin de la méthode analyse dans SolverHelperMastermind
         computerTabLength = getTabLength();
-        numberOfTries = getNumberOfTries();
         // Partie qui permet de générer toutes les listes combinaisons possibles
         int[] tab = initTab();
         list.add(copySol(tab));
@@ -182,7 +172,8 @@ public class MastermindGame extends GameMode {
         insideOfRound();
         roundCounter++;
     }
-// pour comptage auto des BP /MP  de-commenter lignes 189...
+
+// pour comptage auto des BP /MP  de-commenter lignes 189 192 193 196 197 + les méthodes ligne 555 (private int countWellPlaced(int[] t, int[] save)) et 569(private int countMissPlaced(int[] t, int[] save))
     private void insideOfRound() {  // intérieur du round en lui même. Cette option a été adoptée pour pouvoir être appelée seule dans le mode duel
         logger.info("Voilà ma proposition : ");
         printFirst(list.get(0));
@@ -192,7 +183,8 @@ public class MastermindGame extends GameMode {
 /*      numberOfWritePlaced = countWellPlaced(list.get(0), save); //<===================================== à sweetcher pour le comptage automatique BP MP
         numberOfPresentNumbers = countMissPlaced(list.get(0), save);*///<================================= à sweetcher pour le comptage automatique BP MP
         sumWellPlacedAndMissPlaced = numberOfPresentNumbers + numberOfWritePlaced;
-        listSize = list.size();
+        //utilisé pour le mode défenseur pour recevoir le nombre de liste de solutions
+        list.size();
         /*logger.info("Bp : " + numberOfWritePlaced);//<================================================== à sweetcher pour le comptage automatique BP MP
         logger.info("MP : " + numberOfPresentNumbers);*///<=============================================== à sweetcher pour le comptage automatique BP MP
     }
@@ -283,7 +275,6 @@ public class MastermindGame extends GameMode {
         list = ret;
     }
 
-
     private List<Integer> extractIngerList(int[] saveProp) {
         List<Integer> ret = new ArrayList<>();
         for (int i : saveProp) {
@@ -304,17 +295,17 @@ public class MastermindGame extends GameMode {
     private void extractWhenSimilarPoint(int[] tab) {
         List<int[]> temp = new ArrayList<>();
         list.remove(0);
-        for (int i = 0; i < list.size(); i++) {
+        for (int[] ints : list) {
             boolean flag = false;
-            for (int j = 0; j < list.get(i).length; j++) {
-                for (int k = 0; k < list.get(i).length; k++) {
-                    if (tab[j] == list.get(i)[k]) {
+            for (int j = 0; j < ints.length; j++) {
+                for (int anInt : ints) {
+                    if (tab[j] == anInt) {
                         flag = true;
                     }
                 }
             }
             if (flag == true) {
-                temp.add(list.get(i));
+                temp.add(ints);
             }
         }
         list = temp;
@@ -521,17 +512,17 @@ public class MastermindGame extends GameMode {
     private void filterList(int[] tab) {
         List<int[]> temp = new ArrayList<>();
         list.remove(0);
-        for (int i = 0; i < list.size(); i++) {
+        for (int[] ints : list) {
             boolean flag = true;
-            for (int j = 0; j < list.get(i).length; j++) {
-                for (int k = 0; k < list.get(i).length; k++) {
-                    if (tab[j] == list.get(i)[k]) {
+            for (int j = 0; j < ints.length; j++) {
+                for (int k = 0; k < ints.length; k++) {
+                    if (tab[j] == ints[k]) {
                         flag = false;
                     }
                 }
             }
             if (flag == true) {
-                temp.add(list.get(i));
+                temp.add(ints);
             }
         }
         list = temp;
@@ -585,7 +576,7 @@ public class MastermindGame extends GameMode {
     private boolean defenderModeComparaisonManagerMastermind() { // gère la fin de jeu pour le mode défenseur
         for (int i = 0; i < computerTabLength; i++) {
             if (numberOfWritePlaced != computerTabLength) {
-                comparaison = false;
+                boolean comparaison = false;
                 setComparaison(false);
                 return comparaison;
             }
@@ -595,6 +586,8 @@ public class MastermindGame extends GameMode {
     }
 
     private boolean roundCounting() {
+        //utilisé pour le mode défenseur sert à gérer le nombre de tours en fonction  de la demande de l'utilisateur
+        boolean roundCountingBoolean;
         if (roundCounter != getNumberOfTries() + 1) {
             roundCountingBoolean = true;
         } else {
@@ -614,7 +607,6 @@ public class MastermindGame extends GameMode {
         combinationNumberOfNumbers();
         secretGestion();
         computerTabLength = getTabLength();
-        numberOfTries = getNumberOfTries();
         int[] tab = initTab();
         list.add(copySol(tab));
         for (; isFinished(tab); ) {
