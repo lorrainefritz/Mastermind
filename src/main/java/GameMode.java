@@ -61,6 +61,11 @@ public abstract class GameMode {
         return null;
 
     }
+    public void combinationAndTipsGestion(){// méthode qui permet de condenser un groupe de méthode pour dupliquer un peu moins de code dans le mode duel
+        userCombination(); // gère la combinaison utilisateur
+        tipsGestion(); // gère les indices
+        comparaison(); // comparaison tab utilisateur versus tab combinaison secrète
+    }
 
     public void combinationLengthGestion() { // méthode qui gère la taille de la combinaison
         GameProperties gp = new GameProperties();

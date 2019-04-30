@@ -6,6 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="10e16e47-6e15-4103-af2c-aad5e34ac9ad" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GameMode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GameMode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MastermindGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MastermindGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MoreOrLessGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MoreOrLessGame.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -24,19 +27,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Mastermind.iml">
+        <entry file="file://$PROJECT_DIR$/src/main/java/GameMode.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="26" column="9" selection-start-line="26" selection-start-column="9" selection-end-line="26" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/MastermindGame.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="2" selection-start-line="8" selection-start-column="2" selection-end-line="23" selection-end-column="90" />
+            <state relative-caret-position="459">
+              <caret line="63" column="153" selection-start-line="63" selection-start-column="153" selection-end-line="63" selection-end-column="153" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -45,12 +39,28 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/GameManager.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/MastermindGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2805">
-              <caret line="168" column="55" selection-start-line="168" selection-start-column="55" selection-end-line="168" selection-end-column="55" />
+            <state relative-caret-position="425">
+              <caret line="58" column="1" lean-forward="true" selection-start-line="58" selection-start-column="1" selection-end-line="62" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#2280#2281#0" expanded="true" />
+                <element signature="e#2329#2330#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/MoreOrLessGame.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="487">
+              <caret line="52" selection-start-line="52" selection-end-line="52" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1797#1798#0" expanded="true" />
+                <element signature="e#1846#1847#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -139,16 +149,16 @@
         <option value="$PROJECT_DIR$/src/main/ressources/log4j2.xml" />
         <option value="$PROJECT_DIR$/src/main/ressources/config.properties" />
         <option value="$PROJECT_DIR$/src/main/java/GameProperties.java" />
-        <option value="$PROJECT_DIR$/src/main/java/GameGetPropertyValues.java" />
         <option value="$PROJECT_DIR$/src/main/java/resources/log4j2.xml" />
         <option value="$PROJECT_DIR$/src/main/java/Main.java" />
-        <option value="$PROJECT_DIR$/src/main/java/SolverHelper.java" />
         <option value="$PROJECT_DIR$/src/main/java/resources/config.properties" />
-        <option value="$PROJECT_DIR$/src/main/java/MoreOrLessGame.java" />
-        <option value="$PROJECT_DIR$/src/main/java/GameManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/GameMode.java" />
         <option value="$PROJECT_DIR$/Mastermind.iml" />
+        <option value="$PROJECT_DIR$/src/main/java/SolverHelper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/GameManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/GameGetPropertyValues.java" />
         <option value="$PROJECT_DIR$/src/main/java/MastermindGame.java" />
+        <option value="$PROJECT_DIR$/src/main/java/GameMode.java" />
+        <option value="$PROJECT_DIR$/src/main/java/MoreOrLessGame.java" />
       </list>
     </option>
   </component>
@@ -166,8 +176,8 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-84" />
-    <option name="y" value="6" />
+    <option name="x" value="1426" />
+    <option name="y" value="9" />
     <option name="width" value="1696" />
     <option name="height" value="1026" />
   </component>
@@ -492,7 +502,21 @@
       <option name="project" value="LOCAL" />
       <updated>1555781896095</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="ETAT DU PROGRAMME :&#10;Challenger du + ou -. =&gt; fonctionnel&#10;Challenger du MastermindMind =&gt; fonctionnel&#10;Défenseur du + ou - =&gt; fonctionnel&#10;Défenseur du MastermindMind =&gt; fonctionnel &lt;+ le nombre d'essai est fonctionnel REMARQUE pour les besoins du test on est encore en mode automatique, mais le retour utilisateur fonctionne &#10;Duel +- =&gt; fonctionnel : Amelio des messages de fin &#10;Duel Mastermind fonctionnel&#10;COMMENTAIRES &#10;Améliorations multiples  : Ajout d'une méthode qui gère en partie les tentatives de tricherie dans le jeu du +-&#10;Problèmes d'affichage des log + message de warning résolu &#10;+ optimisation en cours&#10;+ Mise en forme">
+      <created>1556614090439</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1556614090439</updated>
+    </task>
+    <task id="LOCAL-00033" summary="ETAT DU PROGRAMME :&#10;Challenger du + ou -. =&gt; fonctionnel&#10;Challenger du MastermindMind =&gt; fonctionnel&#10;Défenseur du + ou - =&gt; fonctionnel&#10;Défenseur du MastermindMind =&gt; fonctionnel &lt;+ le nombre d'essai est fonctionnel REMARQUE pour les besoins du test on est encore en mode automatique, mais le retour utilisateur fonctionne &#10;Duel +- =&gt; fonctionnel : Amelio des messages de fin &#10;Duel Mastermind fonctionnel&#10;COMMENTAIRES &#10;Améliorations multiples  : Ajout d'une méthode qui gère en partie les tentatives de tricherie dans le jeu du +-&#10;Problèmes d'affichage des log + message de warning résolu &#10;: commentaires terminés + résolution les dernières erreurs en cours...">
+      <created>1556615755114</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1556615755114</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -507,8 +531,8 @@
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" sideWeight="0.5009311" side_tool="true" weight="0.28545234" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32827735" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.80256724" weight="0.29899216" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3281075" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.80256724" visible="true" weight="0.2979415" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.6937653" weight="0.38521835" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -568,7 +592,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="ETAT DU PROGRAMME :&#10;le programme fonctionne pour le jeu du + ou - en mode challenger. &#10;Les exceptions sont gérées.&#10;Corrections d'erreurs. &#10;&#10;GameManager : &#10;méthodes&#10;   private void displayIntroduction()&#10;   private void displayAvailableGames(),&#10;   private GameMode chooseGame(int nbOfGame),&#10;   private void displayAvailableModes(),&#10;   private GameMode chooseMode(int nbOfMode),&#10;   public void runMode(), &lt;=modifiée&#10;   public void runGame,&lt;=modifiée&#10;   public void displayEnding()&lt;=modifiée&#10;   public void continueOrQuit()&#10;   &#10;attributs &#10;   private GameMode game&#10;   private int chooseGame&#10;   int chooseMode   &#10;   boolean continueOrQuit &#10;&#10;GameMode&#10;constructeur : &#10;   public GameMode (int numberOfTries, int combinationLength) &#10;méthodes : &#10;   public GameMode challenger() &#10;   public GameMode duel() : vide&#10;   public GameMode defender() : vide&#10;   public void combinationLengthGestion() &lt;=modifiée&#10;   public void tipsGestion() &#10;   public void randomCombination() &#10;   public void userCombination() &#10;    public void numberOfTriesGestion() &lt;=modifiée&#10;    public boolean comparaison() &#10;    public void randomGestion() &#10;attributs :&#10;   private int numberOfTries&#10;   private int combinationLength&#10;   private int numberRandom&#10;   private Scanner scanner&#10;   private int tab[]&#10;   private int tabUser[]&#10;   private int tabLength&#10;   private boolean comparaison   &#10;getters et setters : &#10;   public int [] getTab()&#10;   public void setTab&#10;   méthode de recupération d'un élément précis de tab&#10;   public int getElementFromTabAt(int position)&#10;   méthode de modification d'un élément précis de tab&#10;   public void setElementFromTabAt(int position, int value)&#10;   public int [] getTabUser()&#10;   public void setTabUser(int [] tabUser)&#10;   méthode de recupération d'un élément précis de tabUser&#10;   public int getElementFromTabUserAt(int position)&#10;   méthode de modification d'un élément précis de tabUser&#10;   public void setElementFromTabUserAt(int position, int value)&#10;   public int getTabLength()&#10;   public void setTabLength(int tabLength)&#10;   public boolean isComparaison()&#10;   public void setcomparaison(boolean comparaison)&#10;   public int getNumberOfTries()&#10;   public void setNumberOfTries(int numberOfTries)&#10;&#10;MoreOrLessGame :&#10;constructeur : &#10;    public MoreOrLessGame() =&gt; fixé avec numberOfTries et combinationLength à 0&#10;méthodes Override&#10;    public GameMode defender() : vide&#10;    public GameMode duel() : vide&#10;    public void tipsGestion ()&#10;    public GameMode challenger() &#10;attributs&#10;boolean compa&#10;private int compteur&#10;        &#10;MasterMindGame&#10;constructeur : &#10;    public MastermindGame() =&gt; fixé avec numberOfTries et combinationLength à 0&#10;override : &#10;    public GameMode challenger() : vide&#10;    public GameMode defender() : vide&#10;    public GameMode duel() : vide&#10;       &#10;Main avec test de game.runGame()" />
     <MESSAGE value="ETAT DU PROGRAMME :&#10;le programme fonctionne pour le jeu du + ou - en mode challenger. &#10;Le programme semble fonctionner pour le mastermind en mode challenger&#10;&#10;GameManager : &#10;méthodes&#10;   private void displayIntroduction()&#10;   private void displayAvailableGames(),&#10;   private GameMode chooseGame(int nbOfGame),&#10;   private void displayAvailableModes(),&#10;   private GameMode chooseMode(int nbOfMode),&#10;   public void runMode(), &lt;=modifiée&#10;   public void runGame,&lt;=modifiée&#10;   public void displayEnding()&lt;=modifiée&#10;   public void continueOrQuit()&#10;   &#10;attributs &#10;   private GameMode game&#10;   private int chooseGame&#10;   int chooseMode   &#10;   boolean continueOrQuit &#10;&#10;GameMode&#10;constructeur : &#10;   public GameMode (int numberOfTries, int combinationLength) &#10;méthodes : &#10;   public GameMode challenger() &#10;   public GameMode duel() : vide&#10;   public GameMode defender() : vide&#10;   public void combinationLengthGestion() &lt;=modifiée&#10;   public void tipsGestion() &#10;   public void randomCombination() &#10;   public void userCombination() &#10;    public void numberOfTriesGestion() &lt;=modifiée&#10;    public boolean comparaison() &#10;    public void randomGestion() &#10;attributs :&#10;   private int numberOfTries&#10;   private int combinationLength&#10;   private int numberRandom&#10;   private Scanner scanner&#10;   private int tab[]&#10;   private int tabUser[]&#10;   private int tabLength&#10;   private boolean comparaison   &#10;getters et setters : &#10;   public int [] getTab()&#10;   public void setTab&#10;   méthode de recupération d'un élément précis de tab&#10;   public int getElementFromTabAt(int position)&#10;   méthode de modification d'un élément précis de tab&#10;   public void setElementFromTabAt(int position, int value)&#10;   public int [] getTabUser()&#10;   public void setTabUser(int [] tabUser)&#10;   méthode de recupération d'un élément précis de tabUser&#10;   public int getElementFromTabUserAt(int position)&#10;   méthode de modification d'un élément précis de tabUser&#10;   public void setElementFromTabUserAt(int position, int value)&#10;   public int getTabLength()&#10;   public void setTabLength(int tabLength)&#10;   public boolean isComparaison()&#10;   public void setcomparaison(boolean comparaison)&#10;   public int getNumberOfTries()&#10;   public void setNumberOfTries(int numberOfTries)&#10;&#10;MoreOrLessGame :&#10;constructeur : &#10;    public MoreOrLessGame() =&gt; fixé avec numberOfTries et combinationLength à 0&#10;méthodes Override&#10;    public GameMode defender() : vide&#10;    public GameMode duel() : vide&#10;    public void tipsGestion ()&#10;    public GameMode challenger() &#10;attributs&#10;boolean compa&#10;private int compteur&#10;        &#10;MasterMindGame&#10;constructeur : &#10;    public MastermindGame() =&gt; fixé avec numberOfTries et combinationLength à 0&#10;override : &#10;    public GameMode challenger() &lt;+&#10;    public void tipsGestion()&lt;+ajout&#10;    public GameMode defender() : vide&#10;    public GameMode duel() : vide&#10;       &#10;Main avec test de game.runGame()" />
     <MESSAGE value="ETAT DU PROGRAMME :&#10;le programme fonctionne pour le jeu du + ou - en mode challenger. &#10;Le programme semble fonctionner pour le mastermind en mode challenger&#10;Le programme semble fonctionner pour le mastermind en mode defenseur&#10;GameManager : &#10;méthodes&#10;   private void displayIntroduction()&#10;   private void displayAvailableGames(),&#10;   private GameMode chooseGame(int nbOfGame),&#10;   private void displayAvailableModes(),&#10;   private GameMode chooseMode(int nbOfMode),&#10;   public void runMode(), &#10;   public void runGame,&#10;   public void displayEnding()&lt;+&#10;   public void continueOrQuit()&#10;   &#10;attributs &#10;   private GameMode game&#10;   private int chooseGame&#10;   int chooseMode   &#10;   boolean continueOrQuit &#10;&#10;GameMode&#10;constructeur : &#10;   public GameMode (int numberOfTries, int combinationLength) &#10;méthodes : &#10;   public GameMode challenger() &#10;   public GameMode duel() : vide&#10;   public GameMode defender() : vide&#10;   public void combinationLengthGestion() &#10;   public void tipsGestion() &#10;   public void randomCombination() &#10;   public void userCombination() &#10;    public void numberOfTriesGestion() &#10;    public boolean comparaison() &#10;    public void randomGestion() &#10;attributs :&#10;   private int numberOfTries&#10;   private int combinationLength&#10;   private int numberRandom&#10;   private Scanner scanner&#10;   private int tab[]&#10;   private int tabUser[]&#10;   private int tabLength&#10;   private boolean comparaison   &#10;getters et setters : &#10;   public int [] getTab()&#10;   public void setTab&#10;   méthode de recupération d'un élément précis de tab&#10;   public int getElementFromTabAt(int position)&#10;   méthode de modification d'un élément précis de tab&#10;   public void setElementFromTabAt(int position, int value)&#10;   public int [] getTabUser()&#10;   public void setTabUser(int [] tabUser)&#10;   méthode de recupération d'un élément précis de tabUser&#10;   public int getElementFromTabUserAt(int position)&#10;   méthode de modification d'un élément précis de tabUser&#10;   public void setElementFromTabUserAt(int position, int value)&#10;   public int getTabLength()&#10;   public void setTabLength(int tabLength)&#10;   public boolean isComparaison()&#10;   public void setcomparaison(boolean comparaison)&#10;   public int getNumberOfTries()&#10;   public void setNumberOfTries(int numberOfTries)&#10;&#10;MoreOrLessGame :&#10;constructeur : &#10;    public MoreOrLessGame() =&gt; fixé avec numberOfTries et combinationLength à 0&#10;méthodes Override&#10;    public GameMode defender() : vide&#10;    public GameMode duel() : vide&#10;    public void tipsGestion ()&#10;    public GameMode challenger() &#10;attributs&#10;boolean compa&#10;private int compteur&#10;        &#10;MasterMindGame&#10;constructeur : &#10;    public MastermindGame() =&gt; fixé avec numberOfTries et combinationLength à 0&#10;override : &#10;    public GameMode challenger() &#10;    public void tipsGestion()&#10;    public GameMode defender() &lt;+&#10;    public GameMode duel() : vide&#10;       &#10;Main avec test de game.runGame()" />
     <MESSAGE value="ETAT DU PROGRAMME :&#10;le programme fonctionne pour le jeu du + ou - en mode challenger. &#10;Après GROSSE MAJ : le programme semble fonctionner pour le mastermind en mode challenger (amélioration des tips) &#10;Pour le mastermind en mode defenseur : une MAJ est nécessaire car incomplet &#10;GameManager : &#10;méthodes&#10;   private void displayIntroduction()&#10;   private void displayAvailableGames(),&#10;   private GameMode chooseGame(int nbOfGame),&#10;   private void displayAvailableModes(),&#10;   private GameMode chooseMode(int nbOfMode),&#10;   public void runMode(), &#10;   public void runGame,&#10;   public void displayEnding()&#10;   public void continueOrQuit()&#10;   &#10;attributs &#10;   private GameMode game&#10;   private int chooseGame&#10;   int chooseMode   &#10;   boolean continueOrQuit &#10;&#10;GameMode&#10;constructeur : &#10;   public GameMode (int numberOfTries, int combinationLength) &#10;méthodes : &#10;   public GameMode challenger() &#10;   public GameMode duel() : vide&#10;   public GameMode defender() : vide&#10;   public void combinationLengthGestion() &#10;   public void tipsGestion() &#10;   public void randomCombination() &#10;   public void userCombination() &#10;    public void numberOfTriesGestion() &#10;    public boolean comparaison() &#10;    public void randomGestion() &#10;attributs :&#10;   private int numberOfTries&#10;   private int combinationLength&#10;   private int numberRandom&#10;   private Scanner scanner&#10;   private int tab[]&#10;   private int tabUser[]&#10;   private int tabLength&#10;   private boolean comparaison   &#10;getters et setters : &#10;   public int [] getTab()&#10;   public void setTab&#10;   méthode de recupération d'un élément précis de tab&#10;   public int getElementFromTabAt(int position)&#10;   méthode de modification d'un élément précis de tab&#10;   public void setElementFromTabAt(int position, int value)&#10;   public int [] getTabUser()&#10;   public void setTabUser(int [] tabUser)&#10;   méthode de recupération d'un élément précis de tabUser&#10;   public int getElementFromTabUserAt(int position)&#10;   méthode de modification d'un élément précis de tabUser&#10;   public void setElementFromTabUserAt(int position, int value)&#10;   public int getTabLength()&#10;   public void setTabLength(int tabLength)&#10;   public boolean isComparaison()&#10;   public void setcomparaison(boolean comparaison)&#10;   public int getNumberOfTries()&#10;   public void setNumberOfTries(int numberOfTries)&#10;&#10;MoreOrLessGame :&#10;constructeur : &#10;    public MoreOrLessGame() =&gt; fixé avec numberOfTries et combinationLength à 0&#10;méthodes Override&#10;    public GameMode defender() : vide&#10;    public GameMode duel() : vide&#10;    public void tipsGestion ()&#10;    public GameMode challenger() &#10;attributs&#10;boolean compa&#10;private int compteur&#10;        &#10;MasterMindGame&#10;constructeur : &#10;    public MastermindGame() =&gt; fixé avec numberOfTries et combinationLength à 0&#10;override : &#10;    public GameMode challenger() &#10;    public void tipsGestion()&lt;+&#10;    public GameMode defender() &#10;    public GameMode duel() : vide&#10; attributs&#10; private int number&#10;       &#10;Main avec test de game.runGame()" />
@@ -593,19 +616,10 @@
     <MESSAGE value="ETAT DU PROGRAMME :&#10;Challenger du + ou -. =&gt; fonctionnel&#10;Challenger du MastermindMind =&gt; fonctionnel&#10;Défenseur du + ou - =&gt; fonctionnel&#10;Défenseur du MastermindMind =&gt; fonctionnel &lt;+ le nombre d'essai est fonctionnel REMARQUE pour les besoins du test on est encore en mode automatique, mais le retour utilisateur fonctionne + SOUCIS boucle réglé&#10;Duel +- =&gt; fonctionnel : Amelio des messages de fin &#10;Duel Mastermind fonctionne, soucis de boucle réglé&#10;COMMENTAIRES &#10;changement pour lo4j mais non fonctionnel&#10;changement pour les properties =&gt; GameGetPropertyValues GameMode et GameProperties&#10;&#10;&#10;RESUME ARCHITECTURE&#10;GameManager : &#10;méthodes&#10;   private void displayIntroduction()&#10;   private void displayAvailableGames(),&#10;   private GameMode chooseGame(int nbOfGame),&#10;   private void displayAvailableModes(),&#10;   private GameMode chooseMode(int nbOfMode),&#10;   public void runMode(), &#10;   public void runGame,&#10;   public void displayEnding()&#10;   public void continueOrQuit()&#10;   &#10;attributs &#10;   private GameMode game&#10;   private int chooseGame&#10;   int chooseMode   &#10;   boolean continueOrQuit &#10;&#10;GameMode&#10;constructeur : &#10;   public GameMode (int numberOfTries, int combinationLength) &#10;méthodes : &#10;   public GameMode challenger() &#10;   public GameMode duel() : vide&#10;   public GameMode defender() : vide&#10;   public void combinationLengthGestion() &#10;   public void tipsGestion() &#10;   public void randomCombination() &#10;   public void userCombination() &#10;    public void numberOfTriesGestion() &#10;    public boolean comparaison() &#10;    public void randomGestion() &#10;    secretCombinationOfRandomPrint()&#10;attributs :&#10;   private int numberOfTries&#10;   private int combinationLength&#10;   private int numberRandom&#10;   private Scanner scanner&#10;   private int tab[]&#10;   private int tabUser[]&#10;   private int tabLength&#10;   private boolean comparaison&#10;   private int RANDOM_MAX &#10;   private int RANDOM_MIN&#10;   private int secretCombinationOfRandom[]&#10;   private boolean userSucces; &#10;   private boolean computerSucess; &#10;   private final static Logger logger = Logger.getLogger(GameMode.class.getName()); &#10;&#10;getters et setters : &#10;   public int [] getTab()&#10;   public void setTab&#10;   méthode de recupération d'un élément précis de tab&#10;   public int getElementFromTabAt(int position)&#10;   méthode de modification d'un élément précis de tab&#10;   public void setElementFromTabAt(int position, int value)&#10;   public int [] getTabUser()&#10;   public void setTabUser(int [] tabUser)&#10;   méthode de recupération d'un élément précis de tabUser&#10;   public int getElementFromTabUserAt(int position)&#10;   méthode de modification d'un élément précis de tabUser&#10;   public void setElementFromTabUserAt(int position, int value)&#10;   public int getTabLength()&#10;   public void setTabLength(int tabLength)&#10;   public boolean isComparaison()&#10;   public void setcomparaison(boolean comparaison)&#10;   public int getNumberOfTries()&#10;   public void setNumberOfTries(int numberOfTries)&#10;   public int getRandomMax()&#10;   public void setRandomMax(int randomMax)&#10;   public int getRandomMin()&#10;   public void setRandomMin(int randomMin)&#10;   public boolean isUserSucces() &#10;   public void setUserSucces(boolean userSucces) &#10;   public boolean isComputerSucess() &#10;   public void setComputerSucess(boolean computerSucess) &#10;&#10;MoreOrLessGame :&#10;constructeur : &#10;    public MoreOrLessGame() &#10;méthodes Override&#10;    public GameMode defender()&#10;    public GameMode duel() &#10;    public void tipsGestion ()&#10;    public GameMode challenger()&#10;méthodes&#10;    public boolean defenderModeComparaisonManager &#10;    public void userTips()&#10;    private void combinationAndTipsGestion&lt;+&#10;attributs&#10;   private boolean comparaison &#10;   private int computerTab[] &#10;   private SolverHelper tabSolverHelper[]&#10;   private String userResponse[]&#10;   private String goodResponseComparaisonTab[]&#10;   private int computerTabLength&#10;   private final static Logger logger = Logger.getLogger(MoreOrLessGame.class.getName()); &#10;        &#10;MasterMindGame&#10;constructeur : &#10;    public MastermindGame()&#10;override : &#10;    public GameMode challenger() &#10;    public void tipsGestion()&#10;    public GameMode defender() &#10;    public GameMode duel() : vide&#10;méthodes :&#10;     private void combinationAndTipsGestion()&lt;+&#10;     public void userTipsMastermind() &#10;     public boolean defenderModeComparaisonManagerMastermind()  &#10;     userCombinationMasterMindDefender()&#10;     public void combinationNumberOfNumbers()&#10;     private void secretGestion()&#10;     private int[] initTab()&#10;     private boolean isFinished(int[] tab)&#10;     private void roundGestion()&lt;+&#10;     private void increment(int[] tab)&#10;     private void solve(int[] tabSol)&#10;     private void filterList(int i)&#10;     private List&lt;Integer&gt; extractIngerList(int[] saveProp)&#10;     private void userFeedBack()&#10;     private void extractWhenSimilarPoint(int[] tab)&#10;     private void extractPair(List&lt;Integer&gt; list1)&#10;     private void extractTrio(List&lt;Integer&gt; list1)&#10;     private void extractQuatuor(List&lt;Integer&gt; list1)&#10;     private void extractQuinte(List&lt;Integer&gt; list1)&#10;     private void extractSixte(List&lt;Integer&gt; list1)&#10;     private void extractSeptuor(List&lt;Integer&gt; list1)&#10;     private void extractOctuor(List&lt;Integer&gt; list1)&#10;     private void extractNonet(List&lt;Integer&gt; list1)&#10;     private void filterList(int[] tab)&#10;     private int[] copySol(int[] tab)&#10;     private void printFirst(int[] ints)&#10;     private int countWellPlaced(int[] tab, int[] save)&#10;     private int countMissPlaced(int[] tab, int[] save)&#10;     private boolean defenderModeComparaisonManagerMastermind()&#10;     private boolean roundCounting()&#10; attributs&#10;    private int number;&#10;    private boolean comparaison;&#10;    private int computerTabLength; &#10;    private int numberOfTries;&#10;    private int roundCounter; &#10;    private int maxNumberOfNumbers; &#10;    private List&lt;int[]&gt; list = new ArrayList&lt;&gt;();&#10;    private List&lt;List&lt;Integer&gt;&gt; listOfList = new ArrayList&lt;&gt;()&#10;    private int[] solution;&#10;    private int listSize;&#10;    private int numberOfWritePlaced; &#10;    private int numberOfPresentNumbers; &#10;    private int sumWellPlacedAndMissPlaced;&lt;+&#10;    private int[] saveProp;&lt;+&#10;    private boolean roundCountingBoolean;&#10;    private final static Logger logger = Logger.getLogger(MastermindGame.class.getName()); &#10;&#10;&#10; &#10;GameGetPropertyValues &#10;méthodes&#10;    public GameProperties getPropValues() throws IOException &#10;attributs&#10;String result&#10;InpuStream inputStream&#10;&#10;GameProperties &#10;constructeur&#10;    public GameProperties()&#10;attributs&#10;    private int numbersOfTries&#10;    private int difficulty&#10;    private int gameLength&#10;    private boolean devMode&#10;setters/getters&#10;    public int getNumbersOfTries()&#10;    public void setNumbersOfTries(int numbersOfTries)&#10;    public int getDifficulty()&#10;    public void setDifficulty(int difficulty)&#10;    public int getGameLength()&#10;    public void setGameLenght(int gameLength)&#10;&#10;SolverHelper &#10;constructeur&#10;    public SolverHelper()&#10;attributs&#10;    private int max&#10;    private int min&#10;    private int lastTry&#10;méthodes&#10;    public int guessNumber()&#10;    public void analyse(String s)&#10;&#10;SolverHelperMastermind&lt;-&#10;&#10;        &#10;       &#10;Main avec test de game.runGame()" />
     <MESSAGE value="ETAT DU PROGRAMME :&#10;Challenger du + ou -. =&gt; fonctionnel&#10;Challenger du MastermindMind =&gt; fonctionnel&#10;Défenseur du + ou - =&gt; fonctionnel&#10;Défenseur du MastermindMind =&gt; fonctionnel &lt;+ le nombre d'essai est fonctionnel REMARQUE pour les besoins du test on est encore en mode automatique, mais le retour utilisateur fonctionne &#10;Duel +- =&gt; fonctionnel : Amelio des messages de fin &#10;Duel Mastermind fonctionnel&#10;COMMENTAIRES &#10;problèmes de Log4j et properties résolu&#10;Améliorations multiples en cours  &#10;&#10;RESUME ARCHITECTURE&#10;GameManager : &#10;méthodes&#10;   private void displayIntroduction()&#10;   private void displayAvailableGames(),&#10;   private GameMode chooseGame(int nbOfGame),&#10;   private void displayAvailableModes(),&#10;   private GameMode chooseMode(int nbOfMode),&#10;   public void runMode(), &#10;   public void runGame,&#10;   public void displayEnding()&#10;   public void continueOrQuit()&#10;   &#10;attributs &#10;   private GameMode game&#10;   private int chooseGame&#10;   int chooseMode   &#10;   boolean continueOrQuit &#10;&#10;GameMode&#10;constructeur : &#10;   public GameMode (int numberOfTries, int combinationLength) &#10;méthodes : &#10;   public GameMode challenger() &#10;   public GameMode duel() : vide&#10;   public GameMode defender() : vide&#10;   public void combinationLengthGestion() &#10;   public void tipsGestion() &#10;   public void randomCombination() &#10;   public void userCombination() &#10;    public void numberOfTriesGestion() &#10;    public boolean comparaison() &#10;    public void randomGestion() &#10;    secretCombinationOfRandomPrint()&#10;attributs :&#10;   private int numberOfTries&#10;   private int combinationLength&#10;   private int numberRandom&#10;   private Scanner scanner&#10;   private int tab[]&#10;   private int tabUser[]&#10;   private int tabLength&#10;   private boolean comparaison&#10;   private int RANDOM_MAX &#10;   private int RANDOM_MIN&#10;   private int secretCombinationOfRandom[]&#10;   private boolean userSucces; &#10;   private boolean computerSucess; &#10;   private final static Logger logger = Logger.getLogger(GameMode.class.getName()); &#10;&#10;getters et setters : &#10;   public int [] getTab()&#10;   public void setTab&#10;   méthode de recupération d'un élément précis de tab&#10;   public int getElementFromTabAt(int position)&#10;   méthode de modification d'un élément précis de tab&#10;   public void setElementFromTabAt(int position, int value)&#10;   public int [] getTabUser()&#10;   public void setTabUser(int [] tabUser)&#10;   méthode de recupération d'un élément précis de tabUser&#10;   public int getElementFromTabUserAt(int position)&#10;   méthode de modification d'un élément précis de tabUser&#10;   public void setElementFromTabUserAt(int position, int value)&#10;   public int getTabLength()&#10;   public void setTabLength(int tabLength)&#10;   public boolean isComparaison()&#10;   public void setcomparaison(boolean comparaison)&#10;   public int getNumberOfTries()&#10;   public void setNumberOfTries(int numberOfTries)&#10;   public int getRandomMax()&#10;   public void setRandomMax(int randomMax)&#10;   public int getRandomMin()&#10;   public void setRandomMin(int randomMin)&#10;   public boolean isUserSucces() &#10;   public void setUserSucces(boolean userSucces) &#10;   public boolean isComputerSucess() &#10;   public void setComputerSucess(boolean computerSucess) &#10;&#10;MoreOrLessGame :&#10;constructeur : &#10;    public MoreOrLessGame() &#10;méthodes Override&#10;    public GameMode defender()&#10;    public GameMode duel() &#10;    public void tipsGestion ()&#10;    public GameMode challenger()&#10;méthodes&#10;    public boolean defenderModeComparaisonManager &#10;    public void userTips()&#10;    private void combinationAndTipsGestion&lt;+&#10;attributs&#10;   private boolean comparaison &#10;   private int computerTab[] &#10;   private SolverHelper tabSolverHelper[]&#10;   private String userResponse[]&#10;   private String goodResponseComparaisonTab[]&#10;   private int computerTabLength&#10;   private final static Logger logger = Logger.getLogger(MoreOrLessGame.class.getName()); &#10;        &#10;MasterMindGame&#10;constructeur : &#10;    public MastermindGame()&#10;override : &#10;    public GameMode challenger() &#10;    public void tipsGestion()&#10;    public GameMode defender() &#10;    public GameMode duel() : vide&#10;méthodes :&#10;     private void combinationAndTipsGestion()&lt;+&#10;     public void userTipsMastermind() &#10;     public boolean defenderModeComparaisonManagerMastermind()  &#10;     userCombinationMasterMindDefender()&#10;     public void combinationNumberOfNumbers()&#10;     private void secretGestion()&#10;     private int[] initTab()&#10;     private boolean isFinished(int[] tab)&#10;     private void roundGestion()&lt;+&#10;     private void increment(int[] tab)&#10;     private void solve(int[] tabSol)&#10;     private void filterList(int i)&#10;     private List&lt;Integer&gt; extractIngerList(int[] saveProp)&#10;     private void userFeedBack()&#10;     private void extractWhenSimilarPoint(int[] tab)&#10;     private void extractPair(List&lt;Integer&gt; list1)&#10;     private void extractTrio(List&lt;Integer&gt; list1)&#10;     private void extractQuatuor(List&lt;Integer&gt; list1)&#10;     private void extractQuinte(List&lt;Integer&gt; list1)&#10;     private void extractSixte(List&lt;Integer&gt; list1)&#10;     private void extractSeptuor(List&lt;Integer&gt; list1)&#10;     private void extractOctuor(List&lt;Integer&gt; list1)&#10;     private void extractNonet(List&lt;Integer&gt; list1)&#10;     private void filterList(int[] tab)&#10;     private int[] copySol(int[] tab)&#10;     private void printFirst(int[] ints)&#10;     private int countWellPlaced(int[] tab, int[] save)&#10;     private int countMissPlaced(int[] tab, int[] save)&#10;     private boolean defenderModeComparaisonManagerMastermind()&#10;     private boolean roundCounting()&#10; attributs&#10;    private int number;&#10;    private boolean comparaison;&#10;    private int computerTabLength; &#10;    private int numberOfTries;&#10;    private int roundCounter; &#10;    private int maxNumberOfNumbers; &#10;    private List&lt;int[]&gt; list = new ArrayList&lt;&gt;();&#10;    private List&lt;List&lt;Integer&gt;&gt; listOfList = new ArrayList&lt;&gt;()&#10;    private int[] solution;&#10;    private int listSize;&#10;    private int numberOfWritePlaced; &#10;    private int numberOfPresentNumbers; &#10;    private int sumWellPlacedAndMissPlaced;&lt;+&#10;    private int[] saveProp;&lt;+&#10;    private boolean roundCountingBoolean;&#10;    private final static Logger logger = Logger.getLogger(MastermindGame.class.getName()); &#10;&#10;&#10; &#10;GameGetPropertyValues &#10;méthodes&#10;    public GameProperties getPropValues() throws IOException &#10;attributs&#10;String result&#10;InpuStream inputStream&#10;&#10;GameProperties &#10;constructeur&#10;    public GameProperties()&#10;attributs&#10;    private int numbersOfTries&#10;    private int difficulty&#10;    private int gameLength&#10;    private boolean devMode&#10;setters/getters&#10;    public int getNumbersOfTries()&#10;    public void setNumbersOfTries(int numbersOfTries)&#10;    public int getDifficulty()&#10;    public void setDifficulty(int difficulty)&#10;    public int getGameLength()&#10;    public void setGameLenght(int gameLength)&#10;&#10;SolverHelper &#10;constructeur&#10;    public SolverHelper()&#10;attributs&#10;    private int max&#10;    private int min&#10;    private int lastTry&#10;méthodes&#10;    public int guessNumber()&#10;    public void analyse(String s)&#10;&#10;SolverHelperMastermind&lt;-&#10;&#10;        &#10;       &#10;Main avec test de game.runGame()" />
     <MESSAGE value="ETAT DU PROGRAMME :&#10;Challenger du + ou -. =&gt; fonctionnel&#10;Challenger du MastermindMind =&gt; fonctionnel&#10;Défenseur du + ou - =&gt; fonctionnel&#10;Défenseur du MastermindMind =&gt; fonctionnel &lt;+ le nombre d'essai est fonctionnel REMARQUE pour les besoins du test on est encore en mode automatique, mais le retour utilisateur fonctionne &#10;Duel +- =&gt; fonctionnel : Amelio des messages de fin &#10;Duel Mastermind fonctionnel&#10;COMMENTAIRES &#10;Améliorations multiples  : Ajout d'une méthode qui gère en partie les tentatives de tricherie dans le jeu du +-&#10;Problèmes d'affichage des log + message de warning résolu &#10;+ optimisation en cours&#10;+ Mise en forme" />
-    <option name="LAST_COMMIT_MESSAGE" value="ETAT DU PROGRAMME :&#10;Challenger du + ou -. =&gt; fonctionnel&#10;Challenger du MastermindMind =&gt; fonctionnel&#10;Défenseur du + ou - =&gt; fonctionnel&#10;Défenseur du MastermindMind =&gt; fonctionnel &lt;+ le nombre d'essai est fonctionnel REMARQUE pour les besoins du test on est encore en mode automatique, mais le retour utilisateur fonctionne &#10;Duel +- =&gt; fonctionnel : Amelio des messages de fin &#10;Duel Mastermind fonctionnel&#10;COMMENTAIRES &#10;Améliorations multiples  : Ajout d'une méthode qui gère en partie les tentatives de tricherie dans le jeu du +-&#10;Problèmes d'affichage des log + message de warning résolu &#10;+ optimisation en cours&#10;+ Mise en forme" />
+    <MESSAGE value="ETAT DU PROGRAMME :&#10;Challenger du + ou -. =&gt; fonctionnel&#10;Challenger du MastermindMind =&gt; fonctionnel&#10;Défenseur du + ou - =&gt; fonctionnel&#10;Défenseur du MastermindMind =&gt; fonctionnel &lt;+ le nombre d'essai est fonctionnel REMARQUE pour les besoins du test on est encore en mode automatique, mais le retour utilisateur fonctionne &#10;Duel +- =&gt; fonctionnel : Amelio des messages de fin &#10;Duel Mastermind fonctionnel&#10;COMMENTAIRES &#10;Améliorations multiples  : Ajout d'une méthode qui gère en partie les tentatives de tricherie dans le jeu du +-&#10;Problèmes d'affichage des log + message de warning résolu &#10;: commentaires terminés + résolution les dernières erreurs en cours..." />
+    <option name="LAST_COMMIT_MESSAGE" value="ETAT DU PROGRAMME :&#10;Challenger du + ou -. =&gt; fonctionnel&#10;Challenger du MastermindMind =&gt; fonctionnel&#10;Défenseur du + ou - =&gt; fonctionnel&#10;Défenseur du MastermindMind =&gt; fonctionnel &lt;+ le nombre d'essai est fonctionnel REMARQUE pour les besoins du test on est encore en mode automatique, mais le retour utilisateur fonctionne &#10;Duel +- =&gt; fonctionnel : Amelio des messages de fin &#10;Duel Mastermind fonctionnel&#10;COMMENTAIRES &#10;Améliorations multiples  : Ajout d'une méthode qui gère en partie les tentatives de tricherie dans le jeu du +-&#10;Problèmes d'affichage des log + message de warning résolu &#10;: commentaires terminés + résolution les dernières erreurs en cours..." />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/GameGetPropertyValues.java</url>
-          <line>49</line>
-          <properties />
-          <option name="timeStamp" value="177" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="((MastermindGame)this).tabUser" custom="com.Mastermind.MastermindGame" />
@@ -715,49 +729,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/GameGetPropertyValues.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1139">
-          <caret line="67" column="25" lean-forward="true" selection-start-line="67" selection-start-column="25" selection-end-line="67" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2903#2904#0" expanded="true" />
-            <element signature="e#2936#2937#0" expanded="true" />
-            <element signature="e#2970#2971#0" expanded="true" />
-            <element signature="e#3000#3001#0" expanded="true" />
-            <element signature="e#3038#3039#0" expanded="true" />
-            <element signature="e#3074#3075#0" expanded="true" />
-            <element signature="e#3108#3109#0" expanded="true" />
-            <element signature="e#3141#3142#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/GameProperties.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files (x86)/Java/jdk-10.0.2/lib/src.zip!/java.base/java/util/List.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="197">
           <caret line="571" column="6" selection-start-line="571" selection-start-column="6" selection-end-line="571" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/SolverHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-17">
-          <caret line="14" column="46" selection-start-line="14" selection-start-column="46" selection-end-line="14" selection-end-column="46" />
         </state>
       </provider>
     </entry>
@@ -775,10 +750,49 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/GameGetPropertyValues.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1224">
+          <caret line="72" column="19" lean-forward="true" selection-start-line="72" selection-start-column="19" selection-end-line="72" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2903#2904#0" expanded="true" />
+            <element signature="e#2936#2937#0" expanded="true" />
+            <element signature="e#2970#2971#0" expanded="true" />
+            <element signature="e#3000#3001#0" expanded="true" />
+            <element signature="e#3038#3039#0" expanded="true" />
+            <element signature="e#3074#3075#0" expanded="true" />
+            <element signature="e#3108#3109#0" expanded="true" />
+            <element signature="e#3141#3142#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/GameProperties.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="51" column="4" selection-start-line="51" selection-start-column="4" selection-end-line="51" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/SolverHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/GameManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2805">
-          <caret line="168" column="55" selection-start-line="168" selection-start-column="55" selection-end-line="168" selection-end-column="55" />
+        <state relative-caret-position="2006">
+          <caret line="118" column="85" lean-forward="true" selection-start-line="118" selection-start-column="85" selection-end-line="118" selection-end-column="85" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -787,18 +801,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/GameMode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2474">
-          <caret line="36" column="52" selection-start-line="36" selection-start-column="52" selection-end-line="36" selection-end-column="52" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/MoreOrLessGame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2737">
-          <caret line="163" column="27" lean-forward="true" selection-start-line="163" selection-start-column="27" selection-end-line="163" selection-end-column="27" />
+        <state relative-caret-position="459">
+          <caret line="63" column="153" selection-start-line="63" selection-start-column="153" selection-end-line="63" selection-end-column="153" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -807,10 +811,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/MastermindGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="2" selection-start-line="8" selection-start-column="2" selection-end-line="23" selection-end-column="90" />
+        <state relative-caret-position="425">
+          <caret line="58" column="1" lean-forward="true" selection-start-line="58" selection-start-column="1" selection-end-line="62" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#2280#2281#0" expanded="true" />
+            <element signature="e#2329#2330#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/MoreOrLessGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="487">
+          <caret line="52" selection-start-line="52" selection-end-line="52" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1797#1798#0" expanded="true" />
+            <element signature="e#1846#1847#0" expanded="true" />
           </folding>
         </state>
       </provider>

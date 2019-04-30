@@ -46,12 +46,11 @@ public class MoreOrLessGame extends GameMode {
         logger.info(ret);
     }
 
-    private void combinationAndTipsGestion() {// méthode qui permet de condenser un groupe de méthode pour dupliquer un peu moins de code dans le mode duel
-        userCombination();
-        tipsGestion();
-        comparaison();
-
+    @Override
+    public void combinationAndTipsGestion() {
+        super.combinationAndTipsGestion();
     }
+
 
     @Override
     public GameMode challenger() { // mode de jeu challenger

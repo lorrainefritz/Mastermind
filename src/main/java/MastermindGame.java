@@ -56,10 +56,9 @@ public class MastermindGame extends GameMode {
         return null;
     }
 
-    private void combinationAndTipsGestion() {
-        userCombination(); // gère la combinaison utilisateur
-        tipsGestion(); // gère les indices
-        comparaison(); // comparaison tab utilisateur versus tab combinaison secrète
+    @Override
+    public void combinationAndTipsGestion() {
+        super.combinationAndTipsGestion();
     }
 
     @Override
