@@ -1,4 +1,5 @@
 package main.java;
+
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
@@ -11,8 +12,6 @@ public class MoreOrLessGame extends GameMode {
     private String[] userResponse;//tab utilisé pour le mode défenseur pour la réponse de l'utilisateur
     private String[] goodResponseComparaisonTab; // tab de comparaison contenant autant de = que la taille de la combinaison dans le mode défenseur
     private int computerTabLength; // var qui contient la taille du tableau computerTab
-
-
     private final static Logger logger = Logger.getLogger(MoreOrLessGame.class.getName());
 
     public MoreOrLessGame() {
@@ -53,7 +52,7 @@ public class MoreOrLessGame extends GameMode {
 
 
     @Override
-    public GameMode challenger() { // mode de jeu challenger
+    public void challenger() { // mode de jeu challenger
         //INTRO
         combinationLengthGestion();
         numberOfTriesGestion();
@@ -67,11 +66,10 @@ public class MoreOrLessGame extends GameMode {
             if (isComparaison() == true) break;
             j++;
         }
-        return null;
     }
 
 
-    public boolean defenderModeComparaisonManager() {// comparaison entre la réponse et du retour utilisateur pour le mode défenseur
+    private boolean defenderModeComparaisonManager() {// comparaison entre la réponse et du retour utilisateur pour le mode défenseur
         for (int i = 0; i < computerTabLength; i++) {
             if (!goodResponseComparaisonTab[i].equals(userResponse[i])) {
                 boolean comparaison = false;
@@ -83,7 +81,7 @@ public class MoreOrLessGame extends GameMode {
         return true;
     }
 
-    public void userTips() { // méthode qui gère les indices de l'utilisateur
+    private void userTips() { // méthode qui gère les indices de l'utilisateur
         Scanner sc = new Scanner(System.in);
         userResponse = new String[getTabLength()];
         try {
@@ -105,7 +103,7 @@ public class MoreOrLessGame extends GameMode {
     }
 
     @Override
-    public GameMode defender() { // mode défenseur
+    public void defender() { // mode défenseur
         //INTRO
         combinationLengthGestion();
         numberOfTriesGestion();
@@ -130,7 +128,6 @@ public class MoreOrLessGame extends GameMode {
             } else if (defenderModeComparaisonManager() == true) break;
             j++;
         }
-        return null;
     }
 
     private void roundDefenderGestion() {// méthode qui gère le contenu de chaque round du mode défenseur
@@ -158,7 +155,7 @@ public class MoreOrLessGame extends GameMode {
     }
 
     @Override
-    public GameMode duel() {// mode duel
+    public void duel() {// mode duel
         //INTRO
         combinationLengthGestion();
         numberOfTriesGestion();
@@ -200,6 +197,5 @@ public class MoreOrLessGame extends GameMode {
             }
             j++;
         }
-        return null;
     }
 }

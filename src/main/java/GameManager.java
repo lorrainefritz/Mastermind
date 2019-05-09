@@ -136,7 +136,7 @@ public class GameManager {
     }
 
 
-    public void runGame() { // méthode qui va gérer le déroulement du programme final
+    void runGame() { // méthode qui va gérer le déroulement du programme final
         Scanner scanner = new Scanner(System.in);
         do {
 

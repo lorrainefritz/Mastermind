@@ -15,9 +15,7 @@ public class MastermindGame extends GameMode {
     private int numberOfPresentNumbers; // compteur des chiffres présent dans la combinaison mais mal placés
     private int sumWellPlacedAndMissPlaced;// Somme des chiffres présent et mal placés
     private int[] saveProp; // un tableau qui permet le maintien des propositions
-
     private final static Logger logger = Logger.getLogger(MastermindGame.class.getName());
-
 
     public MastermindGame() {
         super();
@@ -39,7 +37,7 @@ public class MastermindGame extends GameMode {
     }
 
     @Override
-    public GameMode challenger() { // gère le mode challenger
+    public void challenger() { // gère le mode challenger
         //INTRO//
         combinationLengthGestion();
         numberOfTriesGestion();
@@ -53,7 +51,6 @@ public class MastermindGame extends GameMode {
             if (isComparaison()) break;
             j++;
         }
-        return null;
     }
 
     @Override
@@ -114,7 +111,7 @@ public class MastermindGame extends GameMode {
 
 
     @Override
-    public GameMode defender() { // gère le mode défenseur
+    public void defender() { // gère le mode défenseur
         //INTRO//
         combinationLengthGestion();
         numberOfTriesGestion();
@@ -135,7 +132,6 @@ public class MastermindGame extends GameMode {
         }
         solve(getSolution());
 
-        return null;
     }
 
     private int[] initTab() {
@@ -172,7 +168,7 @@ public class MastermindGame extends GameMode {
         roundCounter++;
     }
 
-// pour comptage auto des BP /MP  de-commenter lignes 189 192 193 196 197 + les méthodes ligne 555 (private int countWellPlaced(int[] t, int[] save)) et 569(private int countMissPlaced(int[] t, int[] save))
+    // pour comptage auto des BP /MP  de-commenter lignes 189 192 193 196 197 + les méthodes ligne 555 (private int countWellPlaced(int[] t, int[] save)) et 569(private int countMissPlaced(int[] t, int[] save))
     private void insideOfRound() {  // intérieur du round en lui même. Cette option a été adoptée pour pouvoir être appelée seule dans le mode duel
         logger.info("Voilà ma proposition : ");
         printFirst(list.get(0));
@@ -597,7 +593,7 @@ public class MastermindGame extends GameMode {
 
     //---------------------------------------------------------------------------------------------------------------------
     @Override
-    public GameMode duel() {
+    public void duel() {
         //INTRO
         combinationLengthGestion();
         numberOfTriesGestion();
@@ -625,7 +621,7 @@ public class MastermindGame extends GameMode {
                 insideOfRound();
                 if (defenderModeComparaisonManagerMastermind() == true) {
                     setComputerSucess(true);
-                    return null;
+                    return;
                 }
                 listGestion();
                 if (roundCounting() == true) break;
@@ -641,7 +637,6 @@ public class MastermindGame extends GameMode {
             j++;
         }
 
-        return null;
     }
 
 

@@ -1,6 +1,7 @@
 package main.java;
 
 import org.apache.log4j.Logger;
+
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -8,21 +9,18 @@ import java.util.Scanner;
 
 public abstract class GameMode {
     private int numberOfTries; // contient le nombre d'essais
-    protected int combinationLength; // contient la taille de combinaison
-    private Scanner scanner;
-    protected int[] tab;  // tableau contenaire CAD qui permet la recupération de certaines données
-    protected int[] tabUser;// tableau de combinaison utilisateur
+    int combinationLength; // contient la taille de combinaison
+    int[] tab;  // tableau contenaire CAD qui permet la recupération de certaines données
+    int[] tabUser;// tableau de combinaison utilisateur
     private int tabLength;  // taille de combinaison
     private boolean comparaison; // utilisé pour l'affichage de la phrase de fin
-    protected int difficulty; // contient la difficulté/ le max de la combinaison
-    protected int[] secretCombinationOfRandom;
+    int difficulty; // contient la difficulté/ le max de la combinaison
+    private int[] secretCombinationOfRandom;
     private boolean userSucces;
     private boolean computerSucess;
-    protected boolean devMode;
+    boolean devMode;
     private int[] solution;//tab utilisé pour le mode défenseur pour recevoir la solution
     private boolean isCheating;// en cas de tricherie
-
-
     private final static Logger logger = Logger.getLogger(GameMode.class.getName());
 
 
@@ -47,27 +45,25 @@ public abstract class GameMode {
     } // constructeur vide pour le MastermindDefender.....
 
 
-    public GameMode challenger() {
-
-        return null;
-    }
-
-    public GameMode duel() {
-        return null;
+    public void challenger() {
 
     }
 
-    public GameMode defender() {
-        return null;
+    public void duel() {
 
     }
-    public void combinationAndTipsGestion(){// méthode qui permet de condenser un groupe de méthode pour dupliquer un peu moins de code dans le mode duel
+
+    public void defender() {
+
+    }
+
+    public void combinationAndTipsGestion() {// méthode qui permet de condenser un groupe de méthode pour dupliquer un peu moins de code dans le mode duel
         userCombination(); // gère la combinaison utilisateur
         tipsGestion(); // gère les indices
         comparaison(); // comparaison tab utilisateur versus tab combinaison secrète
     }
 
-    public void combinationLengthGestion() { // méthode qui gère la taille de la combinaison
+    void combinationLengthGestion() { // méthode qui gère la taille de la combinaison
         GameProperties gp = new GameProperties();
         try {
 
@@ -87,7 +83,7 @@ public abstract class GameMode {
     }
 
 
-    public void numberOfTriesGestion() { // méthode qui gère le nombre d'essais
+    void numberOfTriesGestion() { // méthode qui gère le nombre d'essais
         GameProperties gp = new GameProperties();
         try {
             numberOfTries = gp.getNumbersOfTries();
@@ -106,7 +102,7 @@ public abstract class GameMode {
     }
 
 
-    public void devMode() { // méthode qui gère le mode Dev => CAD Qui affiche la combinaison générée par l'ordinateur
+    void devMode() { // méthode qui gère le mode Dev => CAD Qui affiche la combinaison générée par l'ordinateur
         GameProperties gp = new GameProperties();
         try {
             devMode = gp.isDevMode();
@@ -131,8 +127,8 @@ public abstract class GameMode {
 
     public abstract int randomCombination();
 
-    public void userCombination() { // méthode qui permet dans le mode challenger de recupérer la proposition de l'utilisateur
-        scanner = new Scanner(System.in);
+    private void userCombination() { // méthode qui permet dans le mode challenger de recupérer la proposition de l'utilisateur
+        Scanner scanner = new Scanner(System.in);
         try {
             logger.info("\nFais ta proposition");
             tabUser = new int[tabLength];
@@ -153,7 +149,7 @@ public abstract class GameMode {
         }
     }
 
-    public void secretGestion() { // méthode qui permet de demander à l'utilisateur sa combinaison secrète
+    void secretGestion() { // méthode qui permet de demander à l'utilisateur sa combinaison secrète
         logger.info("Le secret");
         Scanner scan = new Scanner(System.in);
         try {
@@ -173,7 +169,7 @@ public abstract class GameMode {
         }
     }
 
-    public boolean comparaison() { // compare pour le mode challenger le tableau réponse de l'utilisateur avec le tableau de la combinaison secrète
+    private boolean comparaison() { // compare pour le mode challenger le tableau réponse de l'utilisateur avec le tableau de la combinaison secrète
 
         for (int i = 0; i < tabUser.length; i++) {
             if (tab[i] != tabUser[i]) {
@@ -186,7 +182,7 @@ public abstract class GameMode {
         return true;
     }
 
-    public void randomGestion() { // génère un tableau de random avec la taille de combinaison souhaitée par l'utili
+    void randomGestion() { // génère un tableau de random avec la taille de combinaison souhaitée par l'utili
         secretCombinationOfRandom = new int[tabLength];
         for (int i = 0; i < getTabLength(); i++) {
             tab[i] = randomCombination();
@@ -194,49 +190,49 @@ public abstract class GameMode {
         }
     }
 
-    public int getTabLength() {
+    int getTabLength() {
         return tabLength;
     }
 
 
-    public boolean isComparaison() {
+    boolean isComparaison() {
         return comparaison;
     }
 
-    public void setComparaison(boolean comparaison) {
+    void setComparaison(boolean comparaison) {
         this.comparaison = comparaison;
     }
 
-    public int getNumberOfTries() {
+    int getNumberOfTries() {
         return numberOfTries;
     }
 
 
-    public boolean isUserSucces() {
+    boolean isUserSucces() {
         return userSucces;
     }
 
-    public void setUserSucces(boolean userSucces) {
+    void setUserSucces(boolean userSucces) {
         this.userSucces = userSucces;
     }
 
-    public boolean isComputerSucess() {
+    boolean isComputerSucess() {
         return computerSucess;
     }
 
-    public void setComputerSucess(boolean computerSucess) {
+    void setComputerSucess(boolean computerSucess) {
         this.computerSucess = computerSucess;
     }
 
-    public int[] getSolution() {
+    int[] getSolution() {
         return solution;
     }
 
-    public boolean isCheating() {
+    boolean isCheating() {
         return isCheating;
     }
 
-    public void setCheating(boolean cheating) {
+    void setCheating(boolean cheating) {
         isCheating = cheating;
     }
 }
